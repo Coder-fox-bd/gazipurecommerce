@@ -105,7 +105,7 @@
 						</div>
 						<div class="widget-header icontext">
 							<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-user"></i></a>
-							<div class="text text-white">
+							<div class="text">
 								<span class="text-muted">Welcome!</span>
 								<div> 
 									<a href="#">Sign in</a> |  
