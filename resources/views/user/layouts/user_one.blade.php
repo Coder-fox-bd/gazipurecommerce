@@ -216,10 +216,10 @@
 		</section>	<!-- footer-top.// -->
 
 		<section class="footer-bottom border-top row">
-			<div class="col-md-2">
-				<p class="text-muted"> &copy <script>document.write(new Date().getFullYear());</script> Company name </p>
+			<div class="col-md-3">
+				<p class="text-muted"> &copy <script>document.write(new Date().getFullYear());</script> Gazipur E-commerce </p>
 			</div>
-			<div class="col-md-8 text-md-center">
+			<div class="col-md-7 text-md-center">
 				<span  class="px-2">info@pixsellz.io</span>
 				<span  class="px-2">+879-332-9375</span>
 				<span  class="px-2">Street name 123, Avanue abc</span>

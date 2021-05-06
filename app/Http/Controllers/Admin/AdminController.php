@@ -15,6 +15,6 @@ class AdminController extends Controller
         $data = [
             'LoggedAdminInfo' =>  $admin
         ];
-        return view('admin.index')->with($data);
+        return view('admin.home')->with($data);
     }
 }
