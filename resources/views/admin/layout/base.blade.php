@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    @yield('css')
 
 </head>
 
@@ -330,7 +331,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $LoggedAdminInfo->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $admin->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -363,7 +364,9 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -411,6 +414,7 @@
     </div> --}}
 
     <!-- Bootstrap core JavaScript-->
+    @yield('livewire-script')
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -426,6 +430,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    @yield('js')
 
 </body>
 

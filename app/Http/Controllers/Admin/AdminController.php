@@ -11,10 +11,11 @@ class AdminController extends Controller
 {
     public function home() 
     {
-        $admin = Admin::where('id', session('LoggedAdmin'))->first();
-        $data = [
-            'LoggedAdminInfo' =>  $admin
-        ];
-        return view('admin.home')->with($data);
+        return view('admin.home');
+    }
+
+    public function addProduct() 
+    {
+        return view('admin.add-product');
     }
 }

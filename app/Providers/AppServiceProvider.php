@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Models\Admin;
+use Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('admin.layout.base', function ($view) {
+            $admin = Admin::where('id', session('LoggedAdmin'))->first();
+            $view->with('admin', $admin);
+        });
     }
 }

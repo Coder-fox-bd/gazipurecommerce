@@ -31,6 +31,7 @@ Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-
 
 Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/home', [AdminController::class, 'home'])->name('admin-home');
+    Route::get('admin/add-produtc', [AdminController::class, 'addProduct'])->name('add-product');
 
     // Route::get('/profile', function () {
     //     //
