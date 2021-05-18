@@ -36,32 +36,60 @@
       <div class="wrapper">
           <div class="sidebar">
               <ul class="mobile-nav px-0">
-                  <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-                  <li><a href="#"><i class="fas fa-shopping-bag"></i>Your Orders</a></li>
-                  <li><a href="#"><i class="fas fa-list-ul"></i>Your List</a></li>
-                  <li><a href="#"><i class="fas fa-user"></i>Your Account</a></li>
-                  <li><a  data-toggle="collapse" href="#collapseExample" role="button"
-                     aria-expanded="false" aria-controls="collapseExample">
-                     <i class="fas fa-building"></i>Shop by Department</a>
-                  </li>
+					<a href="#"><li><i class="fas fa-home"></i>Home</li></a>
+					<a href="#"><li><i class="fas fa-home"></i>Your Orders</li></a>
+					<a href="#"><li><i class="fas fa-home"></i>Your List</li></a>
+					<a href="#"><li><i class="fas fa-home"></i>Your Account</li></a>
+					<li data-toggle="collapse" href="#collapseExample" role="button"
+					aria-expanded="false" aria-controls="collapseExample">
+					   <span>Shop by category</span>
+					   <i class="fa fa-chevron-right float-right mt-1 js-rotate-if-collapsed"></i>
+					</li>
               </ul>
-              <div class="collapse" id="collapseExample">
-                <ul class="px-0">
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Headphone</a></li>
-                  <li><a href="#">Computer</li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Beauty</a></li>
+              <div class="collapse bg-light rounded" id="collapseExample">
+                <ul class="pl-0 ml-0">
+					@foreach($categories as $category)
+					@if (count($category->children) > 0)
+						<li data-toggle="collapse" href="#multiCollapse" role="button"
+						aria-expanded="false" aria-controls="#multiCollapse" data-target="#multiCollapse{{ $category->id }}">
+							<span>{{ $category->name }}</span>
+							<i class="fa fa-chevron-right float-right mt-1 js-rotate-if-collapsed"></i>
+						</li>
+						<div class="collapse bg-dark rounded" id="multiCollapse{{ $category->id }}">
+							<ul class="px-0">
+							@foreach($category->children as $childCategory)
+								<a href="#"><li>{{ $childCategory->name }}</li></a>
+							@endforeach
+							</ul>
+						</div>
+					@else
+						<a href="#"><li>{{ $category->name }}</li></a>
+					@endif
+				  @endforeach
                 </ul>
               </div>
+			  
               <ul class="pc-nav px-0">
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Headphone</a></li>
-                  <li><a href="#">Computer</li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Beauty</a></li>
+				  @foreach($categories as $category)
+					@if (count($category->children) > 0)
+						<li data-toggle="collapse" href="#multiCollapse" role="button"
+						aria-expanded="false" aria-controls="#multiCollapse" data-target="#multiCollapse{{ $category->id }}">
+							<span>{{ $category->name }}</span>
+							<i class="fa fa-chevron-right float-right mt-1 js-rotate-if-collapsed"></i>
+						</li>
+						<div class="collapse bg-dark rounded" id="multiCollapse{{ $category->id }}">
+							<ul class="px-0">
+							@foreach($category->children as $childCategory)
+								<a href="#"><li>{{ $childCategory->name }}</li></a>
+							@endforeach
+							</ul>
+						</div>
+					@else
+						<a href="#"><li>{{ $category->name }}</li></a>
+					@endif
+				  @endforeach
               </ul>
-          <div class="social_media">
+            <div class="social_media">
                 <a href="#"><i class="fas fa-sign-out-alt mr-1"></i>Sign Out</a>
             </div>  
           </div>

@@ -55,34 +55,38 @@
 	visibility: visible;
 }
 
+
 .sidenav__menu__wrapper {
-    width: 300px;
-    background: #ffffff;
-    position: fixed;
-    left: -300px;
-    top: 0;
-    height: 100%;
-    overflow-y: auto;
-    z-index: 99;
-    padding: 30px;
-    padding-top: 50px;
-    opacity: 0;
-    display: block;
-    -webkit-transition: all, 0.5s;
-    -moz-transition: all, 0.5s;
-    -ms-transition: all, 0.5s;
-    -o-transition: all, 0.5s;
-    transition: all, 0.5s;
+  width: 325px;
+  background: #ffffff;
+  position: fixed;
+  left: -300px;
+  top: 0;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 99;
+  /* padding: 30px; */
+  padding-top: 50px;
+  opacity: 0;
+  display: block;
+  -webkit-transition: all, 0.5s;
+  -moz-transition: all, 0.5s;
+  -ms-transition: all, 0.5s;
+  -o-transition: all, 0.5s;
+  transition: all, 0.5s;
 
 }
+
+
+
 .sidenav__menu__wrapper.show__sidenav__menu__wrapper {
     opacity: 1;
     left: 0;
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (min-width: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav ul li {font-size: 16px;}
 }
 
 
@@ -116,7 +120,7 @@
 }
 
 .wrapper .sidebar{
-  width: 200px;
+  width: 100%;
   height: 100%;
   /*background: #4b4276;*/
   padding: 30px 0px;
@@ -135,18 +139,18 @@
 }
 
 .wrapper .sidebar ul li{
-  padding: 15px;
+  padding: 10px 20px 10px 30px;
   border-bottom: 1px solid #bdb8d7;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   border-top: 1px solid rgba(255,255,255,0.05);
 }    
 
-.wrapper .sidebar ul li a{
+.wrapper .sidebar ul li{
   color: #72707b;
   display: block;
 }
 
-.wrapper .sidebar ul li a .fas{
+.wrapper .sidebar ul li .fas{
   width: 25px;
 }
 
@@ -155,9 +159,11 @@
   transition: 0.1s;
 }
     
-.wrapper .sidebar ul li:hover a{
+.wrapper .sidebar ul a:hover {
   color: #fff;
+  text-decoration: none;
 }
+
 
 .wrapper .sidebar .social_media a{
   display: block;
@@ -443,4 +449,29 @@ h6 {
 
 .filter-content .card-body ul li a:hover {
   color: #0F1111;
+}
+
+[data-toggle="collapse"][aria-expanded="true"] > .js-rotate-if-collapsed
+{
+    -webkit-transform: rotate(90deg);
+    -moz-transform:    rotate(90deg);
+    -ms-transform:     rotate(90deg);
+    -o-transform:      rotate(90deg);
+    transform:         rotate(90deg);
+}
+
+.bg-transparent-white{
+  content:'';
+  position: relative;
+  left:0; top:0;
+  width:100%; height:100%;
+  display:inline-block;
+  background-image: -moz-linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8883928571428571) 60%, rgba(255,255,255,0) 100%);
+  background-image: -ms-linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8883928571428571) 60%, rgba(255,255,255,0) 100%);
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(255, 255, 255, 0)), to(rgb(255, 255, 255)));
+  background-image: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8883928571428571) 60%, rgba(255,255,255,0) 100%);
+  background-image: -o-linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8883928571428571) 60%, rgba(255,255,255,0) 100%);
+  background-image: linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8883928571428571) 60%, rgba(255,255,255,0) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(255, 255, 255, 0)', endColorstr='rgba(255, 255, 255, 1)', GradientType=1);
 }
