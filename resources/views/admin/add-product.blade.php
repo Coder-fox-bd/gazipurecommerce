@@ -8,8 +8,8 @@
 
 @livewire('admin.add-product')
 
-@section('livewire-script')
-    @livewireScripts
 @endsection
 
+@section('livewire-script')
+    @livewireScripts
 @endsection

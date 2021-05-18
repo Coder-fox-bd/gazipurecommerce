@@ -36,7 +36,10 @@ class Categories extends Component
     public function store()
     {
         $validatedData = $this->validate();
-        Category::create($validatedData);
+        $category = Category::create($validatedData);
+        if (!$category) {
+            session()->flash('error', "Somethign went wrong!");
+        }
         session()->flash('success', "You have successfully added a Category!");
         $this->resetInput();
     }

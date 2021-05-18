@@ -672,6 +672,7 @@
     </div>
 </div>
 
+@endsection
 
 @section('js')
     <!-- Page level plugins -->
@@ -687,6 +688,4 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-@endsection
-
 @endsection

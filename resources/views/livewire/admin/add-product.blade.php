@@ -24,9 +24,28 @@
         <div class="form-group col-md-4">
           <label for="product_categorie">PRODUCT CATEGORY</label>
           <select id="product_categorie" name="product_categorie" class="form-control">
+            @foreach ($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @foreach ($category->children as $childCategory)
+                @include('admin.child_category', ['child_category' => $childCategory])
+              @endforeach
+            @endforeach
           </select>
         </div>
+
+        <!-- Text input-->
+        <div class="form-group col-md-4">
+          <label for="product_price">PRODUCT PRICE</label>  
+          <input id="product_price" name="product_price" placeholder="PRODUCT PRICE" class="form-control input-md" required="" type="text">
+        </div>
         
+        <!-- Text input-->
+        <div class="form-group col-md-4">
+          <label for="product_cost">PRODUCT COST (For annual report)</label>  
+          <input id="product_cost" name="product_cost" placeholder="PRODUCT COST" class="form-control input-md" required="" type="text">
+          <span>Don't worry! No one will see this.</span>
+        </div>
+
         <!-- Text input-->
         <div class="form-group col-md-4">
           <label for="available_quantity">AVAILABLE QUANTITY</label>  
@@ -35,96 +54,31 @@
         
         <!-- Text input-->
         <div class="form-group col-md-4">
-          <label for="product_weight">PRODUCT WEIGHT</label>  
-          <input id="product_weight" name="product_weight" placeholder="PRODUCT WEIGHT" class="form-control input-md" required="" type="text">
+          <label for="percentage_discount">PERCENTAGE DISCOUNT</label>  
+          <input id="percentage_discount" name="percentage_discount" placeholder="PERCENTAGE DISCOUNT" class="form-control input-md" required="" type="text">
         </div>
-        
+
         <!-- Textarea -->
         <div class="form-group col-md-4">
           <label for="product_description">PRODUCT DESCRIPTION</label>        
           <textarea class="form-control" id="product_description" name="product_description"></textarea>
         </div>
-        
-        <!-- Textarea -->
-        <div class="form-group col-md-4">
-          <label for="product_name_fr">PRODUCT DESCRIPTION FR</label>         
-          <textarea class="form-control" id="product_name_fr" name="product_name_fr"></textarea>
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="percentage_discount">PERCENTAGE DISCOUNT</label>  
-          <input id="percentage_discount" name="percentage_discount" placeholder="PERCENTAGE DISCOUNT" class="form-control input-md" required="" type="text">
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="stock_alert">STOCK ALERT</label>  
-          <input id="stock_alert" name="stock_alert" placeholder="STOCK ALERT" class="form-control input-md" required="" type="text"> 
-        </div>
-        
-        <!-- Search input-->
-        <div class="form-group col-md-4">
-          <label for="stock_critical">STOCK CRITICAL</label>
-          <input id="stock_critical" name="stock_critical" placeholder="STOCK CRITICAL" class="form-control input-md" required="" type="search">
-        </div>
-        
-        <!-- Search input-->
-        <div class="form-group col-md-4">
-          <label for="tutorial">TUTORIAL</label>
-          <input id="tutorial" name="tutorial" placeholder="TUTORIAL" class="form-control input-md" required="" type="search">
-        </div>
-        
-        <!-- Search input-->
-        <div class="form-group col-md-4">
-          <label for="tutorial_fr">TUTORIAL FR</label>
-          <input id="tutorial_fr" name="tutorial_fr" placeholder="TUTORIAL FR" class="form-control input-md" required="" type="search">
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="online_date">ONLINE DATE</label>  
-          <input id="online_date" name="online_date" placeholder="ONLINE DATE" class="form-control input-md" required="" type="text"> 
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="author">AUTHOR</label>  
-          <input id="author" name="author" placeholder="AUTHOR" class="form-control input-md" required="" type="text">
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="enable_display">ENABLE DISPLAY</label>  
-          <input id="enable_display" name="enable_display" placeholder="ENABLE DISPLAY" class="form-control input-md" required="" type="text"> 
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="comment">COMMENT</label>  
-          <input id="comment" name="comment" placeholder="COMMENT" class="form-control input-md" required="" type="text">
-        </div>
-        
-        <!-- Text input-->
-        <div class="form-group col-md-4">
-          <label for="approuved_by">APPROUVED BY</label>  
-          <input id="approuved_by" name="approuved_by" placeholder="APPROUVED BY" class="form-control input-md" required="" type="text">
-        </div>
-         <!-- File Button --> 
-        <div class="form-group col-md-4">
-          <label for="filebutton">main_image</label>
-          <input id="filebutton" name="filebutton" class="input-file" type="file">
-        </div>
+
         <!-- File Button --> 
-        <div class="form-group col-md-4">
-          <label for="filebutton">auxiliary_images</label>
-          <input id="filebutton" name="filebutton" class="input-file" type="file">
+        <div class="form-group col-md-4 mr-2">
+          <input type="file" class="custom-file-input" id="main_image" required>
+          <label class="form-control custom-file-label" for="main_image">main_image</label>
+        </div>
+
+        <!-- File Button --> 
+        <div class="form-group col-md-4 mr-2">
+          <input type="file" class="custom-file-input" id="auxiliary_images" multiple>
+          <label class="form-control custom-file-label" for="auxiliary_images">auxiliary_images</label>
         </div>
         
         <!-- Button -->
-        <div class="form-group col-md-4">
-          <label for="singlebutton">Single Button</label>
-          <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+        <div class="form-group col-md-3">
+          <button class="btn btn-primary btn-block">Save</button>
         </div>
       </div>
     </form>
