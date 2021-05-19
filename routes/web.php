@@ -35,7 +35,6 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/add-produtc', [AdminController::class, 'addProduct'])->name('add-product');
     Route::view('admin/categories', 'admin.categories')->name('add-product');
     Route::view('admin/attributes', 'admin.attributes')->name('attributes');
-    Route::view('admin/add-attributes', 'admin.add-attributes')->name('add-attributes');
 
     // Route::get('/profile', function () {
     //     //

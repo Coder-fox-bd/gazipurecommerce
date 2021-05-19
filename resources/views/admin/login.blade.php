@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Admin Login</title>
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">

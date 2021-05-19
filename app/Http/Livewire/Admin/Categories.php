@@ -21,16 +21,10 @@ class Categories extends Component
         'category_id' => 'sometimes|nullable|numeric'
     ];
 
-    private function resetInput()
-    {
-        $this->name = null;
-        $this->category_id = null;
-    }
-
     public function cancel()
     {
         $this->updateMode = false;
-        $this->resetInput();
+        $this->reset();
     }
 
     public function store()
@@ -41,7 +35,7 @@ class Categories extends Component
             session()->flash('error', "Somethign went wrong!");
         }
         session()->flash('success', "You have successfully added a Category!");
-        $this->resetInput();
+        $this->reset();
     }
 
     public function edit($id)
@@ -61,7 +55,7 @@ class Categories extends Component
         $category->update($validatedData);
         $this->updateMode = false;
         session()->flash('success', 'Users Updated Successfully.');
-        $this->resetInput();
+        $this->reset();
     }
 
     public function deleteId($id)
