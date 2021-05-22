@@ -67,7 +67,7 @@ class Categories extends Component
     {
         if($this->deleteId){
             Category::find($this->deleteId)->delete();
-            session()->flash('success', 'Users Deleted Successfully.');
+            session()->flash('warning', 'Category has been deleted!');
         }
     }
 
@@ -76,6 +76,6 @@ class Categories extends Component
         $categories = Category::with('children')->whereNull('category_id')->paginate(10);
         return view('livewire.admin.categories', [
             'categories' => $categories,
-        ]);
+        ])->extends('admin.layout.base');
     }
 }

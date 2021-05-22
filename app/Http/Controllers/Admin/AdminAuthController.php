@@ -53,7 +53,7 @@ class AdminAuthController extends Controller
                 $request->session()->put('LoggedAdmin', $admin->id);
                 return redirect()->route('admin-home');
             }else {
-                return back()->with('fail', 'Invalid Password');
+                return back()->with('fail', 'Invalid Email or Password');
             }
 
         }else{

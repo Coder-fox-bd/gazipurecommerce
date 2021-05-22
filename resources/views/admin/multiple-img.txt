@@ -1,0 +1,15 @@
+@if ($images)
+    @foreach($images as $image)
+    <div wire:key="{{$loop->index}}">
+        <img class="img-fluid w-25 my-2 contenedor-img" src="{{ $image->temporaryUrl() }}">
+        <button wire:click="removeMe({{$loop->index}})">Remove</button>
+    </div>
+    @endforeach   
+@endif
+
+public $images = [];
+
+public function removeMe($index)
+{
+    array_splice($this->images, $index, 1);
+}

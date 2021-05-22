@@ -12,6 +12,6 @@ class AddProduct extends Component
         $categories = Category::with('children')->whereNull('category_id')->get();
         return view('livewire.admin.add-product', [
             'categories' => $categories,
-        ]);
+        ])->extends('admin.layout.base');
     }
 }
