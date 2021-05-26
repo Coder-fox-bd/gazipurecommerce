@@ -69,7 +69,7 @@
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="{{ route('attributes') }}">Attributes</a>
                         <a class="collapse-item" href="{{ route('category') }}">Category</a>
-                        <a class="collapse-item" href="{{ route('add-product') }}">Add product</a>
+                        <a class="collapse-item" href="{{ route('admin.products.list') }}">Products</a>
                         <a class="collapse-item" href="{{ route('brands') }}">Brands</a>
                     </div>
                 </div>

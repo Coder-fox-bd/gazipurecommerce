@@ -31,10 +31,14 @@ Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-
 
 Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/home', \App\Http\Livewire\Admin\Home::class)->name('admin-home');
-    Route::get('admin/add-produtc', \App\Http\Livewire\Admin\AddProduct::class)->name('add-product');
     Route::get('admin/categories', \App\Http\Livewire\Admin\Categories::class)->name('category');
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
     Route::get('admin/brands', \App\Http\Livewire\Admin\Brands::class)->name('brands');
+    Route::get('admin/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.list');
+    Route::get('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
+    Route::post('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
+    Route::get('admin/product/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::post('admin/product/update', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.products.update');
 
     // Route::get('/profile', function () {
     //     //

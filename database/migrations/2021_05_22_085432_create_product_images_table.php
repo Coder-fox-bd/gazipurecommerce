@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttributesTable extends Migration
+class CreateProductImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->enum('frontend_type', ['select', 'radio', 'text', 'text_area']);
-            $table->boolean('is_filterable')->default(0);
-            $table->boolean('is_required')->default(0);
+            $table->unsignedBigInteger('product_id')->index();
+            $table->string('thumbnail')->nullable();
+            $table->string('full')->nullable();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists('product_images');
     }
 }

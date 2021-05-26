@@ -32,7 +32,7 @@ class Brands extends Component
     {
         $validate = $this->validate([
             'name'      =>  'required|max:191',
-            'logo'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'logo'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
         $validate['logo'] = $this->logo->store('brands', 'public');
         $Brand = Brand::create($validate);
@@ -57,7 +57,7 @@ class Brands extends Component
     {
         $validate = $this->validate([
             'name'      =>  'required|max:191',
-            'logo'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'logo'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
 
         $validate['logo'] = $this->logo->store('brands', 'public');
