@@ -4,16 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductFormRequest;
-use Illuminate\Http\Request;
+use App\Models\ProductAttribute;
+use App\Models\ProductImage;
+use App\Models\Attribute;
 use App\Models\Category;
+use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Http\Request;
+
+
+
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::get();
+        $products = Admin::find(session('LoggedAdmin'))->products;
+        // $products = Product::get();
         return view('admin.products.list', compact('products'));
     }
     public function create() 
@@ -64,10 +73,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);;
-        $brands = Brand::get();
+        $brands = Brand::all();
         $categories = Category::with('children')->whereNull('category_id')->get();
+        $product_attributes = $product->attributes;
+        $attributes = Attribute::all();
 
-        return view('admin.products.edit', compact('categories', 'brands', 'product'));
+        return view('admin.products.edit', compact('categories', 'brands', 'product', 'attributes', 'product_attributes'));
     }
 
     public function updateProduct(array $params)
@@ -100,5 +111,66 @@ class ProductController extends Controller
             return back()->with('error', 'Error occurred while updating product.');
         }
         return back()->with('success', 'Product updated successfully');
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->delete();
+
+        return $product;
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $product = Product::find($request->product_id);
+
+        if ($request->has('image')) {
+
+            $image = $request->image->store('products', 'public');
+
+            $productImage = new ProductImage([
+                'images'      =>  $image,
+            ]);
+
+            $product->images()->save($productImage);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+
+    public function deleteImage($id)
+    {
+        $image = ProductImage::findOrFail($id);
+
+        if (Storage::delete('public/'.$image->images)) {
+            $image->delete();
+        }
+
+        return redirect()->back()->with('success', 'Product image deleted successfully.');
+    }
+
+    public function storeAttribute(Request $request)
+    {
+        $productAttribute = new ProductAttribute;
+        $productAttribute->attribute_id = $request->attribute_id;
+        $productAttribute->value = $request->value;
+        $productAttribute->quantity = $request->attribut_quantity;
+        $productAttribute->price = $request->attribut_price;
+        $productAttribute->product_id = $request->product_id;
+        if ($productAttribute->save()) {
+            return back()->with('success', 'Product attribute added successfully.');
+        } else {
+            return back()->with('error', 'Something went wrong while submitting product attribute.');
+        }
+    }
+
+    public function deleteAttribute($id)
+    {
+        $productAttribute = ProductAttribute::findOrFail($id );
+        $productAttribute->delete();
+
+        return back()->with('success', 'Product attribute deleted successfully.');
     }
 }

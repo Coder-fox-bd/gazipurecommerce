@@ -16,12 +16,6 @@
 @if (Session::has('errors'))
 <span class="text-danger">{{ Session::get('errors') }}</span>
 @endif
-<div class="app-title">
-<div>
-    <h1><i class="fa fa-shopping-bag"></i> Products - Create Product</h1>
-</div>
-</div>
-
 <div class="row user">
   <div class="col-md-3">
       <div class="tile p-0">

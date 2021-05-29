@@ -160,7 +160,7 @@
                                                 @else
                                                     <button wire:click.prevent="store()" class="btn btn-success"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Attribute</button>
                                                 @endif
-                                                   <a wire:click.prevent="cancel()" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-arrow-left"></i>Cancel</a>
+                                                   <a wire:click.prevent="addAttribute()" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-arrow-left"></i>Cancel</a>
                                                </div>
                                            </div>
                                        </div>

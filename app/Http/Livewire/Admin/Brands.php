@@ -34,7 +34,9 @@ class Brands extends Component
             'name'      =>  'required|max:191',
             'logo'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
-        $validate['logo'] = $this->logo->store('brands', 'public');
+        if ($this->logo) {
+            $validate['logo'] = $this->logo->store('brands', 'public');
+        }
         $Brand = Brand::create($validate);
 
         if (!$Brand) {
