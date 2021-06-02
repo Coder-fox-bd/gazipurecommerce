@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-3">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-body">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link general active" id="v-pills-general-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true">General</a>
@@ -34,7 +34,7 @@
     <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="tile">
                             <form action="{{ route('admin.product.update') }}" method="POST" role="form">
@@ -214,7 +214,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="v-pills-image" role="tabpanel" aria-labelledby="v-pills-image-tab">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="tile">
                             <h3 class="tile-title">Upload Image</h3>
@@ -240,7 +240,7 @@
                                     <div class="row">
                                         @foreach($product->images as $image)
                                             <div class="col-md-3">
-                                                <div class="card">
+                                                <div class="card shadow-sm">
                                                     <div class="card-body">
                                                         <img src="{{ asset('storage/'.$image->images) }}" id="brandLogo" class="img-fluid" alt="img">
                                                         <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', $image->id) }}">
@@ -258,7 +258,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="v-pills-attribute" role="tabpanel" aria-labelledby="v-pills-attribute-tab">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="tile">
                             <form action="{{ route('admin.product.attribut.store') }}" method="POST">
@@ -315,7 +315,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card shadow-sm mt-3">
                     <div class="card-body">
                         <div class="tile">
                             <h3 class="tile-title">Product Attributes</h3>

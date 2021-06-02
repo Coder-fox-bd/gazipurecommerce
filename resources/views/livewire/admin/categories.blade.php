@@ -129,7 +129,29 @@
                 <div class="form-group">
                   <input type="text" wire:model="name" class="form-control" value="" placeholder="Category Name" required>
                 </div>
-
+                <div class="form-group">
+                    <label class="control-label" for="description">Description</label>
+                    <textarea class="form-control" rows="4" wire:model="description" id="description">{{ old('description') }}</textarea>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="featured"  wire:model="featured"/>Featured Category
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="menu"  wire:model="menu"/>Show in Menu
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Category Image</label>
+                    <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"  wire:model="image"/>
+                    @error('image') {{ $message }} @enderror
+                </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">Create</button>
                 </div>

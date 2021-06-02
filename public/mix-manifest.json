@@ -1,4 +1,7 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/toastr/toastr.css": "/toastr/toastr.css",
+    "/toastr/toastr.js": "/toastr/toastr.js",
+    "/toastr/toastr.js.map": "/toastr/toastr.js.map",
+    "/toastr/toastr.min.css": "/toastr/toastr.min.css",
+    "/toastr/toastr.min.js": "/toastr/toastr.min.js"
 }

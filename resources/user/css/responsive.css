@@ -1,0 +1,79 @@
+.mobile-block {
+  display: none;
+}
+
+@media all and (max-width: 768px) {
+  /* mobile devices */
+  .mobile-block {
+    display: block;
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+
+  .section-header .logo {
+    max-height: 40px;
+    width: auto;
+  }
+  .section-header .header-main .brand-wrap {
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  .section-header .header-main .search {
+    margin-bottom: 1rem;
+  }
+
+  .item-feature {
+    margin-bottom: 20px;
+  }
+
+  .mobile-order-first {
+    order: -1;
+  }
+
+  .mobile-order-1 {
+    order: 1;
+  }
+
+  .mobile-order-2 {
+    order: 2;
+  }
+
+  .mobile-order-3 {
+    order: 3;
+  }
+
+  .mobile-py {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .mobile-pb {
+    padding-bottom: 20px;
+  }
+
+  .mobile-pt {
+    padding-top: 20px;
+  }
+
+  .navbar-expand .navbar-collapse {
+    flex-direction: column;
+  }
+}
+
+
+/* Wide Mobile = 480px */
+
+@media only screen and (max-width: 767px) {
+  .humberger__open {
+      font-size: 22px;
+      color: #525151;
+      height: 35px;
+      width: 35px;
+      line-height: 33px;
+      text-align: center;
+      border: 1px solid #525151;
+      margin-bottom: 5px;
+  }
+}

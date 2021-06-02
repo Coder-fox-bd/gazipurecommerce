@@ -5,20 +5,28 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Category;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class Categories extends Component
 {
+    use WithFileUploads;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $name;
+    public $description;
     public $category_id;
+    public $image;
+    public $featured;
+    public $menu;
     public $url;
     public $deleteId = '';
     public $updateMode = false;
 
     protected $rules = [
         'name' => 'required|min:2|max:255|string',
-        'category_id' => 'sometimes|nullable|numeric'
+        'category_id' => 'sometimes|nullable|numeric',
+        'image'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
     ];
 
     public function cancel()
@@ -29,8 +37,24 @@ class Categories extends Component
 
     public function store()
     {
-        $validatedData = $this->validate();
-        $category = Category::create($validatedData);
+        $this->validate();
+
+        if ($this->image) {
+            $this->image = $this->image->store('categories', 'public');;
+        }
+
+        $featured = $this->featured ? 1 : 0;
+        $menu = $this->menu ? 1 : 0;
+
+        $category = Category::create([
+            'name' => $this->name,
+            'description' => $this->description,
+            'category_id' => $this->category_id,
+            'featured' => $featured,
+            'menu' => $menu,
+            'image' => $this->image,
+        ]);
+
         if (!$category) {
             session()->flash('error', "Somethign went wrong!");
         }
@@ -65,8 +89,14 @@ class Categories extends Component
 
     public function delete()
     {
-        if($this->deleteId){
-            Category::find($this->deleteId)->delete();
+        $category = Category::findOrFail($this->deleteId);
+        if ($category->image) {
+            if(Storage::delete('public/'.$category->image)) {
+                $category->delete();
+                session()->flash('warning', 'Category has been deleted!');
+            }
+        }else {
+            $category->delete();
             session()->flash('warning', 'Category has been deleted!');
         }
     }

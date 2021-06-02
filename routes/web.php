@@ -6,19 +6,9 @@ use App\Http\Middleware\AdminAuthenticated;
 use App\Http\Controllers\Admin\AdminAuthController;
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Admin Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
-
-Route::get('/', function () {
-    return view('user.home');
-});
-
 Route::middleware([AdminAuthenticated::class])->group(function () {
     Route::get('admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin-login');
     Route::post('admin/login', [AdminAuthController::class, 'check'])->name('admin-check');
@@ -48,3 +38,23 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     //     //
     // })->withoutMiddleware([EnsureTokenIsValid::class]);
 });
+
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+*/
+Route::view('/', 'user.pages.home')->name('home');
+
+Auth::routes();
+
+Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+
+Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
+
+Route::get('/category/{slug}', [App\Http\Controllers\User\CategoryController::class, 'show'])->name('category.show');
+
+Route::get('/product/{slug}', [App\Http\Controllers\User\ProductController::class, 'show'])->name('product.show');
+

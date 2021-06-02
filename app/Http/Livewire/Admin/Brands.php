@@ -85,10 +85,15 @@ class Brands extends Component
     public function delete()
     {
         $brands = Brand::findOrFail($this->try_delete);
-        if(Storage::delete('public/'.$brands->logo)) {
+        if ($brands->image) {
+            if(Storage::delete('public/'.$brands->logo)) {
+                $brands->delete();
+                session()->flash('warning', 'Brand has been deleted!');
+            }
+        }else {
             $brands->delete();
             session()->flash('warning', 'Brand has been deleted!');
-         }
+        }
     }
 
     public function render()
