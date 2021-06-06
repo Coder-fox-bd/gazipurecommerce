@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductFormRequest;
 use App\Models\ProductAttribute;
+use App\Models\ProductVariant;
 use App\Models\ProductImage;
 use App\Models\Attribute;
+use App\Models\Variant;
 use App\Models\Category;
 use App\Models\Admin;
 use App\Models\Brand;
@@ -76,9 +78,11 @@ class ProductController extends Controller
         $brands = Brand::all();
         $categories = Category::with('children')->whereNull('category_id')->get();
         $product_attributes = $product->attributes;
+        $product_variations =  ProductVariant::where('product_id', $product->id)->get();
         $attributes = Attribute::all();
+        $variations = Variant::all();
 
-        return view('admin.products.edit', compact('categories', 'brands', 'product', 'attributes', 'product_attributes'));
+        return view('admin.products.edit', compact('categories', 'brands', 'product', 'attributes', 'product_attributes', 'variations', 'product_variations'));
     }
 
     public function updateProduct(array $params)
@@ -154,15 +158,31 @@ class ProductController extends Controller
     public function storeAttribute(Request $request)
     {
         $productAttribute = new ProductAttribute;
-        $productAttribute->attribute_id = $request->attribute_id;
         $productAttribute->value = $request->value;
-        $productAttribute->quantity = $request->attribut_quantity;
-        $productAttribute->price = $request->attribut_price;
+        $productAttribute->quantity = $request->quantity;
+        $productAttribute->price = $request->price;
         $productAttribute->product_id = $request->product_id;
+        $productAttribute->attribute_id = $request->attribute_id;
         if ($productAttribute->save()) {
             return back()->with('success', 'Product attribute added successfully.');
         } else {
             return back()->with('error', 'Something went wrong while submitting product attribute.');
+        }
+    }
+
+    public function storeVariation(Request $request)
+    {
+        $productVariation = new ProductVariant;
+        $productVariation->value = $request->value;
+        $productVariation->quantity = $request->quantity;
+        $productVariation->price = $request->price;
+        $productVariation->product_id = $request->product_id;
+        $productVariation->variant_id = $request->variation_id;
+        $productVariation->product_attribute_id = $request->product_attribute_id;
+        if ($productVariation->save()) {
+            return back()->with('success', 'Product variation added successfully.');
+        } else {
+            return back()->with('error', 'Something went wrong while submitting product variation.');
         }
     }
 
@@ -172,5 +192,12 @@ class ProductController extends Controller
         $productAttribute->delete();
 
         return back()->with('success', 'Product attribute deleted successfully.');
+    }
+    public function deleteVariation($id)
+    {
+        $productAttribute = ProductVariant::findOrFail($id );
+        $productAttribute->delete();
+
+        return back()->with('success', 'Product variation deleted successfully.');
     }
 }

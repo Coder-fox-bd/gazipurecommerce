@@ -7,3 +7,4 @@
 <link href="{{ asset('user/css/ui.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('user/css/responsive.css') }}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
 <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
+@livewireStyles

@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
-use App\Models\Attribute;
+use App\Models\Variant;
 
-class AttributeList extends Component
+class Variations extends Component
 {
     public $code;
     public $name;
@@ -20,7 +20,7 @@ class AttributeList extends Component
     protected function rules()
     {
         return [
-            'code' => 'required|unique:attributes,code,' . $this->selected_id,
+            'code' => 'required|unique:variants,code,' . $this->selected_id,
             'name'          =>  'required',
             'frontend_type' =>  'required',
         ];
@@ -36,25 +36,25 @@ class AttributeList extends Component
     {
         $this->validate();
 
-        $attribute = Attribute::create([
+        $variation = Variant::create([
             'code' => $this->code,
             'name' => $this->name,
             'frontend_type' => $this->frontend_type,
-            'is_filterable' => $this->is_filterable ? 1 : 0,
+            'is_filterable' =>  $this->is_filterable ? 1 : 0,
             'is_required' => $this->is_required ? 1 : 0,
         ]);
 
-        if (!$attribute) {
+        if (!$variation) {
             session()->flash('error', "Somethign went wrong!");
         }
-        session()->flash('success', "You have successfully added a Attribute!");
+        session()->flash('success', "You have successfully added a Variation!");
         $this->reset();
     }
 
     public function edit($id)
     {
         $this->updateMode = true;
-        $record = Attribute::findOrFail($id);
+        $record = Variant::findOrFail($id);
         $this->selected_id = $record->id;
         $this->code = $record->code;
         $this->name = $record->name;
@@ -66,17 +66,17 @@ class AttributeList extends Component
     public function update()
     {
         $this->validate();
-        $attribute = Attribute::find($this->selected_id);
+        $variation = Variant::find($this->selected_id);
         
-        $updated = $attribute->update([
+        $updated = $variation->update([
             'code' => $this->code,
             'name' => $this->name,
             'frontend_type' => $this->frontend_type,
-            'is_filterable' => $this->is_filterable ? 1 : 0,
+            'is_filterable' =>  $this->is_filterable ? 1 : 0,
             'is_required' => $this->is_required ? 1 : 0,
         ]);
 
-        if (!$updated) {
+        if (!$variation) {
             session()->flash('error', "Somethign went wrong!");
         }
         session()->flash('success', "You have successfully updated a Attribute!");
@@ -92,15 +92,15 @@ class AttributeList extends Component
     public function delete()
     {
         if($this->try_delete){
-            Attribute::find($this->try_delete)->delete();
+            Variant::find($this->try_delete)->delete();
             session()->flash('warning', 'Category has been deleted!');
         }
     }
-
+    
     public function render()
     {
-        $datas = Attribute::orderBy('id', 'DESC')->get();
-        return view('livewire.admin.attribute-list', [ 
+        $datas = Variant::orderBy('id', 'DESC')->get();
+        return view('livewire.admin.variations', [ 
             'datas' => $datas,
         ])->extends('admin.layout.base');
     }

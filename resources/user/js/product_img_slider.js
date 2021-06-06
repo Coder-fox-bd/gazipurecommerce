@@ -1,4 +1,4 @@
-$(".img-small-wrap li img").first().addClass("active");
+$(".piclist li img").first().addClass("active");
 
 let thumbnails = document.getElementsByClassName('thumbnail')	
 let activeImages = document.getElementsByClassName('active')

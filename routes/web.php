@@ -23,6 +23,7 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/home', \App\Http\Livewire\Admin\Home::class)->name('admin-home');
     Route::get('admin/categories', \App\Http\Livewire\Admin\Categories::class)->name('category');
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
+    Route::get('admin/variations', \App\Http\Livewire\Admin\Variations::class)->name('variations');
     Route::get('admin/brands', \App\Http\Livewire\Admin\Brands::class)->name('brands');
     Route::get('admin/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.list');
     Route::get('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
@@ -33,6 +34,8 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/product/images/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'deleteImage'])->name('admin.product.images.delete');
     Route::post('admin/product/attribut/store', [App\Http\Controllers\Admin\ProductController::class, 'storeAttribute'])->name('admin.product.attribut.store');
     Route::get('admin/product/attributes//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteAttribute'])->name('admin.product.attribut.delete');
+    Route::post('admin/product/variation/store', [App\Http\Controllers\Admin\ProductController::class, 'storeVariation'])->name('admin.product.variation.store');
+    Route::get('admin/product/variation//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteVariation'])->name('admin.product.variation.delete');
 
     // Route::get('/profile', function () {
     //     //
@@ -44,7 +47,7 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
 | User Routes
 |--------------------------------------------------------------------------
 */
-Route::view('/', 'user.pages.home')->name('home');
+Route::get('/', \App\Http\Livewire\User\Home::class)->name('home');
 
 Auth::routes();
 
@@ -54,7 +57,7 @@ Route::get('login/google/callback', [App\Http\Controllers\Auth\LoginController::
 Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
 Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
 
-Route::get('/category/{slug}', [App\Http\Controllers\User\CategoryController::class, 'show'])->name('category.show');
+Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('category.show');
 
-Route::get('/product/{slug}', [App\Http\Controllers\User\ProductController::class, 'show'])->name('product.show');
+Route::get('/product/{slug}', \App\Http\Livewire\User\Product::class)->name('product.show');
 

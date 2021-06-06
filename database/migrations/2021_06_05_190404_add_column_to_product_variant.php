@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SocialMediaLoginColumn extends Migration
+class AddColumnToProductVariant extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class SocialMediaLoginColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider_id')->nullable()->after('contact');
-            $table->string('avatar')->nullable()->after('provider_id');
-            $table->string('password')->nullable()->change();
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->unsignedBigInteger('product_id')->index()->after('price');
         });
     }
 
@@ -27,6 +25,8 @@ class SocialMediaLoginColumn extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->dropColumn('product_id');
+        });
     }
 }

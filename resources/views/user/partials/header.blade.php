@@ -78,8 +78,8 @@
 		<div class="container-fluid">
 			<div class="row align-items-center">
 				<div class="col-lg-2 col-10 order-md-1 order-2 p-l-0">
-					<a href="http://bootstrap-ecommerce.com" class="brand-wrap">
-						<img class="logo" src="user/images/logo.png">
+					<a href="/" class="brand-wrap">
+						<img class="logo" src="{{ asset('user/images/logo.png') }}">
 					</a> <!-- brand-wrap.// -->
 					<div class="widget-header d-md-none mr-2 float-right">
 						<a href="#" class="icon icon-sm"><i class="fa fa-shopping-cart"></i></a>
@@ -103,7 +103,7 @@
 						<div class="widgets-wrap float-md-right">
 							<div class="widget-header mr-3">
 								<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-shopping-cart"></i></a>
-								<span class="badge badge-pill badge-danger notify">0</span>
+								@livewire('user.cart')
 							</div>
 							<div class="widget-header icontext">
 								<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-user"></i></a>

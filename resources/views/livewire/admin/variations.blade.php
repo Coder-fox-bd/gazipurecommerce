@@ -1,5 +1,6 @@
 <div>
-    @section('title', 'Attributes')
+    {{-- In work, do what you enjoy. --}}
+    @section('title', 'Variations')
     @section('css')
     <!-- Custom styles for this page -->
     <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -7,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     @endsection
 
-    <h1 class="h3 mb-4 text-gray-800">Attributes</h1>
+    <h1 class="h3 mb-4 text-gray-800">Variations</h1>
     {{-- Care about people's approval and you will be their prisoner. --}}
     <style>.toast-success { background-color: #51A351; }</style>
     <style>.toast-warning { background-color: #F89406; }</style>
@@ -22,12 +23,12 @@
       </script>
     @endif
 
-    <!-- Attributes table -->
+    <!-- Variations table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-6">
-                    <h6 class="m-0 font-weight-bold text-primary">Attribute Table</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Variations Table</h6>
                 </div>
                 <div class="col-6">
                     <!-- Large modal -->
@@ -59,20 +60,20 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($datas as $attribute)
+                        @foreach($datas as $variation)
                             <tr>
-                                <td>{{ $attribute->code }}</td>
-                                <td>{{ $attribute->name }}</td>
-                                <td>{{ $attribute->frontend_type }}</td>
+                                <td>{{ $variation->code }}</td>
+                                <td>{{ $variation->name }}</td>
+                                <td>{{ $variation->frontend_type }}</td>
                                 <td class="text-center">
-                                    @if ($attribute->is_filterable == 1)
+                                    @if ($variation->is_filterable == 1)
                                         <span class="badge badge-success">Yes</span>
                                     @else
                                         <span class="badge badge-danger">No</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($attribute->is_required == 1)
+                                    @if ($variation->is_required == 1)
                                         <span class="badge badge-success">Yes</span>
                                     @else
                                         <span class="badge badge-danger">No</span>
@@ -80,8 +81,8 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Second group">
-                                        <a  wire:click="edit({{ $attribute->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
-                                        <a wire:click="deleteId({{ $attribute->id }})" class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
+                                        <a  wire:click="edit({{ $variation->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
+                                        <a wire:click="deleteId({{ $variation->id }})" class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

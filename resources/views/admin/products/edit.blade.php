@@ -1,6 +1,6 @@
 @extends('admin.layout.base')
 
-@section('title', 'Add Product')
+@section('title', 'Edit Product')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('admin/select/css/select2.min.css') }}">
@@ -27,6 +27,7 @@
                     <a class="nav-link general active" id="v-pills-general-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true">General</a>
                     <a class="nav-link image" id="v-pills-image-tab" data-toggle="pill" href="#v-pills-image" role="tab" aria-controls="v-pills-image" aria-selected="false">Images</a>
                     <a class="nav-link" id="v-pills-attribute-tab" data-toggle="pill" href="#v-pills-attribute" role="tab" aria-controls="v-pills-attribute" aria-selected="false">Attributes</a>
+                    <a class="nav-link" id="v-pills-variations-tab" data-toggle="pill" href="#v-pills-variations" role="tab" aria-controls="v-pills-variations" aria-selected="false">Variations</a>
                 </div>
             </div>
         </div>
@@ -213,6 +214,7 @@
                     </div>
                 </div>
             </div>
+            {{-- Image section --}}
             <div class="tab-pane fade" id="v-pills-image" role="tabpanel" aria-labelledby="v-pills-image-tab">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -257,6 +259,7 @@
                     </div>
                 </div>
             </div>
+            {{-- Attribute Section --}}
             <div class="tab-pane fade" id="v-pills-attribute" role="tabpanel" aria-labelledby="v-pills-attribute-tab">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -272,8 +275,7 @@
                                                 <div class="form-group">
                                                     <label for="parent">Select an Attribute <span class="m-l-5 text-danger"> *</span></label>
                                                     <select class="form-control custom-select mt-15" name="attribute_id">
-                                                        {{-- <option :value="attribute" v-for="attribute in attributes"> {{ attribute.name }} </option> --}}
-                                                        <option value="">Select a brand</option>
+                                                        <option value="">Select an attribute</option>
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                                         @endforeach
@@ -295,13 +297,13 @@
                 
                                     <div class="form-group col-md-3">
                                         <label class="control-label" for="attribut_quantity">Quantity</label>
-                                        <input class="form-control" type="number" id="attribut_quantity" name="attribut_quantity"/>
+                                        <input class="form-control" type="number" id="attribut_quantity" name="quantity"/>
                                     </div>
                 
                 
                                     <div class="form-group col-md-3">
                                         <label class="control-label" for="attribut-price">Price</label>
-                                        <input class="form-control" type="text" id="attribut-price"  name="attribut_price"/>
+                                        <input class="form-control" type="text" id="attribut-price"  name="price"/>
                                         <small class="text-danger">This price will be added to the main price of product on frontend.</small>
                                     </div>
                                     <div class="form-group col-md-12">
@@ -338,6 +340,111 @@
                                             <td style="width: 25%" class="text-center">{{ $product_attribute->price}}</td>
                                             <td style="width: 25%" class="text-center">
                                                 <a class="btn btn-sm btn-danger" href="{{ route('admin.product.attribut.delete', $product_attribute->id) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Variation Section --}}
+            <div class="tab-pane fade" id="v-pills-variations" role="tabpanel" aria-labelledby="v-pills-variations-tab">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="tile">
+                            <form action="{{ route('admin.product.variation.store') }}" method="POST">
+                                @csrf
+                                <div class="tile">
+                                    <h3 class="tile-title">Product Attributes Variations</h3>
+                                    <hr>
+                                    <div class="tile-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="parent">Select Product Attribute <span class="m-l-5 text-danger"> *</span></label>
+                                                    <select class="form-control custom-select mt-15" name="product_attribute_id">
+                                                        <option value="">Select product attribute</option>
+                                                        @foreach($product_attributes as $product_attribute)
+                                                            <option value="{{ $product_attribute->id }}">{{ $product_attribute->value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="parent">Select Variation <span class="m-l-5 text-danger"> *</span></label>
+                                                    <select class="form-control custom-select mt-15" name="variation_id">
+                                                        <option value="">Select a variation</option>
+                                                        @foreach($variations as $variation)
+                                                            <option value="{{ $variation->id }}">{{ $variation->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="tile-title">Add Variations To Product Attributes</h3>
+                                <input type="hidden" value="{{ $product->id }}" name="product_id">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label" for="value">Value</label>
+                                        <input class="form-control" type="text" id="value" name="value"/>
+                                        </select>
+                                    </div>
+                
+                
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label" for="attribut_quantity">Quantity</label>
+                                        <input class="form-control" type="number" id="attribut_quantity" name="quantity"/>
+                                    </div>
+                
+                
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label" for="attribut-price">Price</label>
+                                        <input class="form-control" type="text" id="attribut-price"  name="price"/>
+                                        <small class="text-danger">This price will be added to the main price of product on frontend.</small>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <button class="btn btn-sm btn-primary pull-bottom" type="submit">
+                                            <i class="fa fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-3">
+                    <div class="card-body">
+                        <div class="tile">
+                            <h3 class="tile-title">Product Attributes Variations</h3>
+                            <div class="tile-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                        <tr class="text-center">
+                                            <th>Value</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($product_variations as $product_variation)
+                                        <tr v-for="pa in productAttributes">
+                                            <td style="width: 25%" class="text-center">{{ $product_variation->value}}</td>
+                                            <td style="width: 25%" class="text-center">{{ $product_variation->quantity}}</td>
+                                            <td style="width: 25%" class="text-center">{{ $product_variation->price}}</td>
+                                            <td style="width: 25%" class="text-center">
+                                                <a class="btn btn-sm btn-danger" href="{{ route('admin.product.variation.delete', $product_variation->id) }}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
