@@ -102,7 +102,7 @@
 					<div class="d-none d-md-block">
 						<div class="widgets-wrap float-md-right">
 							<div class="widget-header mr-3">
-								<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-shopping-cart"></i></a>
+								<a href="{{ route('shoping-cart') }}" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-shopping-cart"></i></a>
 								@livewire('user.cart')
 							</div>
 							<div class="widget-header icontext">

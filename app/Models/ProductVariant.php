@@ -25,7 +25,7 @@ class ProductVariant extends Model
         return $this->belongsTo(Variant::class);
     }
 
-        /**
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productAttribute()

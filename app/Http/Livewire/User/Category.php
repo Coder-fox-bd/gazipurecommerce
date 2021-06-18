@@ -12,6 +12,13 @@ class Category extends Component
     protected $paginationTheme = 'bootstrap';
     public $category;
     public $slug;
+    public $startPrice, $endPrice;
+
+    public function priceRange($formData)
+    {
+        $this->startPrice = $formData['priceFrom'];
+        $this->endPrice = $formData['priceTo'];
+    }
 
     public function mount($slug)
     {
@@ -22,7 +29,10 @@ class Category extends Component
     {
         $this->category = Categories::where('slug', $this->slug)->where('menu', 1)->first();
         return view('livewire.user.category',[
-            'products' => $this->category->products()->paginate(30),
+            'products' => $this->category->products()
+                ->when($this->startPrice OR $this->endPrice, function($query){
+                    $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
+                })->paginate(30),
         ])->extends('user.layouts.user_one');
     }
 }

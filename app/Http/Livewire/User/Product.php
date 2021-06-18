@@ -3,18 +3,18 @@
 namespace App\Http\Livewire\User;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product as Item;
 use App\Models\Attribute;
 use App\Models\Variant;
 use App\Models\ProductVariant;
+use App\Models\Cart;
 
 class Product extends Component
 {
     public $product, $attributes, $variation, $product_variations;
-    public $checked_attributes, $checked_variations, $quantity, $price;
     public $attribute_price, $variation_price;
     public $related_variants;
-
 
     public function mount($slug)
     {
@@ -27,40 +27,70 @@ class Product extends Component
         }
     }
 
-    public function addToAttributes($id, $price)
+    public function addToAttributes($id, $value, $price)
     {
         $this->attribute_price = $price;
         $this->related_variants = ProductVariant::where('product_attribute_id', $id)->get();
+        $this->attrib = $value;
     }
 
-    public function addToVariations($price)
+    public function addToVariations($name, $price)
     {
         $this->variation_price = $price;
+        $this->variant = $name;
     }
 
-    public function addToCart($id)
+    public function addToCart($formData)
     {
-        
-        $product = Item::find($id);
-        $cart = session()->get('cart');
-        $this->validate([
-            "checked_attributes" => 'required',
-            "checked_variations" => 'required',
-            "quantity" => 'required',
-            "price" =>  'required',
-        ]);
-        // if cart is empty then this the first product
-        // if (!$cart) {
-        //     $cart = [
-        //         $id => [
-        //             "name" => $product->name,
-        //             "attribute" =>
-        //             "variation" =>
-        //             "quantity" => 1,
-        //             "price" => $product->price,
-        //         ]
-        //     ]
-        // }
+        // $this->validate();
+        $product = Item::find($formData['id']);
+        if (!$product) {
+            session()->flash('warning', 'Something went wrong!');
+        }else{
+            // session()->flash('success', 'Item added to cart!');
+             //check here if the user is authenticated
+            if ( ! Auth::user() )
+            {
+                session()->flash('worning', 'You need to login first!');
+                return redirect(route('login'));
+            }
+            $id = $formData['id'];
+            $cart = Cart::where('user_id', Auth::user()->id)->get()->toArray();
+            // if cart is empty then this the first product
+            if (!$cart) {
+                $cart =  new Cart;
+                $cart->user_id = Auth::user()->id;
+                $cart->product_id = $formData['id'];
+                $cart->product_attribute = $formData['attribute'];
+                $cart->product_variant = $formData['variation'];
+                $cart->quantity = $formData['quantity'];
+                $cart->price = $formData['price'];
+
+                $cart->save();
+                $this->emit(event: 'UpdateCart');
+            }else{
+                // if cart not empty then check if this product exist then increment quantity
+                $cart_arr = array_column($cart, 'id', 'product_id');
+                if (isset($cart_arr[$formData['id']])) {
+                    $cart_product = Cart::where('product_id', $formData['id'])->first();
+                    $cart_product->quantity = $formData['quantity'];
+                    $cart_product->update();
+                    $this->emit(event: 'UpdateCart');
+                }else{
+                    // if item not exist in cart then add to cart with quantity
+                    $cart =  new Cart;
+                    $cart->user_id = Auth::user()->id;
+                    $cart->product_id = $formData['id'];
+                    $cart->product_attribute = $formData['attribute'];
+                    $cart->product_variant = $formData['variation'];
+                    $cart->quantity = $formData['quantity'];
+                    $cart->price = $formData['price'];
+    
+                    $cart->save();
+                    $this->emit(event: 'UpdateCart');
+                }
+            }
+        }
     }
 
     public function render()

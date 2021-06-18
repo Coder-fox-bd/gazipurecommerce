@@ -5,8 +5,21 @@
 
     <link rel="stylesheet" href="{{ asset('user/css/starrate.css') }}">
     <link rel="stylesheet" href="{{ asset('user/css/product_view.css') }}">
+    <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     @endsection
     {{-- Be like water. --}}
+    <style>.toast-success { background-color: #51A351; }</style>
+    <style>.toast-warning { background-color: #F89406; }</style>
+    @if (Session::has('success'))
+      <script>
+        toastr.success("{{ Session::get('success') }}");
+      </script>
+    @endif
+    @if (Session::has('warning'))
+      <script>
+        toastr.warning("{{ Session::get('warning') }}");
+      </script>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 col-12">
@@ -57,97 +70,103 @@
                             <p class="pt-1">
                                 {{ $product->description }}
                             </p>
-                            <div class="row">
-                                @if($attribute_price)
-                                <div class="col-md-3 col-4 text-left mt-1">
-                                    <h6><strong>{{ $attribute_price }}</strong></h6> <!-- price-wrap.// -->
-                                    <input wire:model="price" type="hidden" value="{{ $attribute_price }}">
-                                </div>
-                                @elseif($variation_price)
-                                <div class="col-md-3 col-4 text-left mt-1">
-                                    <h6><strong>{{ $variation_price }}</strong></h6> <!-- price-wrap.// -->
-                                    <input wire:model="price" type="hidden" value="{{ $variation_price }}">
-                                </div>
-                                @else
-                                    @if ($product->special_price)
+                            <form wire:submit.prevent="addToCart(Object.fromEntries(new FormData($event.target)))">
+                                @csrf
+                                <input type="hidden" value="{{$product->id}}" name="id">
+                                <div class="row">
+                                    @if($attribute_price)
                                     <div class="col-md-3 col-4 text-left mt-1">
-                                        <h6><strong>{{ $product->special_price }}</strong></h6> <!-- price-wrap.// -->
-                                        <input wire:model="price" type="hidden" value="{{ $product->special_price }}">
+                                        <h6><strong>{{ $attribute_price }}</strong></h6> <!-- price-wrap.// -->
+                                        <input name="price" type="hidden" value="{{ $attribute_price }}">
                                     </div>
-                                    <div class="col-md-4 col-6 text-left mt-1">
-                                        <h6 class="text-muted"><span class="line-through">{{ $product->price }}</span></h6> <!-- price-wrap.// -->
+                                    @elseif($variation_price)
+                                    <div class="col-md-3 col-4 text-left mt-1">
+                                        <h6><strong>{{ $variation_price }}</strong></h6> <!-- price-wrap.// -->
+                                        <input name="price" type="hidden" value="{{ $variation_price }}">
                                     </div>
                                     @else
-                                    <div class="col-md-3 col-4 text-left mt-1">
-                                        <h6><strong>{{ $product->price }}</strong></h6> <!-- price-wrap.// -->
-                                        <input wire:model="price" type="hidden" value="{{ $product->price }}">
-                                    </div>
-                                    @endif
-                                @endif
-                            </div>
-                            <div class="row">
-                                {{-- Product Attributes --}}
-                                @foreach($attributes as $attribute)
-                                    @php $attributeCheck = in_array($attribute->id, $product->attributes->pluck('attribute_id')->toArray()) @endphp
-                                    @if ($attributeCheck)
-                                        <div class="form-group ml-3">
-                                            <label><dt>{{ $attribute->name }}: </dt></label>
-                                            <div class="mt-2">
-                                                @foreach($product->attributes as $index => $attributeValue)
-                                                    @if ($attributeValue->attribute_id == $attribute->id)
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                    <input wire:click="addToAttributes({{ $attributeValue->id }}, '{{ $attributeValue->price }}')" wire:model="checked_attributes[]" type="radio" name="{{ strtolower($attribute->name ) }}" class="custom-control-input"  @if (!$index) {!! "checked" !!} @endif required>
-                                                    <div class="custom-control-label">{{ $attributeValue->value }}</div>
-                                                    </label>
-                                                    @endif
-                                                @endforeach
-                                            </div>
+                                        @if ($product->special_price)
+                                        <div class="col-md-3 col-4 text-left mt-1">
+                                            <h6><strong>{{ $product->special_price }}</strong></h6> <!-- price-wrap.// -->
+                                            <input name="price" type="hidden" value="{{ $product->special_price }}">
                                         </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                            <div class="row">
-                                {{-- Product Variations --}}
-                                <div class="form-group ml-3">
-                                    @if($variation)
-                                    <label><dt>{{ $variation->name }}: </dt></label>
-                                    @endif
-                                    <div class="mt-2">
-                                    @if($related_variants)
-                                        @foreach($related_variants as $index => $product_variation)
-                                            <label class="custom-control custom-radio custom-control-inline">
-                                            <input wire:click="addToVariations('{{ $product_variation->price }}')" wire:model="checked_variations[]" type="radio" name="{{ strtolower($variation->name) }}" value="{{$variation->name}}" class="custom-control-input"  @if (!$index) {!! "checked" !!} @endif required>
-                                            <div class="custom-control-label">{{ $product_variation->value }}</div>
-                                            </label>
-                                        @endforeach
-                                    @else
-                                        @if($product_variations)
-                                        @foreach($product_variations as $index => $product_variation)
-                                            <label class="custom-control custom-radio custom-control-inline">
-                                            <input wire:click="addToVariations('{{ $product_variation->price }}')" wire:model="checked_variations[]" type="radio" name="{{ strtolower($variation->name) }}" value="{{$variation->name}}" class="custom-control-input"  @if (!$index) {!! "checked" !!} @endif required>
-                                            <div class="custom-control-label">{{ $product_variation->value }}</div>
-                                            </label>
-                                        @endforeach
+                                        <div class="col-md-4 col-6 text-left mt-1">
+                                            <h6 class="text-muted"><span class="line-through">{{ $product->price }}</span></h6> <!-- price-wrap.// -->
+                                        </div>
+                                        @else
+                                        <div class="col-md-3 col-4 text-left mt-1">
+                                            <h6><strong>{{ $product->price }}</strong></h6> <!-- price-wrap.// -->
+                                            <input name="price" type="hidden" value="{{ $product->price }}">
+                                        </div>
                                         @endif
                                     @endif
+                                </div>
+                                <div class="row">
+                                    {{-- Product Attributes --}}
+                                    @foreach($attributes as $attribute)
+                                        @php $attributeCheck = in_array($attribute->id, $product->attributes->pluck('attribute_id')->toArray()) @endphp
+                                        @if ($attributeCheck)
+                                            <div class="form-group ml-3">
+                                                <label><dt>{{ $attribute->name }}: </dt></label>
+                                                <div class="mt-2">
+                                                    @foreach($product->attributes as $index => $attributeValue)
+                                                        @if ($attributeValue->attribute_id == $attribute->id)
+                                                        <label class="custom-control custom-radio custom-control-inline" wire:key="attribute-field-{{ $attribute->id }}">
+                                                        <input wire:click="addToAttributes({{ $attributeValue->id }}, '{{ $attributeValue->value }}', '{{ $attributeValue->price }}')" type="radio" name="attribute" value="{{ $attributeValue->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                        <div class="custom-control-label">{{ $attributeValue->value }}</div>
+                                                        </label>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @else
+                                        <input type="hidden" name="attribute">
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div class="row">
+                                    {{-- Product Variations --}}
+                                    <div class="form-group ml-3">
+                                        @if($variation)
+                                        <label><dt>{{ $variation->name }}: </dt></label>
+                                        @else
+                                        <input type="hidden" name="variation">
+                                        @endif
+                                        <div class="mt-2">
+                                        @if($related_variants)
+                                            @foreach($related_variants as $index => $product_variation)
+                                                <label class="custom-control custom-radio custom-control-inline">
+                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                <div class="custom-control-label">{{ $product_variation->value }}</div>
+                                                </label>
+                                            @endforeach
+                                        @else
+                                            @if($product_variations)
+                                            @foreach($product_variations as $index => $product_variation)
+                                                <label class="custom-control custom-radio custom-control-inline">
+                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                <div class="custom-control-label">{{ $product_variation->value }}</div>
+                                                </label>
+                                            @endforeach
+                                            @endif
+                                        @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md flex-grow-0">
-                                    <label>Quantity</label>
-                                    <div class="quantity buttons_added">
-                                        <input type="button" value="-" class="minus">
-                                        <input type="number" wire:model="quantity" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
-                                        <input type="button" value="+" class="plus">
-                                    </div>
-                                </div> <!-- col.// -->
-                            </div> <!-- row.// -->
-
-                            <a class="square_btn_2 mr-4">Buy now</button>
-                                {{ $product->name }}
-                                <a wire:click.prevent="addToCart({{$product->id}})" class="square_btn"><i
-                                    class="fas fa-shopping-cart pr-2"></i>Add to cart</a>
+                                <div class="row">
+                                    <div class="form-group col-md flex-grow-0">
+                                        <label>Quantity</label>
+                                        <div class="quantity buttons_added">
+                                            <input type="button" value="-" class="minus">
+                                            <input type="number" name="quantity" step="1" min="1" max="" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
+                                            <input type="button" value="+" class="plus">
+                                        </div>
+                                    </div> <!-- col.// -->
+                                </div> <!-- row.// -->
+                                {{-- <a class="square_btn_2 mr-4">Buy now</button> --}}
+                                <button type="submit" class="square_btn"><i
+                                        class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -564,5 +583,6 @@
         });
     </script>
     <script src="{{ asset('user/js/quantity.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @endsection
 </div>

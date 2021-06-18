@@ -24,6 +24,11 @@
         <!-- ============================ COMPONENT LOGIN   ================================= -->
             <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
             <div class="card-body">
+                @if (Session::has('worning'))
+                <div class="alert alert-danger" role="alert">
+                    {{ Session::get('worning') }}
+                </div>
+                @endif
             <h4 class="card-title mb-4">Sign in</h4>
             <form method="POST" action="{{ route('login') }}">
                 @csrf

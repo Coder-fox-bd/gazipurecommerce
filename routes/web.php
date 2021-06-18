@@ -60,4 +60,5 @@ Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController
 Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('category.show');
 
 Route::get('/product/{slug}', \App\Http\Livewire\User\Product::class)->name('product.show');
+Route::get('/shoping-cart', \App\Http\Livewire\User\ShopingCart::class)->name('shoping-cart');
 
