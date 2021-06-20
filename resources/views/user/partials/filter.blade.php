@@ -12,14 +12,14 @@
                 <div class="card-body">
                     <form class="pb-3">
                     <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" wire:model="searched" class="form-control" placeholder="Search">
                     <div class="input-group-append">
                         <button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
                     </div>
                     </div>
                     </form>
                     
-                    <ul class="list-menu">
+                    {{-- <ul class="list-menu">
                     <li><a href="#">People  </a></li>
                     <li><a href="#">Watches </a></li>
                     <li><a href="#">Cinema  </a></li>
@@ -27,7 +27,7 @@
                     <li><a href="#">Home items </a></li>
                     <li><a href="#">Animals</a></li>
                     <li><a href="#">People </a></li>
-                    </ul>
+                    </ul> --}}
 
                 </div> <!-- card-body.// -->
             </div>
@@ -41,32 +41,14 @@
             </header>
             <div class="filter-content collapse show" id="collapse_2" >
                 <div class="card-body">
+                    @foreach($brands as $brand)
                     <label class="custom-control custom-checkbox">
-                    <input type="checkbox" checked="" class="custom-control-input">
-                    <div class="custom-control-label">Mercedes  
-                        <b class="badge badge-pill badge-light float-right">120</b>  </div>
-                    </label>
-                    <label class="custom-control custom-checkbox">
-                    <input type="checkbox" checked="" class="custom-control-input">
-                    <div class="custom-control-label">Toyota 
-                        <b class="badge badge-pill badge-light float-right">15</b>  </div>
-                    </label>
-                    <label class="custom-control custom-checkbox">
-                    <input type="checkbox" checked="" class="custom-control-input">
-                    <div class="custom-control-label">Mitsubishi 
-                        <b class="badge badge-pill badge-light float-right">35</b> </div>
-                    </label>
-                    <label class="custom-control custom-checkbox">
-                    <input type="checkbox" checked="" class="custom-control-input">
-                    <div class="custom-control-label">Nissan 
-                        <b class="badge badge-pill badge-light float-right">89</b> </div>
-                    </label>
-                    <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <div class="custom-control-label">Honda 
-                        <b class="badge badge-pill badge-light float-right">30</b>  </div>
-                    </label>
-        </div> <!-- card-body.// -->
+                        <input type="checkbox"  value="{{ $brand->id }}" wire:model="selectedbrands.{{ $brand->id }}" class="custom-control-input">
+                        <div class="custom-control-label">{{ $brand->name }}  
+                            <b class="badge badge-pill badge-light float-right">{{ $brand->products->count() }}</b>  </div>
+                        </label>
+                    @endforeach
+                </div> <!-- card-body.// -->
             </div>
         </article> <!-- filter-group .// -->
         <article class="filter-group">
@@ -96,7 +78,7 @@
                 </div><!-- card-body.// -->
             </div>
         </article> <!-- filter-group .// -->
-        <article class="filter-group">
+        {{-- <article class="filter-group">
             <header class="card-header">
                 <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true">
                     <i class="icon-control fa fa-chevron-down"></i>
@@ -126,7 +108,7 @@
                 </label>
             </div><!-- card-body.// -->
             </div>
-        </article> <!-- filter-group .// -->
+        </article> <!-- filter-group .// --> --}}
         <article class="filter-group">
             <header class="card-header">
                 <a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false">

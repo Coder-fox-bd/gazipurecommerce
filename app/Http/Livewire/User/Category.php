@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Category as Categories;
+use App\Models\Brand;
 
 class Category extends Component
 {
@@ -12,7 +13,9 @@ class Category extends Component
     protected $paginationTheme = 'bootstrap';
     public $category;
     public $slug;
+    public $selectedbrands = [];
     public $startPrice, $endPrice;
+    public $searched;
 
     public function priceRange($formData)
     {
@@ -32,7 +35,15 @@ class Category extends Component
             'products' => $this->category->products()
                 ->when($this->startPrice OR $this->endPrice, function($query){
                     $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
-                })->paginate(30),
+                })
+                ->when($this->selectedbrands, function($query){
+                    $query->whereIn('brand_id', $this->selectedbrands);
+                })
+                ->when($this->searched, function($query){
+                    $query->where('name', 'LIKE', '%' . $this->searched . '%');
+                })
+                ->paginate(30),
+            'brands' => Brand::all(),
         ])->extends('user.layouts.user_one');
     }
 }

@@ -8,10 +8,14 @@ use App\Models\Cart;
 
 class ShopingCart extends Component
 {
+    public $Carts;
     public function render()
     {
+        if(Auth::user()){
+            $this->Carts = Cart::where('user_id', Auth::user()->id)->get();
+        }
         return view('livewire.user.shoping-cart',[
-            'carts' => Cart::where('user_id', Auth::user()->id)->get(),
+            'carts' => $this->Carts,
         ])->extends('user.layouts.user_one');
     }
 }

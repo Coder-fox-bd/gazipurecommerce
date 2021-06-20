@@ -11,7 +11,9 @@
 <h1 class="h3 mb-4 text-gray-800">Add Product</h1>
 
 @if (Session::has('success'))
-<span class="text-success">{{ Session::get('success') }}</span>
+<div class="alert alert-success" role="alert">
+    {{ Session::get('success') }}
+</div>
 @endif
 @if (Session::has('errors'))
 <span class="text-danger">{{ Session::get('errors') }}</span>
