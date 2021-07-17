@@ -29,7 +29,7 @@
 							<span>{{ $category->name }}</span>
 							<i class="fa fa-chevron-right float-right mt-1 js-rotate-if-collapsed"></i>
 						</li>
-						<div class="collapse bg-dark rounded" id="multiCollapse{{ $category->id }}">
+						<div class="collapse bg-light-gray rounded" id="multiCollapse{{ $category->id }}">
 							<ul class="px-0">
 							@foreach($category->children as $childCategory)
 								<a href="#"><li>{{ $childCategory->name }}</li></a>
@@ -51,7 +51,7 @@
 							<span>{{ $category->name }}</span>
 							<i class="fa fa-chevron-right float-right mt-1 js-rotate-if-collapsed"></i>
 						</li>
-						<div class="collapse bg-dark rounded" id="multiCollapse{{ $category->id }}">
+						<div class="collapse bg-light-gray rounded" id="multiCollapse{{ $category->id }}">
 							<ul class="px-0">
 							@foreach($category->children as $childCategory)
 								<a href="{{ route('category.show', $childCategory->slug) }}"><li>{{ $childCategory->name }}</li></a>

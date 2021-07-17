@@ -68,14 +68,20 @@ class Product extends Component
 
                 $cart->save();
                 $this->emit(event: 'UpdateCart');
+                session()->flash('success', 'Item added to cart!');
             }else{
                 // if cart not empty then check if this product exist then increment quantity
                 $cart_arr = array_column($cart, 'id', 'product_id');
                 if (isset($cart_arr[$formData['id']])) {
-                    $cart_product = Cart::where('product_id', $formData['id'])->first();
+                    $cart_product = Cart::where('id', $cart_arr[$formData['id']])->first();
+                    $cart_product->product_attribute = $formData['attribute'];
+                    $cart_product->product_variant = $formData['variation'];
                     $cart_product->quantity = $formData['quantity'];
+                    $cart_product->price = $formData['price'];
+
                     $cart_product->update();
                     $this->emit(event: 'UpdateCart');
+                    session()->flash('success', 'Cart Updated!');
                 }else{
                     // if item not exist in cart then add to cart with quantity
                     $cart =  new Cart;
@@ -88,6 +94,7 @@ class Product extends Component
     
                     $cart->save();
                     $this->emit(event: 'UpdateCart');
+                    session()->flash('success', 'Item added to cart!');
                 }
             }
         }

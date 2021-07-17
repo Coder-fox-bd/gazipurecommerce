@@ -609,3 +609,8 @@ margin: 0; }
 .quantity.buttons_added .minus:focus,
 .quantity.buttons_added .plus:focus {
 outline: none; }
+
+/* backgraound color */
+.bg-light-gray {
+  background-color: #f9f9f9;
+}

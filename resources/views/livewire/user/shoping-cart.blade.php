@@ -46,7 +46,7 @@
                                             Qty: {{ $cart['quantity'] }}
                                         </div>
                                         <div class="col-md-1 col-4 p-0 text-right">
-                                            <a href="" class="small">Delete</a>
+                                            <a wire:click.prevent="delete({{ $cart['id'] }})" class="small cursor-pointer">Delete</a>
                                         </div>
                                         <div class="col-md-2 col-5 p-0 text-right">
                                             <a href="" class="small">Save for latter</a>
@@ -97,15 +97,15 @@
                         <div class="card-body">
                             <dl class="dlist-align">
                                 <dt>Subtotal price:</dt>
-                                <dd class="text-right">USD 568</dd>
+                                <dd class="text-right">{{$total}}</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Discount:</dt>
-                                <dd class="text-right">USD 658</dd>
+                                <dd class="text-right"></dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Total:</dt>
-                                <dd class="text-right  h5"><strong>$1,650</strong></dd>
+                                <dd class="text-right  h5"><strong>{{$total}}</strong></dd>
                             </dl>
                             <div class="row">
                                 <div class="col-12 text-center">

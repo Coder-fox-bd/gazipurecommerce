@@ -33,12 +33,12 @@ class AppServiceProvider extends ServiceProvider
         });
         
         View::composer('user.layouts.user_one', function ($view) {
-            $categories = Category::with('children')->whereNull('category_id')->get();
+            $categories = Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
             $view->with('categories', $categories);
         });
 
         View::composer('user.layouts.user_two', function ($view) {
-            $categories = Category::with('children')->whereNull('category_id')->get();
+            $categories = Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
             $view->with('categories', $categories);
         });
     }

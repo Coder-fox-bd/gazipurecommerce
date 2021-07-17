@@ -9,6 +9,14 @@ use App\Models\Cart;
 class ShopingCart extends Component
 {
     public $Carts;
+    public function delete($id)
+    {
+        $item = Cart::findOrFail($id);
+        if ($item) {
+            $item->delete();
+            $this->emit(event: 'UpdateCart');
+        }
+    }
     public function render()
     {
         if(Auth::user()){
