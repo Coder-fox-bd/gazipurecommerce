@@ -20,7 +20,7 @@
 @endif
 
 <div class="row">
-    <div class="col-3">
+    <div class="col-md-3 mb-2">
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
                 <div class="card shadow-sm">

@@ -36,6 +36,7 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/product/attributes//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteAttribute'])->name('admin.product.attribut.delete');
     Route::post('admin/product/variation/store', [App\Http\Controllers\Admin\ProductController::class, 'storeVariation'])->name('admin.product.variation.store');
     Route::get('admin/product/variation//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteVariation'])->name('admin.product.variation.delete');
+    Route::get('admin/settings',  \App\Http\Livewire\Admin\Settings::class)->name('admin.settings');
 
     // Route::get('/profile', function () {
     //     //

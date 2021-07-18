@@ -95,6 +95,13 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Settings -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.settings') }}">
+                    <i class="fas fa-cogs"></i>
+                    <span>Settings</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
