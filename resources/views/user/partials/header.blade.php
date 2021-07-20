@@ -32,12 +32,12 @@
 						<div class="collapse bg-light-gray rounded" id="multiCollapse{{ $category->id }}">
 							<ul class="px-0">
 							@foreach($category->children as $childCategory)
-								<a href="#"><li>{{ $childCategory->name }}</li></a>
+								<a href="{{ route('category.show', $childCategory->slug) }}"><li>{{ $childCategory->name }}</li></a>
 							@endforeach
 							</ul>
 						</div>
 					@else
-						<a href="#"><li>{{ $category->name }}</li></a>
+						<a href="{{ route('category.show', $category->slug) }}"><li>{{ $category->name }}</li></a>
 					@endif
 				  @endforeach
                 </ul>
@@ -79,7 +79,7 @@
 			<div class="row align-items-center">
 				<div class="col-lg-2 col-10 order-md-1 order-2 p-l-0">
 					<a href="/" class="brand-wrap">
-						<img class="logo" src="{{ asset('user/images/logo.png') }}">
+						<img class="logo" src="{{ asset('storage/'.config('settings.site_logo')) }}">
 					</a> <!-- brand-wrap.// -->
 					<div class="widget-header d-md-none mr-2 float-right">
 						<a href="#" class="icon icon-sm"><i class="fa fa-shopping-cart"></i></a>
@@ -152,27 +152,11 @@
       	<li class="nav-item" id="flip">
           <a class="nav-link pl-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
         </li>
-        <li class="nav-item has-submenu">
-          <a class="nav-link" href="#">Fashion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Supermarket</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Electronics</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Baby &amp Toys</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Fitness sport</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Clothing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Furnitures</a>
-        </li>
+		@foreach($categories->where('featured', 1)->take(8) as $category)
+		<li class="nav-item has-submenu">
+			<a class="nav-link" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
+		</li>
+		@endforeach
       </ul>
   </div> <!-- container-fluid .// -->
 </nav>

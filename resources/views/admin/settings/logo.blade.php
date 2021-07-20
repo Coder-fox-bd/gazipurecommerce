@@ -1,7 +1,7 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="tile">
-            <form action="#" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.settings.update') }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
                 <h3 class="tile-title">Site Logo</h3>
                 <hr>
@@ -48,6 +48,7 @@
         </div>
     </div>
 </div>
+
 @section('js')
     <script>
         loadFile = function(event, id) {

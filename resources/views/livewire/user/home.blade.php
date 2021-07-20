@@ -1,5 +1,6 @@
 <div>
     {{-- Do your work, then step back. --}}
+    @section('title', 'Home')
     <!-- ========================= SECTION MAIN ========================= -->
     <section class="section-main">
         <div class="container-fluid">
@@ -63,8 +64,7 @@
             </div>
                 
             <div class="row">
-                @foreach($categories as $category)
-                @if($category->featured==1)
+                @foreach($categories->where('featured', 1)->take(4) as $category)
                 <div class="col-md-3 mt-1">
                     <div class="card-banner" style="height:250px; background-image: url('{{ asset('storage/'.$category->image) }}');">
                         <article class="overlay overlay-cover d-flex align-items-center justify-content-center">
@@ -76,7 +76,6 @@
                     </div>
                     <!-- card.// -->
                 </div>
-                @endif
                 @endforeach
             </div>
         
@@ -95,19 +94,29 @@
         </header><!-- sect-heading -->
         
         <div class="row">
+            @foreach($products->sortByDesc('id')->take(8) as $product)
             <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
+                <figure class="card card-product-grid">
                     <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/5.jpg"> </a>
+                        <div class="col-md-12 col-5 p-r-0 center-responsive">
+                            <div class="img-wrap img-fluid center"> 
+                                @php $date = \Carbon\Carbon::today()->subDays(30); @endphp
+                                @if($product->created_at >= $date)
+                                <span class="badge badge-danger"> NEW </span>
+                                @endif
+                                @if ($product->images->count() > 0)
+                                <img src="{{ asset('storage/'.$product->images->first()->images) }}">
+                                @else
+                                <img src="https://via.placeholder.com/176" alt="">
+                                @endif
+                            </div> <!-- img-wrap.// -->
                         </div>
                         <div class="col-md-12 col-7 p-l-0">
                             <figcaption class="info-wrap">
                                 <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
+                                    <a href="{{ route('product.show', $product->slug) }}" class="a-color on-hover">
                                         <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
+                                            {{ $product->name }}
                                         </span>
                                     </a>
                                 </h6>
@@ -124,121 +133,20 @@
                                     </ul>
                                     <span class="label-rating text-muted"> 34 reviws</span>
                                 </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
+                                @if($product->special_price)
+                                <div class="price mt-1">{{ $product->special_price }}</div> <!-- price-wrap.// -->
+                                <div class="price-old mt-1"><span class="line-through">{{ $product->price }}</span></div> <!-- price-wrap.// -->
+                                @else
+                                <div class="price mt-1">{{ $product->price }}</div> <!-- price-wrap.// -->
+                                @endif
+                                <a href="#" class="square_btn_4 btn-block"><i
+                                    class="fas fa-shopping-cart pr-2"></i>Add to cart </a>
                             </figcaption>
                         </div>
                     </div>
-                </div>
+                </figure>
             </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/6.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/7.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/9.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
+            @endforeach
         </div> <!-- row.// -->
         
         </div> <!-- container-fluid .//  -->
@@ -257,19 +165,29 @@
         </header><!-- sect-heading -->
         
         <div class="row">
+            @foreach($products->where('featured', 1)->random(8) as $product)
             <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
+                <figure class="card card-product-grid">
                     <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/7.jpg"> </a>
+                        <div class="col-md-12 col-5 p-r-0 center-responsive">
+                            <div class="img-wrap img-fluid center"> 
+                                @php $date = \Carbon\Carbon::today()->subDays(30); @endphp
+                                @if($product->created_at >= $date)
+                                <span class="badge badge-danger"> NEW </span>
+                                @endif
+                                @if ($product->images->count() > 0)
+                                <img src="{{ asset('storage/'.$product->images->first()->images) }}">
+                                @else
+                                <img src="https://via.placeholder.com/176" alt="">
+                                @endif
+                            </div> <!-- img-wrap.// -->
                         </div>
                         <div class="col-md-12 col-7 p-l-0">
                             <figcaption class="info-wrap">
                                 <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
+                                    <a href="{{ route('product.show', $product->slug) }}" class="a-color on-hover">
                                         <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
+                                            {{ $product->name }}
                                         </span>
                                     </a>
                                 </h6>
@@ -286,122 +204,21 @@
                                     </ul>
                                     <span class="label-rating text-muted"> 34 reviws</span>
                                 </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
+                                @if($product->special_price)
+                                <div class="price mt-1">{{ $product->special_price }}</div> <!-- price-wrap.// -->
+                                <div class="price-old mt-1"><span class="line-through">{{ $product->price }}</span></div> <!-- price-wrap.// -->
+                                @else
+                                <div class="price mt-1">{{ $product->price }}</div> <!-- price-wrap.// -->
+                                @endif
+                                <a href="#" class="square_btn_4 btn-block"><i
+                                    class="fas fa-shopping-cart pr-2"></i>Add to cart </a>
                             </figcaption>
                         </div>
                     </div>
-                </div>
+                </figure>
             </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/1.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/2.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-md-3">
-                <div href="product_view.html" class="card card-product-grid">
-                    <div class="row">
-                        <div class="col-md-12 col-5 p-r-0 center">
-                            <a href="#" class="img-wrap img-fluid center"> <img src="user/images/items/6.jpg"> </a>
-                        </div>
-                        <div class="col-md-12 col-7 p-l-0">
-                            <figcaption class="info-wrap">
-                                <h6 class="a-size-mini spacing-none line-clamp-4">
-                                    <a href="#" class="a-color on-hover">
-                                        <span class="a-size-base-plus a-text-normal">
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                            ReleTech P400 1TB M.2 PCIe 2280 NVMe Interface Internal Solid State Drive 3D-NAND Technology Gen3 x4 NVMe PC SSD Up to 3,500 MB/s (1TB)
-                                        </span>
-                                    </a>
-                                </h6>
-                                
-                                
-                                <div class="rating-wrap">
-                                    <ul class="rating-stars">
-                                        <li style="width:100%" class="stars-active"> 
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
-                                        </li>
-                                    </ul>
-                                    <span class="label-rating text-muted"> 34 reviws</span>
-                                </div>
-                                <div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">$189.00</span><span class="ml-2">-25%</span></div> <!-- price-wrap.// -->
-                            </figcaption>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
+            @endforeach
+        </div>
         
         </div> <!-- container-fluid .//  -->
     </section>
@@ -415,42 +232,14 @@
         </header><!-- sect-heading -->
         
         <div class="row">
+            @foreach($brands as $brand)
             <div class="col-md-2 col-6">
                 <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo1.png"></a>
-                    <figcaption class="border-top pt-2">36 Products</figcaption>
+                    <a href="#"><img src="{{ asset('storage/'.$brand->logo)}}"></a>
+                    <figcaption class="border-top pt-2">{{ $brand->products()->count() }} Products</figcaption>
                 </figure> <!-- item-logo.// -->
             </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo2.png"></a>
-                    <figcaption class="border-top pt-2">980 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo3.png"></a>
-                    <figcaption class="border-top pt-2">25 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo4.png"></a>
-                    <figcaption class="border-top pt-2">72 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo5.png"></a>
-                    <figcaption class="border-top pt-2">41 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-2  col-6">
-                <figure class="box item-logo">
-                    <a href="#"><img src="images/logos/logo2.png"></a>
-                    <figcaption class="border-top pt-2">12 Products</figcaption>
-                </figure> <!-- item-logo.// -->
-            </div> <!-- col.// -->
+            @endforeach
         </div> <!-- row.// -->
         </div><!-- container-fluid // -->
     </section>
@@ -464,8 +253,8 @@
         
         <h3 class="mb-3">Download app demo text</h3>
         
-        <a href="#"><img src="images/misc/appstore.png" height="40"></a>
-        <a href="#"><img src="images/misc/appstore.png" height="40"></a>
+        <a href="#"><img src="{{ asset('storage/images/misc/appstore.png') }}" height="40"></a>
+        <a href="#"><img src="{{ asset('storage/images/misc/appstore.png') }}" height="40"></a>
         
         </div><!-- container-fluid // -->
     </section>

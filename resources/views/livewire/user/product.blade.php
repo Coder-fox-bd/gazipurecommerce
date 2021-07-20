@@ -164,7 +164,7 @@
                                     </div> <!-- col.// -->
                                 </div> <!-- row.// -->
                                 {{-- <a class="square_btn_2 mr-4">Buy now</button> --}}
-                                <button type="submit" class="square_btn"><i
+                                <button type="submit" class="btn square_btn"><i
                                         class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
                             </form>
                         </div>

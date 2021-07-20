@@ -1,4 +1,16 @@
-<div>
+@extends('admin.layout.base')
+
+@section('title', 'App Settings')
+
+@section('content')
+    @if (Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+    </div>
+    @endif
+    @if (Session::has('errors'))
+    <span class="text-danger">{{ Session::get('errors') }}</span>
+    @endif
     {{-- In work, do what you enjoy. --}}
     <div class="row user">
         <div class="col-md-3">
@@ -20,24 +32,24 @@
         <div class="col-md-9">
             <div class="tab-content">
                 <div class="tab-pane active" id="general">
-                    @include('livewire.admin.settings.general')
+                    @include('admin.settings.general')
                 </div>
                 <div class="tab-pane fade" id="site-logo">
-                    @include('livewire.admin.settings.logo')
+                    @include('admin.settings.logo')
                 </div>
                 <div class="tab-pane fade" id="footer-seo">
-                    @include('livewire.admin.settings.footer_seo')
+                    @include('admin.settings.footer_seo')
                 </div>
                 <div class="tab-pane fade" id="social-links">
-                    @include('livewire.admin.settings.social_links')
+                    @include('admin.settings.social_links')
                 </div>
                 <div class="tab-pane fade" id="analytics">
-                    @include('livewire.admin.settings.analytics')
+                    @include('admin.settings.analytics')
                 </div>
                 <div class="tab-pane fade" id="payments">
-                    @include('livewire.admin.settings.payments')
+                    @include('admin.settings.payments')
                 </div>
             </div>
         </div>
     </div>
-</div>
+@endsection 

@@ -63,7 +63,6 @@ class ProductController extends Controller
     public function store(StoreProductFormRequest $request)
     {
         $params = $request->except('_token');
-
         $product = $this->createProduct($params);
 
         if (!$product) {

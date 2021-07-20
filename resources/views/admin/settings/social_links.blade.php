@@ -1,7 +1,7 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="tile">
-            <form action="#" method="POST" role="form">
+            <form action="{{ route('admin.settings.update') }}" method="POST" role="form">
                 @csrf
                 <h3 class="tile-title">Social Links</h3>
                 <hr>

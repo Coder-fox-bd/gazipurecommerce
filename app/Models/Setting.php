@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Config;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Setting extends Model
 {
@@ -40,9 +40,16 @@ class Setting extends Model
     public static function set($key, $value = null)
     {
         $setting = new self();
-        $entry = $setting->where('key', $key)->firstOrFail();
-        $entry->value = $value;
-        $entry->saveOrFail();
+        $entry = $setting->where('key', $key)->first();
+        if (!$entry) {
+            $setting->key = $key;
+            $setting->value = $value;
+            $setting->saveOrFail();
+        }else{
+            $setting->key = $key;
+            $setting->value = $value;
+            $setting->update();
+        }
         Config::set('key', $value);
         if (Config::get($key) == $value) {
             return true;
