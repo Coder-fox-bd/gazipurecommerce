@@ -14,7 +14,7 @@ class ShopingCart extends Component
         $item = Cart::findOrFail($id);
         if ($item) {
             $item->delete();
-            $this->emit(event: 'UpdateCart');
+            $this->emit('UpdateCart');
         }
     }
     public function render()
