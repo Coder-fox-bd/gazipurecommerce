@@ -388,10 +388,10 @@ p:last-child {
 
 .navbar-main .nav-link {
   font-weight: 500;
-  color: #525151;
+  color: #cacaca;
 }
 .navbar-main .nav-link:hover {
-  color: #919191;
+  color: #ffffff;
 }
 
 .widget-header {
@@ -400,13 +400,13 @@ p:last-child {
   position: relative;
 }
 .widget-header a {
-  color: #525151;
+  color: #cacaca;
 }
 .widget-header a:hover {
-  color: #919191;
+  color: #cacaca;
 }
 .widget-header i {
-  color: #525151;
+  color: #cacaca;
 }
 .widget-header form {
   min-width: 280px;
@@ -420,7 +420,7 @@ p:last-child {
   right: -10px;
 }
 .widget-header:hover i {
-  color: #666;
+  color: #ffffff;
 }
 
 /* desktop only */
