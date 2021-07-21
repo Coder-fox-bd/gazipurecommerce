@@ -67,7 +67,7 @@ class Product extends Component
                 $cart->price = $formData['price'];
 
                 $cart->save();
-                $this->emit(event: 'UpdateCart');
+                $this->emit('UpdateCart');
                 session()->flash('success', 'Item added to cart!');
             }else{
                 // if cart not empty then check if this product exist then increment quantity
@@ -80,7 +80,7 @@ class Product extends Component
                     $cart_product->price = $formData['price'];
 
                     $cart_product->update();
-                    $this->emit(event: 'UpdateCart');
+                    $this->emit('UpdateCart');
                     session()->flash('success', 'Cart Updated!');
                 }else{
                     // if item not exist in cart then add to cart with quantity
@@ -93,7 +93,7 @@ class Product extends Component
                     $cart->price = $formData['price'];
     
                     $cart->save();
-                    $this->emit(event: 'UpdateCart');
+                    $this->emit('UpdateCart');
                     session()->flash('success', 'Item added to cart!');
                 }
             }
