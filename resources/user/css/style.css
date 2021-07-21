@@ -1,9 +1,9 @@
 /* navigation bar  */
 .nav-color-main {
-	background-color: #fff;
+	background-color: rgb(0, 0, 0);
 }
 .nav-color-sub {
-	background-color: #f7f7f7;
+	background-color: #494949;
 }
 
 .search-btn {
