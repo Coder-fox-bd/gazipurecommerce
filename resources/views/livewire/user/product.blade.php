@@ -403,7 +403,7 @@
                         </div>
                     </div>
                     <div class="col-12 center mt-3">
-                        <a class="square_btn_3">Give a review</a>
+                        <a class="btn square_btn_3">Give a review</a>
                     </div>
                 </div>
     
