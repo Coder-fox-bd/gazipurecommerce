@@ -12,8 +12,8 @@ use App\Http\Controllers\Admin\AdminAuthController;
 Route::middleware([AdminAuthenticated::class])->group(function () {
     Route::get('admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin-login');
     Route::post('admin/login', [AdminAuthController::class, 'check'])->name('admin-check');
-    Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
-    Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
+    // Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
+    // Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
     
 });
 

@@ -58,7 +58,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -74,10 +74,40 @@
                         <a class="collapse-item" href="{{ route('brands') }}">Brands</a>
                     </div>
                 </div>
+            </li> --}}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.products.list') }}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Products</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('attributes') }}">
+                    <i class="fas fa-cloud-moon"></i>
+                    <span>Attributes</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('variations') }}">
+                    <i class="fas fa-cloud-moon-rain"></i>
+                    <span>Variations</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('category') }}">
+                    <i class="fas fa-cloud-rain"></i>
+                    <span>Category</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('brands') }}">
+                    <i class="fas fa-cloud-meatball"></i>
+                    <span>Brands</span></a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -93,7 +123,7 @@
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Settings -->
             <li class="nav-item">
@@ -103,7 +133,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            {{-- <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -151,7 +181,7 @@
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> --}}
 
             <!-- Sidebar Message -->
             {{-- <div class="sidebar-card d-none d-lg-flex">
