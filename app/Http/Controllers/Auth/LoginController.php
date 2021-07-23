@@ -43,14 +43,13 @@ class LoginController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect()
     }
 
     public function handleGoogleCallback()
     {
-        dd(Socialite::driver('google')->user());
         try{
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return redirect('/login')->with('worning', 'Something went wrong or You have rejected the app!');
         }
