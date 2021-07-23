@@ -48,7 +48,11 @@ class LoginController extends Controller
 
     public function handleGoogleCallback()
     {
-        $user = Socialite::driver('google')->user();
+        try{
+            $user = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->with('worning', 'Something went wrong or You have rejected the app!');
+        }
 
         $this->_registerOrLoginUser($user);
 
@@ -63,7 +67,11 @@ class LoginController extends Controller
       
     public function handleFacebookCallback()
     {
-        $user = Socialite::driver('facebook')->user();
+        try{
+            $user = Socialite::driver('facebook')->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->with('worning', 'Something went wrong or You have rejected the app!');
+        }
         
         $this->_registerOrLoginUser($user);
 
