@@ -48,7 +48,7 @@ class LoginController extends Controller
 
     public function handleGoogleCallback()
     {
-        dd(Socialite::driver('google')->userFromToken($token));
+        dd(Socialite::driver('google')->user());
         try{
             $user = Socialite::driver('google')->user();
         } catch (\Exception $e) {
