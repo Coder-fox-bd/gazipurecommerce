@@ -10,7 +10,10 @@
 				</a>
 			@endif
 		@else
-
+			<div class="pl-3 text-light">
+				<div class="icon sidebar-icon rounded-circle border"><span ></span><i class="fa fa-user"></i></div>
+				Hello, {{ Auth::user()->name }}
+			</div>
 		@endguest
       </span>
 	  	<a href="javascript:void(0)" class="closebtn pt-2 white" onclick="closeNav()">&times;</a>
