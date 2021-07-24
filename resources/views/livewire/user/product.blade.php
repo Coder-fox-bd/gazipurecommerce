@@ -76,26 +76,26 @@
                                 <div class="row">
                                     @if($attribute_price)
                                     <div class="col-md-3 col-4 text-left mt-1">
-                                        <h6><strong>{{ $attribute_price }}</strong></h6> <!-- price-wrap.// -->
+                                        <h6><strong>{{ config('settings.currency_symbol') }} {{ $attribute_price }}</strong></h6> <!-- price-wrap.// -->
                                         <input name="price" type="hidden" value="{{ $attribute_price }}">
                                     </div>
                                     @elseif($variation_price)
                                     <div class="col-md-3 col-4 text-left mt-1">
-                                        <h6><strong>{{ $variation_price }}</strong></h6> <!-- price-wrap.// -->
+                                        <h6><strong>{{ config('settings.currency_symbol') }} {{ $variation_price }}</strong></h6> <!-- price-wrap.// -->
                                         <input name="price" type="hidden" value="{{ $variation_price }}">
                                     </div>
                                     @else
                                         @if ($product->special_price)
                                         <div class="col-md-3 col-4 text-left mt-1">
-                                            <h6><strong>{{ $product->special_price }}</strong></h6> <!-- price-wrap.// -->
+                                            <h6><strong>{{ config('settings.currency_symbol') }} {{ $product->special_price }}</strong></h6> <!-- price-wrap.// -->
                                             <input name="price" type="hidden" value="{{ $product->special_price }}">
                                         </div>
                                         <div class="col-md-4 col-6 text-left mt-1">
-                                            <h6 class="text-muted"><span class="line-through">{{ $product->price }}</span></h6> <!-- price-wrap.// -->
+                                            <h6 class="text-muted"><span class="line-through">{{ config('settings.currency_symbol') }} {{ $product->price }}</span></h6> <!-- price-wrap.// -->
                                         </div>
                                         @else
                                         <div class="col-md-3 col-4 text-left mt-1">
-                                            <h6><strong>{{ $product->price }}</strong></h6> <!-- price-wrap.// -->
+                                            <h6><strong>{{ config('settings.currency_symbol') }} {{ $product->price }}</strong></h6> <!-- price-wrap.// -->
                                             <input name="price" type="hidden" value="{{ $product->price }}">
                                         </div>
                                         @endif

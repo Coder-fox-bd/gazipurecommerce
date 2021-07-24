@@ -134,10 +134,10 @@
                                     <span class="label-rating text-muted"> 34 reviws</span>
                                 </div>
                                 @if($product->special_price)
-                                <div class="price mt-1">{{ $product->special_price }}</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">{{ $product->price }}</span></div> <!-- price-wrap.// -->
+                                <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->special_price }}</div> <!-- price-wrap.// -->
+                                <div class="price-old mt-1"><span class="line-through">{{ config('settings.currency_symbol') }} {{ $product->price }}</span></div> <!-- price-wrap.// -->
                                 @else
-                                <div class="price mt-1">{{ $product->price }}</div> <!-- price-wrap.// -->
+                                <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->price }}</div> <!-- price-wrap.// -->
                                 @endif
                                 <a href="#" class="square_btn_4 btn-block"><i
                                     class="fas fa-shopping-cart pr-2"></i>Add to cart </a>
@@ -205,10 +205,10 @@
                                     <span class="label-rating text-muted"> 34 reviws</span>
                                 </div>
                                 @if($product->special_price)
-                                <div class="price mt-1">{{ $product->special_price }}</div> <!-- price-wrap.// -->
-                                <div class="price-old mt-1"><span class="line-through">{{ $product->price }}</span></div> <!-- price-wrap.// -->
+                                <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->special_price }}</div> <!-- price-wrap.// -->
+                                <div class="price-old mt-1"><span class="line-through">{{ config('settings.currency_symbol') }} {{ $product->price }}</span></div> <!-- price-wrap.// -->
                                 @else
-                                <div class="price mt-1">{{ $product->price }}</div> <!-- price-wrap.// -->
+                                <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->price }}</div> <!-- price-wrap.// -->
                                 @endif
                                 <a href="#" class="square_btn_4 btn-block"><i
                                     class="fas fa-shopping-cart pr-2"></i>Add to cart </a>

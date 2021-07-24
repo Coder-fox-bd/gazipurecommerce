@@ -55,7 +55,7 @@
                                     </figcaption>
                                     </div>
                                     <div class="col-md-2 col-2 text-right p-l-0">
-                                        <var class="price">{{ $cart['price'] }}</var>  
+                                        <var class="price">{{ config('settings.currency_symbol') }} {{ $cart['price'] }}</var>  
                                     </div>
                                 </div>
                             @endforeach
@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-right">
-                            <span>Subtotal ({{ $items }} items): <strong> {{$total}}</strong></span>
+                            <span>Subtotal ({{ $items }} items): <strong>{{ config('settings.currency_symbol') }} {{$total}}</strong></span>
                             </div>
                         </div>
                     </div>  
