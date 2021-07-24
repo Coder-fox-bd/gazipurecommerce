@@ -73,7 +73,7 @@
                         <input type="number" name="priceTo" value="30000" class="form-control" id="range-output">
                         </div>
                         </div> <!-- form-row.// -->
-                        <button type="submit" class="square_btn_5 btn-block cursor-pointer">Apply</button>
+                        <button type="submit" class="btn square_btn_5 btn-block cursor-pointer">Apply</button>
                     </form>
                 </div><!-- card-body.// -->
             </div>

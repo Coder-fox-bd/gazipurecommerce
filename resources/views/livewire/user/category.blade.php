@@ -80,8 +80,8 @@
                                             @else
                                             <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->price }}</div> <!-- price-wrap.// -->
                                             @endif
-                                            <a href="#" class="square_btn_4 btn-block"><i
-                                                class="fas fa-shopping-cart pr-2"></i>Add to cart </a>
+                                            <button class="btn square_btn_4 btn-block"><i
+                                                class="fas fa-shopping-cart pr-2"></i>Add to cart </button>
                                         </figcaption>
                                     </div>
                                 </div>
