@@ -2,9 +2,16 @@
 <div id="mySidenav" class="sidenav">
 	<div id="mySidenav-wrape" class="sidenav__menu__wrapper">
       <span class="hello-span white cursor-pointer">
-        <a href="#" class="pl-3">
-        <a class="icon sidebar-icon rounded-circle border"><span ></span><i class="fa fa-user"></i></a>
-        Hello, Sign in</a>
+		@guest
+			@if (Route::has('login'))
+				<a href="{{ route('login') }}" class="pl-3 text-light">
+					<div class="icon sidebar-icon rounded-circle border"><span ></span><i class="fa fa-user"></i></div>
+					Hello, Sign in
+				</a>
+			@endif
+		@else
+
+		@endguest
       </span>
 	  	<a href="javascript:void(0)" class="closebtn pt-2 white" onclick="closeNav()">&times;</a>
       <div class="wrapper">
@@ -64,7 +71,13 @@
 				  @endforeach
               </ul>
             <div class="social_media">
-                <a href="#"><i class="fas fa-sign-out-alt mr-1"></i>Sign Out</a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+				document.getElementById('logout-form').submit();">
+				<i class="fas fa-sign-out-alt mr-1"></i>Sign Out</a>
+
+				<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+					@csrf
+				</form>
             </div>  
           </div>
       </div>
@@ -82,8 +95,8 @@
 						<img class="logo" src="{{ asset('storage/'.config('settings.site_logo')) }}">
 					</a> <!-- brand-wrap.// -->
 					<div class="widget-header d-md-none mr-2 float-right">
-						<a href="#" class="icon icon-sm"><i class="fa fa-shopping-cart"></i></a>
-						<span class="badge badge-pill badge-danger notify">0</span>
+						<a href="{{ route('shoping-cart') }}" class="icon icon-sm"><i class="fa fa-shopping-cart"></i></a>
+						@livewire('user.cart')
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12 order-md-2 order-3">
