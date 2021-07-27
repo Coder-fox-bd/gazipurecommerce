@@ -760,10 +760,14 @@ a[class*=card]:hover .title {
 [class*=card-product] .img-wrap img {
   height: 100%;
   max-width: 100%;
-  width: auto;
   display: inline-block;
   -o-object-fit: cover;
      object-fit: cover;
+}
+@media (min-width: 767px) {
+  .img-wrap img {
+    width: auto;
+  }
 }
 
 /* GRID STYLE PRODUCT ITEM */

@@ -11,7 +11,7 @@
             setTimeout(function () {
                 $(new Image()).on('load', function () {
                     sergelandimagezoomer.init($(that), options);
-                }).attr('src', $(that).attr('src'));
+                }).attr('srcset', $(that).attr('srcset'));
             }, 30);
         });
 
@@ -364,14 +364,14 @@
             if (img.h === 0 || img.w === 0) {
                 $(new Image()).on('load', function () {
                     self.init($img, options);
-                }).attr("src", $img.attr("src"));
+                }).attr("srcset", $img.attr("srcset"));
                 return;
             }
 
             $img.css({
                 visibility: "visible"
             });
-            setting.largeimage = $img.attr("data-large") || $img.attr("src");
+            setting.largeimage = $img.attr("data-large") || $img.attr("srcset");
 
             for (key in setting)
                 if (setting[key] === '') setting[key] = this.dsetting[key];
@@ -644,7 +644,7 @@
                     top: 0,
                     left: 0
                 })
-                .html('<img src="' + setting.loadinggif + '" />')
+                .html('<img srcset="' + setting.loadinggif + '" />')
                 .appendTo(document.body);
 
             $tracker = $("<div />")
@@ -749,7 +749,7 @@
                 $tracker.css({
                     cursor: setting.magnifycursor
                 });
-                setting.largeimage = $img.attr("data-large") || $img.attr("src");
+                setting.largeimage = $img.attr("data-large") || $img.attr("srcset");
 
                 $statusdiv.show();
                 clearTimeout(self.cld.controlTimer);
@@ -757,7 +757,7 @@
 
                 if (setting.largeimage !== $tracker.data('largeimage')) {
 
-                    $(new Image()).on('load', function () {}).attr("src", setting.largeimage);
+                    $(new Image()).on('load', function () {}).attr("srcset", setting.largeimage);
 
                     $($tracker).unbind();
                     $($statusdiv).remove();
@@ -777,10 +777,10 @@
 
             });
             $tracker.mousemove(function (e) {
-                setting.largeimage = $img.attr("data-large") || $img.attr("src");
+                setting.largeimage = $img.attr("data-large") || $img.attr("srcset");
                 if (setting.largeimage !== $tracker.data("largeimage")) {
 
-                    $(new Image()).on('load', function () {}).attr("src", setting.largeimage);
+                    $(new Image()).on('load', function () {}).attr("srcset", setting.largeimage);
 
                     $($tracker).unbind();
                     $($statusdiv).remove();
@@ -812,7 +812,7 @@
             $tracker.one("mouseover", function (e) {
 
                 var imgcoords = $img.offsetsl();
-                var $bigimage = $('<img src="' + setting.largeimage + '"/>').css({
+                var $bigimage = $('<img srcset="' + setting.largeimage + '"/>').css({
                     position: "relative",
                     maxWidth: "none"
                 }).appendTo($magnifier);

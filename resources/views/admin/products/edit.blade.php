@@ -240,11 +240,11 @@
                                 @if ($product->images)
                                     <hr>
                                     <div class="row">
-                                        @foreach($product->images as $image)
+                                        @foreach($product->getMedia('products') as $image)
                                             <div class="col-md-3">
                                                 <div class="card shadow-sm">
                                                     <div class="card-body">
-                                                        <img src="{{ asset('storage/'.$image->images) }}" id="brandLogo" class="img-fluid" alt="img">
+                                                        {{$image}}
                                                         <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', $image->id) }}">
                                                             <i class="fa fa-fw fa-lg fa-trash"></i>
                                                         </a>

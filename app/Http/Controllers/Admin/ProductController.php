@@ -73,7 +73,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);;
+        $product = Product::findOrFail($id);
         $brands = Brand::all();
         $categories = Category::with('children')->whereNull('category_id')->get();
         $product_attributes = $product->attributes;
@@ -131,13 +131,9 @@ class ProductController extends Controller
 
         if ($request->has('image')) {
 
-            $image = $request->image->store('products', 'public');
-
-            $productImage = new ProductImage([
-                'images'      =>  $image,
-            ]);
-
-            $product->images()->save($productImage);
+            $product->addMediaFromRequest('image')
+                ->withResponsiveImages()
+                ->toMediaCollection('products', 'products');
         }
 
         return response()->json(['status' => 'success']);

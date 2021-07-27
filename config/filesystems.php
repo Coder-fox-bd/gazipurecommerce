@@ -30,6 +30,12 @@ return [
 
     'disks' => [
 
+        'products' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/products'),
+            'url'        => env('APP_URL') . '/storage/products',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

@@ -31,22 +31,16 @@
                                     <div class="zoom-thumb text-center">
                                         <img id="slideLeft" class="arrow" src="{{ asset('user/images/arrow-left.png') }}">
                                         <ul class="piclist" id="slider">
-                                        @if ($product->images->count() > 0)
-                                            @foreach($product->images as $image)
-                                                <li><img class="thumbnail" src="{{ asset('storage/'.$image->images) }}" alt=""></li>
+                                            @foreach($product->getMedia('products') as $image)
+                                                <li>{{ $image }}</li>
                                             @endforeach
-                                        @endif
                                         </ul>
                                        <img id="slideRight" class="arrow" src="{{ asset('user/images/arrow-right.png') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-10 center">
                                     <div class="picZoomer">
-                                    @if ($product->images->count() > 0)
-                                    <img id="featured" id="zoom-img" style="width: 100%; max-width: 410px; height: auto;" src="{{ asset('storage/'.$product->images->first()->images) }}">
-                                    @else
-                                        <img id="featured" id="zoom-img" style="width: 100%; max-width: 410px; height: auto;" src="https://via.placeholder.com/176">
-                                    @endif
+                                    {{ $product->getFirstMedia('products') }}
                                     </div>
                                 </div>
                             </div>
@@ -572,7 +566,10 @@
         </div>
     </div>
     @section('js')
-
+    <script>
+        $('.picZoomer img').attr('id', 'featured');
+        $('.piclist li img').addClass('thumbnail');
+    </script>
     <script src="{{ asset('user/js/product_img_slider.js') }}" type="text/javascript"></script>
     <script src="{{ asset('user/js/zoomsl.js') }}" type="text/javascript"></script>
     <script>

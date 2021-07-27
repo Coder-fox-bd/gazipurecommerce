@@ -104,11 +104,9 @@
                                 @if($product->created_at >= $date)
                                 <span class="badge badge-danger"> NEW </span>
                                 @endif
-                                @if ($product->images->count() > 0)
-                                <img src="{{ asset('storage/'.$product->images->first()->images) }}">
-                                @else
-                                <img src="https://via.placeholder.com/176" alt="">
-                                @endif
+
+                                {{ $product->getFirstMedia('products') }}
+
                             </div> <!-- img-wrap.// -->
                         </div>
                         <div class="col-md-12 col-7 p-l-0">

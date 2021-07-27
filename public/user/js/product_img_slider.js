@@ -13,7 +13,7 @@ for (var i=0; i < thumbnails.length; i++){
         
 
         this.classList.add('active')
-        document.getElementById('featured').src = this.src
+        document.getElementById('featured').srcset = this.srcset
     })
 }
 
