@@ -237,24 +237,21 @@
                                         </button>
                                     </div>
                                 </div>
-                                @if ($product->images)
-                                    <hr>
-                                    <div class="row">
-                                        @foreach($product->getMediaUrl('products') as $image)
-                                            <div class="col-md-3">
-                                                <div class="card shadow-sm">
-                                                    <div class="card-body">
-                                                        {{$image}}
-                                                        <img src="{{ $image }}" id="brandLogo" class="img-fluid" alt="img">
-                                                        <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', $image->id) }}">
-                                                            <i class="fa fa-fw fa-lg fa-trash"></i>
-                                                        </a>
-                                                    </div>
+                                <hr>
+                                <div class="row">
+                                    @foreach($product->getMedia('products') as $image)
+                                        <div class="col-md-3">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body product-img">
+                                                    <img src="{{ $image->getUrl() }}" id="brandLogo" class="img-fluid" alt="img">
+                                                    <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', $image->id) }}">
+                                                        <i class="fa fa-fw fa-lg fa-trash"></i>
+                                                    </a>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
