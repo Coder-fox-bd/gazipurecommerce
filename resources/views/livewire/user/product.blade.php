@@ -573,7 +573,7 @@
     <script src="{{ asset('user/js/product_img_slider.js') }}" type="text/javascript"></script>
     {{-- <script src="{{ asset('user/js/zoomsl.js') }}" type="text/javascript"></script> --}}
     <!-- F’in sweet Webflow Hacks -->
-    {{-- <script>
+    <script>
         // if viewportWidth width > 991
         if(window.innerWidth > 991){
         // load mobile script
@@ -591,7 +591,7 @@
         // append the <script> element to <head>
         $script.appendTo('head');
         }
-    </script> --}}
+    </script>
     <script>
         if(window.innerWidth > 991){
             $(document).ready(function () {
