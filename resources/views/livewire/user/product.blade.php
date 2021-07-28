@@ -571,13 +571,35 @@
         $('.piclist li img').addClass('thumbnail');
     </script>
     <script src="{{ asset('user/js/product_img_slider.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('user/js/zoomsl.js') }}" type="text/javascript"></script>
+    {{-- <script src="{{ asset('user/js/zoomsl.js') }}" type="text/javascript"></script> --}}
+    <!-- F’in sweet Webflow Hacks -->
+    {{-- <script>
+        // if viewportWidth width > 991
+        if(window.innerWidth > 991){
+        // load mobile script
+        loadScriptFile('{{ asset('user/js/zoomsl.js') }}');
+        }
+        
+        // loadScriptFile func
+        function loadScriptFile(src){
+        // create element <script>
+        const $script = $('<script>');
+        // add type attribute
+        $script.attr('type', 'text/javascript');
+        // add src attribute
+        $script.attr('src', src);
+        // append the <script> element to <head>
+        $script.appendTo('head');
+        }
+    </script> --}}
     <script>
-        $(document).ready(function () {
-            $('#featured').imagezoomsl({
-                zoomrange: [3, 3]
+        if(window.innerWidth > 991){
+            $(document).ready(function () {
+                $('#featured').imagezoomsl({
+                    zoomrange: [3, 3]
+                });
             });
-        });
+        }
     </script>
     <script src="{{ asset('user/js/quantity.js') }}" type="text/javascript"></script>
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
