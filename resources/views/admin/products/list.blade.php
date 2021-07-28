@@ -9,10 +9,10 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-4 text-gray-800">Categories</h1>
     <a href="{{ route('admin.product.create') }}" 
-    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Product</a>
+    class="d-inline-block btn btn-sm btn-primary shadow-sm">Add Product</a>
 </div>
 <div class="card shadow mb-4">
     <div class="card-body">
