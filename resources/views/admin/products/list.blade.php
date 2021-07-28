@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="tile">
                     <div class="tile-body">
-                        <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table id="example" class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
                                 <th> # </th>
@@ -90,4 +90,11 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "scrollX": true
+            } );
+        } );
+    </script>
 @endsection
