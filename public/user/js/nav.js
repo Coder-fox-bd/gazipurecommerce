@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("mySidenav-wrape").classList.remove('show__sidenav__menu__wrapper');
   }
   
-  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-      $("#mySidenav").swipe({
-          swipeStatus:function(event, phase, direction, distance, duration, fingers)
-            {
-          if (phase=="move" && direction =="left") {
-             $("#mySidenav").removeClass("active");
-             $("#mySidenav-wrape").removeClass("show__sidenav__menu__wrapper");
-          }
-        }
-      });
-  }
+  // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+  //     $("#mySidenav").swipe({
+  //         swipeStatus:function(event, phase, direction, distance, duration, fingers)
+  //           {
+  //         if (phase=="move" && direction =="left") {
+  //            $("#mySidenav").removeClass("active");
+  //            $("#mySidenav-wrape").removeClass("show__sidenav__menu__wrapper");
+  //         }
+  //       }
+  //     });
+  // }

@@ -123,12 +123,15 @@
 							</div>
 							<div class="widget-header icontext">
 								<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-user"></i></a>
-								<div class="text">
+								<div class="text text-white">
 									<span class="text-muted">Welcome!</span>
 									<div> 
 										@guest
 											@if (Route::has('login'))
-												<a href="{{ route('login') }}">{{ __('Login') }}</a>
+											<div> 
+												<a href="{{ route('login') }}">Sign in</a> |  
+												<a href="{{ route('register') }}"> Register</a>
+											</div>
 											@endif
 										@else
 											<a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

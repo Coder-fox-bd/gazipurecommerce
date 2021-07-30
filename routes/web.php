@@ -25,6 +25,8 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
     Route::get('admin/variations', \App\Http\Livewire\Admin\Variations::class)->name('variations');
     Route::get('admin/brands', \App\Http\Livewire\Admin\Brands::class)->name('brands');
+    Route::get('admin/image-slider', [App\Http\Controllers\Admin\CarouselController::class, 'index'])->name('admin.image-slider');
+    Route::post('admin/image-slider', [App\Http\Controllers\Admin\CarouselController::class, 'uploadImage'])->name('admin.slider-image-upload');
     Route::get('admin/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.list');
     Route::get('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
     Route::post('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
@@ -51,13 +53,16 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
 */
 Route::get('/', \App\Http\Livewire\User\Home::class)->name('home');
 
+// Route::get('carousel-pc', [App\Http\Controllers\User\Carousel::class, 'carouselPc'])->name('carousel-pc');
+// Route::get('carousel-mobile', [App\Http\Controllers\User\Carousel::class, 'carouselMobile'])->name('carousel-mobile');
+
 Auth::routes();
 
 Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+// Route::get('login/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
 
-Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
+// Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+// Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
 
 Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('category.show');
 

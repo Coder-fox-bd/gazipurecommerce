@@ -10,29 +10,13 @@
                     <div class="container-fluid px-0">
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner bg-info" role="listbox">
-                                <div class="carousel-item active img-gradient">
+                                @foreach($carousel->where('status', 1) as $key => $slider)
+                                <div class="carousel-item {{$key == 0 ? 'active' : '' }} img-gradient">
                                     <a href="#">
-                                        <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/G/01/PrivateBrands/Amazon_Basics_GRD_DesktopHero_April_HomeRefresh_1500x600_1x_en._CB656581128_.jpg" alt="Image slide">
+                                        <img class="img-fluid" src="{{ asset('storage/'.$slider->images) }}" alt="Image slide">
                                     </a>
                                 </div>
-                                <div class="carousel-item">
-                                    <a href="#">
-                                        <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/journeys/MzBiNjIyYjgt/MzBiNjIyYjgt-N2I2YzNlY2It-w1500._CB655683470_.jpg" alt="Image slide">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a href="#">
-                                        <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/G/01/US-hq/2021/img/Events/MothersDay/Homepage/T3_2021_MothersDay_GW_HomepageHero_Desktop_Gifting_1x_1500x600._CB658614325_.jpg" alt="Image slide">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a href="#">
-                                        <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/G/01/kindle/journeys/Y2UwYWM0MDQt/Y2UwYWM0MDQt-YWRmMTExOWMt-w1500._CB670370124_.jpg" alt="Image slide">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/G/01/kindle/journeys/NjA0N2YxY2It/NjA0N2YxY2It-NDg0ZTBmMDEt-w1500._CB655440701_.jpg" alt="Image slide">
-                                </div>
+                                @endforeach
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -156,7 +140,7 @@
         <div class="container-fluid">
         
         <header class="section-heading">
-            <a href="#" class="btn btn-outline-primary float-right">See all</a>
+            <a href="#" class="btn btn-outline-warning float-right">See all</a>
             <h3 class="section-title">Recommended</h3>
         </header><!-- sect-heading -->
         
@@ -244,11 +228,30 @@
         <div class="container-fluid">
         
         <h3 class="mb-3">Download app demo text</h3>
-        
+            <div class="test">
+
+    </div>
         <a href="#"><img src="{{ asset('storage/images/misc/appstore.png') }}" height="40"></a>
         <a href="#"><img src="{{ asset('storage/images/misc/appstore.png') }}" height="40"></a>
         
         </div><!-- container-fluid // -->
     </section>
+
     <!-- ========================= SECTION  END// ======================= -->
+    {{-- @section('js')
+        <script>
+            $.get("{!! route('carousel-pc') !!}", function (data) {
+                $.each(data,function(index,value){
+                    $(".carousel-inner").append(
+                        '<div class="carousel-item active img-gradient">' +
+                            '<a href="#">' +
+                                '<img class="img-fluid" src="{{ asset('storage/') }}/'+data[index].images+'" id="carousel-img" alt="Image slide">' +
+                            '</a>' +
+                        '</div>'
+                    );
+                    // $( '.carousel-inner').find('.carousel-item:first' ).addClass( 'active' );
+                });
+            });
+        </script>
+    @endsection --}}
 </div>

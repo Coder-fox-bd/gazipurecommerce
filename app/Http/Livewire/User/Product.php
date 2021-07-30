@@ -51,6 +51,7 @@ class Product extends Component
              //check here if the user is authenticated
             if ( ! Auth::user() )
             {
+                session(['link' => url()->previous()]);
                 session()->flash('worning', 'You need to login first!');
                 return redirect(route('login'));
             }

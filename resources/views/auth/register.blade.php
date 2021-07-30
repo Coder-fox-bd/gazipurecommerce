@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
+@extends('user.layouts.user_two')
 
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+@section('title', 'Login')
 
-    <!-- Bootstrap4 files-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+@section('css')
 
-    <!-- Font awesome 5 -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+@endsection
 
-    <!-- custom style -->
-    <link href="user/css/ui.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
+@section('content')
     <!-- ========================= SECTION CONTENT ========================= -->
     <section class="section-content padding-y">
 
@@ -97,9 +86,12 @@
                     </form>
                 </article><!-- card-body.// -->
             </div> <!-- card .// -->
-            <p class="text-center mt-4">Have an account? <a href="">Log In</a></p>
+            <p class="text-center mt-4">Have an account? <a href="{{ route('login') }}">Log In</a></p>
             <br><br>
         <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
     </section>
-</body>
-</html>
+    @endsection
+
+    @section('js')
+    
+    @endsection

@@ -3,6 +3,9 @@
 @section('title', 'App Settings')
 
 @section('content')
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-4 text-gray-800">Settings</h1>
+    </div>
     @if (Session::has('success'))
     <div class="alert alert-success" role="alert">
         {{ Session::get('success') }}
@@ -13,7 +16,7 @@
     @endif
     {{-- In work, do what you enjoy. --}}
     <div class="row user">
-        <div class="col-md-3">
+        <div class="col-md-3 mb-2">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="tile p-0">

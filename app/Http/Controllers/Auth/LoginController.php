@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class LoginController extends Controller
@@ -24,12 +25,19 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function authenticated(Request $request, $user)
+    {   
+        if (session('link')) {
+            return redirect()->to(session('link'));
+        }
+        return redirect('/');
+    }
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -93,4 +101,9 @@ class LoginController extends Controller
 
         Auth::login($user);
     }
+
+    // public function redirectTo() 
+    // {
+    //     return redirect()->(session('link'));
+    // }
 }

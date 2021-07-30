@@ -1,5 +1,6 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
+    @section('title', 'Cart')
     <!-- ========================= SECTION CONTENT ========================= -->
     <section class="section-content padding-y">
         <div class="container">
@@ -29,7 +30,7 @@
                                 <?php $items += $cart['quantity'] ?>
                                 <div class="row border-bottom pb-2">
                                     <div class="col-md-2 col-3 center p-r-0">
-                                    <a href=""><img src="{{ asset('storage/'.$cart->product->images->first()->images) }}" class="img-fluid"></a>
+                                    <a href="{{ route('product.show', $cart->product->slug) }}"><img src="{{ $cart->product->getFirstMediaUrl('products') }}" class="img-fluid"></a>
                                     </div>
                                     <div class="col-md-8 col-7 p-l-0">
                                     <figcaption class="info">
