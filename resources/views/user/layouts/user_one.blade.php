@@ -12,6 +12,7 @@
 </head>
 <body>
 @include('user.partials.header')
+@livewire('user.add-to-cart')
 <!-- Page Content -->
 @yield('content')
 @include('user.partials.footer')

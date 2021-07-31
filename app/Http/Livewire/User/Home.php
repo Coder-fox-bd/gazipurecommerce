@@ -10,6 +10,11 @@ use App\Models\Carousel;
 
 class Home extends Component
 {
+    public function something()
+    {
+        $this->emit(event: "addCartEvent");
+    }
+
     public function render()
     {
         return view('livewire.user.home',[

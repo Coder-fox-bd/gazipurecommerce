@@ -23,7 +23,9 @@ class Product extends Component
 
         if (isset($this->product->attributes[0])) {
             $this->product_variations = ProductVariant::where('product_attribute_id', $this->product->attributes[0]->id)->get();
-            $this->variation = Variant::where('id', $this->product_variations[0]->variant_id )->first();
+            if (isset( $this->product_variations[0])) {
+                $this->variation = Variant::where('id', $this->product_variations[0]->variant_id )->first();
+            }
         }
     }
 
@@ -43,7 +45,7 @@ class Product extends Component
     public function addToCart($formData)
     {
         // $this->validate();
-        $product = Item::find($formData['id']);
+        $product = Item::findOrFail($formData['id']);
         if (!$product) {
             session()->flash('warning', 'Something went wrong!');
         }else{

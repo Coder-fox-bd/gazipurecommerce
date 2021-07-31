@@ -106,7 +106,7 @@
                                                     @foreach($product->attributes as $index => $attributeValue)
                                                         @if ($attributeValue->attribute_id == $attribute->id)
                                                         <label class="custom-control custom-radio custom-control-inline" wire:key="attribute-field-{{ $attribute->id }}">
-                                                        <input wire:click="addToAttributes({{ $attributeValue->id }}, '{{ $attributeValue->value }}', '{{ $attributeValue->price }}')" type="radio" name="attribute" value="{{ $attributeValue->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                        <input wire:click="addToAttributes({{ $attributeValue->id }}, '{{ $attributeValue->value }}', '{{ $attributeValue->price }}')" type="radio" name="attribute" value="{{ $attributeValue->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif required>
                                                         <div class="custom-control-label">{{ $attributeValue->value }}</div>
                                                         </label>
                                                         @endif
@@ -130,7 +130,7 @@
                                         @if($related_variants)
                                             @foreach($related_variants as $index => $product_variation)
                                                 <label class="custom-control custom-radio custom-control-inline">
-                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif required>
                                                 <div class="custom-control-label">{{ $product_variation->value }}</div>
                                                 </label>
                                             @endforeach
@@ -138,7 +138,7 @@
                                             @if($product_variations)
                                             @foreach($product_variations as $index => $product_variation)
                                                 <label class="custom-control custom-radio custom-control-inline">
-                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif>
+                                                <input wire:click="addToVariations('{{ $product_variation->value }}','{{ $product_variation->price }}')" type="radio" name="variation" value="{{ $product_variation->value }}" class="custom-control-input" @if (!$index) {!! "checked" !!} @endif required>
                                                 <div class="custom-control-label">{{ $product_variation->value }}</div>
                                                 </label>
                                             @endforeach
