@@ -76,7 +76,7 @@
                                             @else
                                             <div class="price mt-1">{{ config('settings.currency_symbol') }} {{ $product->price }}</div> <!-- price-wrap.// -->
                                             @endif
-                                            <button class="btn square_btn_4 btn-block"><i
+                                            <button wire:click="$emit('addCartEvent', {{ $product->id }})" class="btn square_btn_4 btn-block"><i
                                                 class="fas fa-shopping-cart pr-2"></i>Add to cart </button>
                                         </figcaption>
                                     </div>
