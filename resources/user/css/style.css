@@ -630,3 +630,8 @@ outline: none; }
 .search-a:hover{
   color:rgb(168, 168, 168);
 }
+/* profile */
+.img-profile {
+  height: 3rem;
+  width: 3rem;
+}

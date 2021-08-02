@@ -90,7 +90,7 @@
 
 <header id="navbar_top" class="section-header nav-color-main nav-text-color">
 
-	<section class="header-main">
+	<section class="header-main p-md-1">
 		<div class="container-fluid">
 			<div class="row align-items-center">
 				<div class="col-lg-2 col-10 order-md-1 order-2 p-l-0">
@@ -103,7 +103,16 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12 order-md-2 order-3">
-					@livewire('user.search')
+					<form action="#" class="search">
+						<div class="input-group w-100">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-append">
+							<button class="btn search-btn" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+							</div>
+						</div>
+					</form> <!-- search-wrap .end// -->
 				</div> <!-- col.// -->		
 				<div class="col-lg-4 col-sm-6 col-2 order-md-2 order-1">
 					<div class="d-none d-md-block">
@@ -112,38 +121,60 @@
 								<a href="{{ route('shoping-cart') }}" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-shopping-cart"></i></a>
 								@livewire('user.cart')
 							</div>
-							<div class="widget-header icontext">
-								<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-user"></i></a>
-								<div class="text text-white">
-									<span class="text-muted">Welcome!</span>
-									<div> 
-										@guest
-											@if (Route::has('login'))
+
+							@guest
+								@if (Route::has('login'))
+								<div class="widget-header icontext">
+									<a href="#" class="icon icon-sm rounded-circle border icon-hover"><i class="fa fa-user"></i></a>
+									<div class="text text-white">
+										<span class="text-muted">Welcome!</span>
+										<div> 
 											<div> 
 												<a href="{{ route('login') }}">Sign in</a> |  
 												<a href="{{ route('register') }}"> Register</a>
 											</div>
-											@endif
-										@else
-											<a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-												{{ Auth::user()->name }}
-											</a>
-		
-											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-												<a class="dropdown-item" href="{{ route('logout') }}"
-												onclick="event.preventDefault();
-																document.getElementById('logout-form').submit();">
-													{{ __('Logout') }}
-												</a>
-		
-												<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-													@csrf
-												</form>
-											</div>
-										@endguest
+										</div>
+									</div>
+								</div>
+								@endif
+							@else
+
+							<div class="nav-item icontext">
+								<!-- Nav Item - User Information -->
+								<div class="dropdown no-arrow">
+									<a class="nav-link p-1" href="#" id="userDropdown" role="button"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<img class="img-profile rounded-circle"
+											src="{{ asset('admin/img/undraw_profile.svg') }}">
+									</a>
+									<!-- Dropdown - User Information -->
+									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+										aria-labelledby="userDropdown">
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+											Profile
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+											Settings
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+											Activity Log
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+											{{ __('Logout') }}
+										</a>
+
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+										</form>
 									</div>
 								</div>
 							</div>
+							@endguest
 						</div> <!-- widgets-wrap.// -->
 					</div>
 					<div class="d-md-none">
@@ -155,21 +186,18 @@
 			</div> <!-- row.// -->
 		</div> <!-- container-fluid.// -->
 	</section> <!-- header-main .// -->
+	<nav class="navbar navbar-main navbar-expand-lg nav-color-sub fixed d-none d-md-block p-1">
+		<div class="container-fluid">
+			<ul class="navbar-nav p-0">
+				<li class="nav-item p-0" id="flip">
+				<a class="nav-link pl-0 pt-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
+			  </li>
+			  @foreach($categories->where('featured', 1)->take(8) as $category)
+			  <li class="nav-item p-0 has-submenu">
+				  <a class="nav-link pt-0" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
+			  </li>
+			  @endforeach
+			</ul>
+		</div> <!-- container-fluid .// -->
+	  </nav>
 </header>
-<nav class="navbar navbar-main navbar-expand-lg nav-color-sub fixed d-none d-md-block">
-  <div class="container-fluid">
-      <ul class="navbar-nav">
-      	<li class="nav-item" id="flip">
-          <a class="nav-link pl-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
-        </li>
-		<li class="nav-item has-submenu">
-			<a class="nav-link" href="{{ route('shop') }}">Shop</a>
-		</li>
-		@foreach($categories->where('featured', 1)->take(8) as $category)
-		<li class="nav-item has-submenu">
-			<a class="nav-link" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
-		</li>
-		@endforeach
-      </ul>
-  </div> <!-- container-fluid .// -->
-</nav>
