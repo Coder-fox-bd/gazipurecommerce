@@ -1,20 +1,4 @@
 <div>
-    <style>
-        .search-div {
-            z-index: 1000;
-        }
-        .search-ul {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-        }
-        .search-a{
-            color:rgb(255, 255, 255);
-        }
-        .search-a:hover{
-            color:rgb(168, 168, 168);
-        }
-    </style>
     {{-- Nothing in the world is as soft and yielding as water. --}}
     <form action="{{ route('search-results', $search) }}">
         <div class="input-group w-100">

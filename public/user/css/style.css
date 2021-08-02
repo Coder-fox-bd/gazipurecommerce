@@ -614,3 +614,19 @@ outline: none; }
 .bg-light-gray {
   background-color: #f9f9f9;
 }
+
+/* search bar css */
+.search-div {
+  z-index: 1000;
+}
+.search-ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.search-a{
+  color:rgb(255, 255, 255);
+}
+.search-a:hover{
+  color:rgb(168, 168, 168);
+}
