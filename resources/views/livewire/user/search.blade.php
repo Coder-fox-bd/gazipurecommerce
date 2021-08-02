@@ -1,6 +1,6 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
-    <form action="{{ route('search-results', $search) }}">
+    <form action="{{ route('search-results', $search) }}" class="search">
         <div class="input-group w-100">
             <input wire:model.debounce.500ms="search" type="text" class="form-control" placeholder="Search">
             <div class="input-group-append">
