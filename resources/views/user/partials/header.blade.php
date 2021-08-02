@@ -103,16 +103,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12 order-md-2 order-3">
-					<form action="#" class="search">
-						<div class="input-group w-100">
-							<input type="text" class="form-control" placeholder="Search">
-							<div class="input-group-append">
-							<button class="btn search-btn" type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-							</div>
-						</div>
-					</form> <!-- search-wrap .end// -->
+					@livewire('user.search')
 				</div> <!-- col.// -->		
 				<div class="col-lg-4 col-sm-6 col-2 order-md-2 order-1">
 					<div class="d-none d-md-block">
@@ -171,6 +162,9 @@
       	<li class="nav-item" id="flip">
           <a class="nav-link pl-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
         </li>
+		<li class="nav-item has-submenu">
+			<a class="nav-link" href="{{ route('shop') }}">Shop</a>
+		</li>
 		@foreach($categories->where('featured', 1)->take(8) as $category)
 		<li class="nav-item has-submenu">
 			<a class="nav-link" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>

@@ -64,6 +64,8 @@ Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'r
 // Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
 // Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
 
+Route::get('/shop', \App\Http\Livewire\User\Shop::class)->name('shop');
+Route::get('/{name}', \App\Http\Livewire\User\SearchResult::class)->name('search-results')->where('name', '.*');
 Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('category.show');
 
 Route::get('/product/{slug}', \App\Http\Livewire\User\Product::class)->name('product.show');
