@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('user.layouts.user_two')
+
+@section('title', 'Reset')
 
 @section('content')
-<div class="container">
+<div class="container padding-y" style="min-height:84vh">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
