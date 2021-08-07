@@ -641,7 +641,3 @@ outline: none; }
   display: block;
 }
 
-.dropdown:active {
-  /*Without this, clicking will make it sticky*/
-    pointer-events: none;
-}
