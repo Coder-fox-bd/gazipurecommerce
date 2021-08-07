@@ -50,7 +50,7 @@
                                             <a wire:click.prevent="delete({{ $cart['id'] }})" class="small cursor-pointer">Delete</a>
                                         </div>
                                         <div class="col-md-2 col-5 p-0 text-right">
-                                            <a href="" class="small">Save for latter</a>
+                                            <a wire:click.prevent="saveForLatter({{ $cart['id'] }})" class="small">Save for latter</a>
                                         </div>
                                         </div>
                                     </figcaption>
