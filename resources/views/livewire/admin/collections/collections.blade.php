@@ -1,5 +1,7 @@
 <div>
-    @section('title', 'Brands')
+    {{-- In work, do what you enjoy. --}}
+    @section('title', 'Collection')
+    <h1 class="h3 mb-4 text-gray-800">Collections</h1>
     @section('css') 
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     @endsection
@@ -19,11 +21,11 @@
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-6">
-                    <h6 class="m-0 font-weight-bold text-primary">Brand Table</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Collection Table</h6>
                 </div>
                 <div class="col-6">
                     <!-- Large modal -->
-                    <a class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false" ><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -31,46 +33,56 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <div class="tile-body table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                        <div  class="tile-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
                                     <tr>
                                         <th> # </th>
                                         <th> Name </th>
-                                        <th> Slug </th>
+                                        <th class="text-center"> Status </th>
                                         <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
                                     </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Slug </th>
-                                        <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                @foreach($brands as $brand)
-                                    <tr>
-                                        <td>{{ $brand->id }}</td>
-                                        <td>{{ $brand->name }}</td>
-                                        <td>{{ $brand->slug }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Second group">
-                                                <a wire:click="edit({{ $brand->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
-                                                <a wire:click="deleteId({{ $brand->id }})" class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th> # </th>
+                                            <th> Name </th>
+                                            <th class="text-center"> Status </th>
+                                            <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach($collections as $collection)
+                                            <tr>
+                                                <td>{{ $collection->id }}</td>
+                                                <td>{{ $collection->name }}</td>
+                                                <td class="text-center">
+                                                    @if ($collection->status == 1)
+                                                        <span class="badge badge-success">Active</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Not Active</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="btn-group" role="group" aria-label="Second group">
+                                                        <a wire:click="edit({{ $collection->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
+                                                        <a wire:click="deleteId({{ $collection->id }})"  class="btn btn-sm btn-danger"  data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Add Collection Model --}}
     <div wire:ignore.self class="modal bd-example-modal-lg" id="IDModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -87,19 +99,21 @@
                                                 <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" wire:model="name" />
                                                 @error('name') {{ $message }} @enderror
                                             </div>
-                                            <div class="form-group">
-                                                @if ($logo)
-                                                Photo Preview:
-                                                <img class="img-fluid w-25 my-2 contenedor-img" src="{{ $logo->temporaryUrl() }}">
-                                                <a wire:click="removeMe" >Remove</a>
-                                                @endif 
-                                                <label class="control-label">Brand Logo</label>
-                                                <input class="form-control @error('logo') is-invalid @enderror" type="file" id="logo" wire:model="logo"/>
-                                                @error('logo') {{ $message }} @enderror
-                                            </div>
                                         </div>
                                         <div class="tile-footer">
                                             @if($this->updateMode)
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input"
+                                                                type="checkbox"
+                                                                id="status"
+                                                                wire:model="status"
+                                                                {{ $status == 1 ? 'checked' : '' }}
+                                                            />Status
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <button wire:click.prevent="update()" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Brand</button>
                                             @else
                                             <button wire:click.prevent="store()" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Brand</button>
@@ -116,6 +130,8 @@
             </div>
         </div>
      </div>
+
+     {{-- Delete confirmation Model --}}
      <div wire:ignore.self class="modal delete-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -135,7 +151,7 @@
             </div>
         </div>
     </div>
-     @section('js')
-     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+    @section('js')
+        <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @endsection
 </div>

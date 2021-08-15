@@ -33,4 +33,12 @@ class CarouselController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+
+    public function delete($id)
+    {
+        $carousel = Slider::findOrFail($id);
+        Storage::delete('public/'.$carousel->images);
+        $carousel->delete(); 
+        return back();
+    }
 }

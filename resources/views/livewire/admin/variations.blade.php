@@ -1,10 +1,7 @@
 <div>
     {{-- In work, do what you enjoy. --}}
     @section('title', 'Variations')
-    @section('css')
-    <!-- Custom styles for this page -->
-    <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-    
+    @section('css') 
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
     @endsection
 
@@ -24,7 +21,7 @@
     @endif
 
     <!-- Variations table -->
-    <div class="card shadow mb-4">
+    <div class="card shadow-sm mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-6">
@@ -194,13 +191,6 @@
         </div>
     </div>
     @section('js')
-        <!-- Page level plugins -->
-        <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    
-        <!-- Page level custom scripts -->
-        <script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
-
         <script src="{{ asset('toastr/toastr.min.js') }}"></script>
     @endsection
 </div>

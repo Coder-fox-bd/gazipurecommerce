@@ -4,7 +4,11 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('admin/dropzone/min/dropzone.min.css') }}"/>
-<style>.img-holder {position: relative;} .img-holder .link {position: absolute; top: 10px;right: 20px; cursor: pointer;}</style>
+<style>
+.img-holder {position: relative;} 
+.img-holder 
+.link {position: absolute; top: 10px;right: 20px; cursor: pointer;}
+.attach-link{position: absolute; top: 30px;right: 20px; cursor: pointer;}</style>
 @endsection
 
 @section('content')
@@ -64,7 +68,8 @@
                                         @foreach($carouselPc as $slider)
                                         <div class="col-md-3 col-6 img-holder">
                                             <img class="img-fluid my-2 contenedor-img" src="{{ asset('storage/'.$slider->images) }}">
-                                            <a class="link text-danger"><i class="fas fa-times-circle fa-1x"></i></a>
+                                            <a href="{{ route('admin.slider-image-delete', $slider->id) }}" class="link text-danger"><i class="fas fa-times-circle fa-1x"></i></a>
+                                            <a class="attach-link text-danger" id="{{ $slider->id }}" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false" onClick="reply_click(this.id)"><i class="fas fa-link"></i></a>
                                         </div>
                                         @endforeach
                                     </div>
@@ -81,6 +86,24 @@
         </div>
     </div>
 </div>
+{{-- Attach link with image --}}
+<div class="modal bd-example-modal-lg" id="IDModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="row justify-content-center p-4">
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="general">
+                            <div class="tile">
+                                @livewire('admin.url-generatior')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
 @endsection
 
 @section('js')
@@ -115,4 +138,10 @@
         });
     });
 </script>
+<script type="text/javascript">
+    function reply_click(clicked_id)
+    {
+        document.getElementById('carousel-id').value = clicked_id;
+    }
+  </script>
 @endsection

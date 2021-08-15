@@ -12,7 +12,8 @@
                             <div class="carousel-inner bg-info" role="listbox">
                                 @foreach($carousel->where('status', 1) as $key => $slider)
                                 <div class="carousel-item {{$key == 0 ? 'active' : '' }} img-gradient">
-                                    <a href="#">
+                                    <a href="{{ $slider->offer_url }}">
+                                        {{ $slider->collections }}
                                         <img class="img-fluid" src="{{ asset('storage/'.$slider->images) }}" alt="Image slide">
                                     </a>
                                 </div>

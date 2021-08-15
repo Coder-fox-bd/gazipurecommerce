@@ -103,7 +103,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('brands') }}">
                     <i class="fas fa-cloud-meatball"></i>
-                    <span>Brands</span></a>
+                <span>Brands</span></a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Collections</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Product Collection:</h6>
+                        <a class="collapse-item" href="{{ route('collections') }}">Collection List</a>
+                        <a class="collapse-item" href="{{ route('add-to-collection') }}">Add to Collection</a>
+                        <a class="collapse-item" href="{{ route('collection-products') }}">Product Collections</a>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">

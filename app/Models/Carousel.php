@@ -17,5 +17,13 @@ class Carousel extends Model
     /**
      * @var array
      */
-    protected $fillable = ['images', 'mobile_image', 'status'];
+    protected $fillable = ['images', 'mobile_image', 'offer_url', 'status'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function collections()
+    {
+        return $this->belongsTo(Collection::class);
+    }
 }

@@ -25,8 +25,12 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
     Route::get('admin/variations', \App\Http\Livewire\Admin\Variations::class)->name('variations');
     Route::get('admin/brands', \App\Http\Livewire\Admin\Brands::class)->name('brands');
+    Route::get('admin/collection', \App\Http\Livewire\Admin\Collections\Collections::class)->name('collections');
+    Route::get('admin/add-to-collection', \App\Http\Livewire\Admin\Collections\AddToCollection::class)->name('add-to-collection');
+    Route::get('admin/collection-products', \App\Http\Livewire\Admin\Collections\CollectionProducts::class)->name('collection-products');
     Route::get('admin/image-slider', [App\Http\Controllers\Admin\CarouselController::class, 'index'])->name('admin.image-slider');
     Route::post('admin/image-slider', [App\Http\Controllers\Admin\CarouselController::class, 'uploadImage'])->name('admin.slider-image-upload');
+    Route::get('admin/image-slider/{id}', [App\Http\Controllers\Admin\CarouselController::class, 'delete'])->name('admin.slider-image-delete');
     Route::get('admin/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.list');
     Route::get('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
     Route::post('admin/product/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
@@ -70,4 +74,6 @@ Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('c
 
 Route::get('/product/{slug}', \App\Http\Livewire\User\Product::class)->name('product.show');
 Route::get('/shoping-cart', \App\Http\Livewire\User\ShopingCart::class)->name('shoping-cart');
+
+Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('account');
 

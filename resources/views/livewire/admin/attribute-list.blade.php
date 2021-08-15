@@ -23,7 +23,7 @@
     @endif
 
     <!-- Attributes table -->
-    <div class="card shadow mb-4">
+    <div class="card shadow-sm mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-6">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div  wire:ignore class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
