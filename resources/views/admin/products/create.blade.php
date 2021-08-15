@@ -92,7 +92,23 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label" for="cost">Cost</label>
+                                                <input
+                                                    class="form-control @error('cost') is-invalid @enderror"
+                                                    type="text"
+                                                    placeholder="Enter product cost"
+                                                    id="cost"
+                                                    name="cost"
+                                                    value="{{ old('cost') }}"
+                                                />
+                                                <div class="invalid-feedback active">
+                                                    <i class="fa fa-exclamation-circle fa-fw"></i> @error('cost') <span>{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label" for="price">Price</label>
                                                 <input
@@ -108,7 +124,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label" for="special_price">Special Price</label>
                                                 <input

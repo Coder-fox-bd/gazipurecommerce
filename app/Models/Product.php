@@ -22,7 +22,7 @@ class Product extends Model implements HasMedia
      */
     protected $fillable = [
         'brand_id', 'admin_id', 'sku', 'name', 'slug', 'description', 'quantity',
-        'weight', 'price', 'special_price', 'status', 'featured',
+        'weight', 'cost', 'price', 'special_price', 'status', 'featured',
     ];
 
     /**
