@@ -23,7 +23,7 @@ class CreateWishListsTable extends Migration
             $table->decimal('price', 8, 2);
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

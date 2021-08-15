@@ -16,9 +16,9 @@ class CreateCollectionProductTable extends Migration
         Schema::create('collection_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('collection_id')->index();
-            $table->foreign('collection_id')->references('id')->on('collections');
+            $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
             $table->unsignedBigInteger('product_id')->index();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

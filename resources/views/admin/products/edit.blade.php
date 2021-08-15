@@ -260,7 +260,7 @@
                                             <div class="card shadow-sm">
                                                 <div class="card-body product-img">
                                                     <img src="{{ $image->getUrl() }}" id="brandLogo" class="img-fluid" alt="img">
-                                                    <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', $image->id) }}">
+                                                    <a class="card-link float-right text-danger" href="{{ route('admin.product.images.delete', [$product->id, $image->id]) }}">
                                                         <i class="fa fa-fw fa-lg fa-trash"></i>
                                                     </a>
                                                 </div>

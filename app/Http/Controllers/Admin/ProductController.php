@@ -116,13 +116,10 @@ class ProductController extends Controller
         return back()->with('success', 'Product updated successfully');
     }
 
-    public function deleteProduct($id)
+    public function deleteProduct(Product $product)
     {
-        $product = Product::findOrFail($id);
-
         $product->delete();
-
-        return $product;
+        return redirect()->back()->with('success', 'Product deleted successfully.');
     }
 
     public function uploadImage(Request $request)
@@ -139,14 +136,11 @@ class ProductController extends Controller
         return response()->json(['status' => 'success']);
     }
 
-    public function deleteImage($id)
+    public function deleteImage(Product $product, $id)
     {
-        $image = ProductImage::findOrFail($id);
-
-        if (Storage::delete('public/'.$image->images)) {
-            $image->delete();
-        }
-
+        $media = $product->getMedia('products');
+        $image = $media->where('id', $id)->first();
+        $image->delete();
         return redirect()->back()->with('success', 'Product image deleted successfully.');
     }
 

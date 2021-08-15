@@ -20,8 +20,8 @@ class CreateProductVariansTable extends Migration
             $table->decimal('price', 8, 2)->nullable();
             $table->unsignedBigInteger('variant_id')->index();
             $table->unsignedBigInteger('product_attribute_id')->index();
-            $table->foreign('variant_id')->references('id')->on('variants');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes');
+            $table->foreign('variant_id')->references('id')->on('variants')->onDelete('cascade');
+            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
             $table->timestamps();
         });
     }

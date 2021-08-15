@@ -20,8 +20,8 @@ class CreateProductAttributeTable extends Migration
             $table->decimal('price', 8, 2)->nullable();
             $table->unsignedBigInteger('attribute_id')->index();
             $table->unsignedBigInteger('product_id')->index();
-            $table->foreign('attribute_id')->references('id')->on('attributes');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
