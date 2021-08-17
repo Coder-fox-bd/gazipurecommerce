@@ -36,6 +36,12 @@ return [
             'url'        => env('APP_URL') . '/storage/products',
         ],
 
+        'brands' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/brands'),
+            'url'        => env('APP_URL') . '/storage/brands',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

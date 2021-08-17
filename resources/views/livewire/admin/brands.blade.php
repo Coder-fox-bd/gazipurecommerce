@@ -32,39 +32,20 @@
                 <div class="col-md-12">
                     <div class="tile">
                         <div class="tile-body table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Slug </th>
-                                        <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Slug </th>
-                                        <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                @foreach($brands as $brand)
-                                    <tr>
-                                        <td>{{ $brand->id }}</td>
-                                        <td>{{ $brand->name }}</td>
-                                        <td>{{ $brand->slug }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Second group">
-                                                <a wire:click="edit({{ $brand->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
-                                                <a wire:click="deleteId({{ $brand->id }})" class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                            @foreach($brands as $brand)
+                            <div class="col-md-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body product-img">
+                                        {{ $brand->getFirstMedia('brands') }}
+                                        {{-- <img src="{{ $brand->getFirstMedia('brands') }}" id="brandLogo" class="img-fluid" alt="img"> --}}
+                                        <a wire:click="brandId({{ $brand->id }})" class="card-link float-right text-danger"
+                                         data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false">
+                                         <i class="fa fa-fw fa-lg fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -87,16 +68,11 @@
                                                 <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" wire:model="name" />
                                                 @error('name') {{ $message }} @enderror
                                             </div>
-                                            <div class="form-group">
-                                                @if ($logo)
-                                                Photo Preview:
-                                                <img class="img-fluid w-25 my-2 contenedor-img" src="{{ $logo->temporaryUrl() }}">
-                                                <a wire:click="removeMe" >Remove</a>
-                                                @endif 
-                                                <label class="control-label">Brand Logo</label>
-                                                <input class="form-control @error('logo') is-invalid @enderror" type="file" id="logo" wire:model="logo"/>
-                                                @error('logo') {{ $message }} @enderror
-                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Brand Logo</label>
+                                            <input class="form-control @error('logo') is-invalid @enderror" type="file" id="logo" wire:model="logo"/>
+                                            @error('logo') {{ $message }} @enderror
                                         </div>
                                         <div class="tile-footer">
                                             @if($this->updateMode)

@@ -12,15 +12,10 @@ class Brands extends Component
     use WithFileUploads;
     public $name;
     public $logo;
-    public $try_delete;
+    public $brandId;
     public $selected_id;
     public $updated;
     public $updateMode = false;
-
-    public function removeMe()
-    {
-      $this->logo = '';
-    }
     
     public function cancel()
     {
@@ -32,17 +27,21 @@ class Brands extends Component
     {
         $validate = $this->validate([
             'name'      =>  'required|max:191',
-            'logo'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
+            'logo'      =>  'required',
         ]);
-        if ($this->logo) {
-            $validate['logo'] = $this->logo->store('brands', 'public');
-        }
+
         $Brand = Brand::create($validate);
+
+        if ($this->logo) {
+            $Brand->addMedia($this->logo->getRealPath())
+                ->withResponsiveImages()
+                ->toMediaCollection('brands', 'brands');
+        }
 
         if (!$Brand) {
             session()->flash('error', "Somethign went wrong!");
         }
-        session()->flash('success', "You have successfully added a Attribute!");
+        session()->flash('success', "You have successfully added a brand!");
         $this->reset();
     }
 
@@ -59,12 +58,9 @@ class Brands extends Component
     {
         $validate = $this->validate([
             'name'      =>  'required|max:191',
-            'logo'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
 
-        $validate['logo'] = $this->logo->store('brands', 'public');
-        $brand = Brand::find($this->selected_id);
-        Storage::delete('public/'.$brand->logo);       
+        $brand = Brand::find($this->selected_id);       
 
         $updated = $brand->update($validate);
 
@@ -72,28 +68,37 @@ class Brands extends Component
             session()->flash('worning', "Somethign went wrong!");
         }
          
-        session()->flash('success', "You have successfully updated a Attribute!");
+        session()->flash('success', "You have successfully updated a brand!");
         $this->updateMode = false;
         $this->reset();
     }
 
-    public function deleteId($id)
+    public function uploadImage()
     {
-        $this->try_delete = $id;
+        $brand = Brand::findOrFail($this->brandId);
+        $this->validate([
+            'logo'      =>  'required',
+        ]);
+
+        if ($this->logo) {
+            $brand->addMedia($this->logo->getRealPath())
+                ->withResponsiveImages()
+                ->toMediaCollection('brands', 'brands');
+        }
+
+        session()->flash('success', "You successfully added brand logo!");
+    }
+
+    public function brandId($id)
+    {
+        $this->brandId = $id;
     }
 
     public function delete()
     {
-        $brands = Brand::findOrFail($this->try_delete);
-        if ($brands->image) {
-            if(Storage::delete('public/'.$brands->logo)) {
-                $brands->delete();
-                session()->flash('warning', 'Brand has been deleted!');
-            }
-        }else {
-            $brands->delete();
-            session()->flash('warning', 'Brand has been deleted!');
-        }
+        $brands = Brand::findOrFail($this->brandId);
+        $brands->delete();
+        session()->flash('warning', 'Brand has been deleted!');
     }
 
     public function render()
