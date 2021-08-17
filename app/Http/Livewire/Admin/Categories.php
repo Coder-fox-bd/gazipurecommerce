@@ -24,7 +24,7 @@ class Categories extends Component
     public $updateMode = false;
 
     protected $rules = [
-        'name' => 'required|min:2|max:255|string',
+        'name' => 'required|min:2|max:255|string|unique:categories',
         'category_id' => 'sometimes|nullable|numeric',
         'image'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
     ];
@@ -39,10 +39,6 @@ class Categories extends Component
     {
         $this->validate();
 
-        if ($this->image) {
-            $this->image = $this->image->store('categories', 'public');;
-        }
-
         $featured = $this->featured ? 1 : 0;
         $menu = $this->menu ? 1 : 0;
 
@@ -54,6 +50,12 @@ class Categories extends Component
             'menu' => $menu,
             'image' => $this->image,
         ]);
+
+        if ($this->image) {
+            $category->addMedia($this->image->getRealPath())
+                ->withResponsiveImages()
+                ->toMediaCollection('categories', 'categories');
+        }
 
         if (!$category) {
             session()->flash('error', "Somethign went wrong!");
@@ -73,7 +75,7 @@ class Categories extends Component
     public function update()
     {
         $validatedData = $this->validate([
-            'name'  => 'required|min:2|max:255|string'
+            'name'  => 'required|min:2|max:255|string|unique:name'
         ]);
         $category = Category::find($this->category_id);
         $category->update($validatedData);
@@ -90,15 +92,8 @@ class Categories extends Component
     public function delete()
     {
         $category = Category::findOrFail($this->deleteId);
-        if ($category->image) {
-            if(Storage::delete('public/'.$category->image)) {
-                $category->delete();
-                session()->flash('warning', 'Category has been deleted!');
-            }
-        }else {
-            $category->delete();
-            session()->flash('warning', 'Category has been deleted!');
-        }
+        $category->delete();
+        session()->flash('warning', 'Category has been deleted!');
     }
 
     public function render()

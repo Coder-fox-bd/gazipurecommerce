@@ -84,6 +84,7 @@
                   <li class="list-group-item">
                     <div class="d-flex justify-content-between">
                       {{ $category->name }}
+                      {{-- <img src="{{ $category->getFirstMediaUrl('categories') }}" alt="" class="img-fluid"> --}}
                       <div class="btn-group" role="group" aria-label="Second group">
                         <a  wire:click="edit({{ $category->id }})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCategoryModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
                         <a wire:click="deleteId({{ $category->id }})" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
@@ -151,6 +152,7 @@
                     <label class="control-label">Category Image</label>
                     <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"  wire:model="image"/>
                     @error('image') {{ $message }} @enderror
+                    <div wire:loading wire:target="image">Uploading...</div>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">Create</button>

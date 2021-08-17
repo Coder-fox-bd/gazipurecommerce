@@ -37,8 +37,8 @@
                                 <div class="col-md-3">
                                     <div class="card shadow-sm">
                                         <div class="card-body product-img">
-                                            {{ $brand->getFirstMedia('brands') }}
-                                            {{-- <img src="{{ $brand->getFirstMedia('brands') }}" id="brandLogo" class="img-fluid" alt="img"> --}}
+                                            {{-- {{ $brand->getFirstMediaUrl('brands') }} --}}
+                                            <img src="{{ $brand->getFirstMediaUrl('brands') }}" id="brandLogo" class="img-fluid" alt="img">
                                             <a wire:click="brandId({{ $brand->id }})" class="card-link float-right text-danger"
                                             data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false">
                                             <i class="fa fa-fw fa-lg fa-trash"></i>
