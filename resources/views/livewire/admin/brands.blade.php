@@ -31,21 +31,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <div class="tile-body table-responsive">
-                            @foreach($brands as $brand)
-                            <div class="col-md-3">
-                                <div class="card shadow-sm">
-                                    <div class="card-body product-img">
-                                        {{ $brand->getFirstMedia('brands') }}
-                                        {{-- <img src="{{ $brand->getFirstMedia('brands') }}" id="brandLogo" class="img-fluid" alt="img"> --}}
-                                        <a wire:click="brandId({{ $brand->id }})" class="card-link float-right text-danger"
-                                         data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false">
-                                         <i class="fa fa-fw fa-lg fa-trash"></i>
-                                        </a>
+                        <div class="tile-body">
+                            <div class="row">
+                                @foreach($brands as $brand)
+                                <div class="col-md-3">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body product-img">
+                                            {{ $brand->getFirstMedia('brands') }}
+                                            {{-- <img src="{{ $brand->getFirstMedia('brands') }}" id="brandLogo" class="img-fluid" alt="img"> --}}
+                                            <a wire:click="brandId({{ $brand->id }})" class="card-link float-right text-danger"
+                                            data-toggle="modal" data-target=".delete-modal" data-backdrop="static" data-keyboard="false">
+                                            <i class="fa fa-fw fa-lg fa-trash"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -73,6 +75,7 @@
                                             <label class="control-label">Brand Logo</label>
                                             <input class="form-control @error('logo') is-invalid @enderror" type="file" id="logo" wire:model="logo"/>
                                             @error('logo') {{ $message }} @enderror
+                                            <div wire:loading wire:target="logo">Uploading...</div>
                                         </div>
                                         <div class="tile-footer">
                                             @if($this->updateMode)
