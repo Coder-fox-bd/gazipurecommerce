@@ -3,9 +3,10 @@
 
     @section('css')
 
-    <link rel="stylesheet" href="{{ asset('user/css/starrate.css') }}">
-    <link rel="stylesheet" href="{{ asset('user/css/product_view.css') }}">
-    <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ mix('user/css/starrate.css') }}">
+    <link rel="stylesheet" href="{{ mix('user/css/product_view.css') }}">
+    <link rel="stylesheet" href="{{ mix('user/css/ckeditor.css') }}">
+    <link rel="stylesheet" href="{{ mix('toastr/toastr.min.css') }}">
     @endsection
     {{-- Be like water. --}}
     <style>.toast-success { background-color: #51A351; }</style>
@@ -171,128 +172,12 @@
         </div>
     </div>
     
-    
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <img src="https://m.media-amazon.com/images/S/aplus-media/vc/1406ff2d-2bc3-4dfd-8b74-ac1c1f3cc401.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" style="width: 100%;" alt="">
-            </div>
-            <div class="col-12">
-                <div class="display-table p-5">
-                    <div class="md-display-table-cell sm-display-table-row md-center-half">
-                        <h2>Hello there header</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum tempore magnam deleniti? Necessitatibus eaque vel ut provident, explicabo voluptate corrupti delectus nisi quia doloribus accusamus quos. Voluptas aperiam iste dolore!</p>
-                    </div>
-                    <div class="md-display-table-cell sm-display-table-row md-center-half">
-                        <img src="https://m.media-amazon.com/images/S/aplus-media/vc/987cf490-966d-44aa-a35f-2d55933de9c8.__CR0,0,800,600_PT0_SX800_V1___.jpg" class="img-fluid" alt="">
-                    </div>
-                </div>
-                <div class="display-table p-5">
-                    <div class="md-display-table-cell sm-display-table-row md-center-half">
-                        <img src="https://m.media-amazon.com/images/S/aplus-media/vc/d0a52cc9-1658-4388-8193-7c017253ef1f.__CR0,0,800,600_PT0_SX800_V1___.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="md-display-table-cell sm-display-table-row md-center-half">
-                        <h2>Bring home a beauty</h2>
-                        <p><strong>Vivid views:</strong> 27-inch FHD (1920 x 1080) Infinity Touch Display, this Full HD display looks incredible from nearly every angle.</p>
-                         <p><strong>Modern set-up:</strong> Experience improved stability, fewer distractions and stunning design with space-efficient stand, a forward-firing sound bar and keyboard storage underneath your display.</p>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-12">
-                <h2>This is a header</h2>
-                <img src="https://m.media-amazon.com/images/S/aplus-media/vc/1406ff2d-2bc3-4dfd-8b74-ac1c1f3cc401.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" style="width: 100%;" alt="">
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="container-fluid">
-        <div class="row padding-y">
-            <div class="col-12 text-center">
-                <h4>Technical Details</h4>
-                <h5>Apple iPad - 10.2-inch (8th Generation)</h5>
-            </div>
-            <div class="col-12 mt-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Display
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>10.2‑inch Retina display</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Display
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>10.2‑inch Retina display</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Display
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>10.2‑inch Retina display</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Camera and Video
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>8MP camera with HDR and 1080p HD video</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Chip
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>A12 Bionic chip with 64-bit architecture Neural Engine</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 120px;">
-                                            <p>
-                                                <strong>
-                                                    Display
-                                                </strong>
-                                            </p>
-                                        </td>
-                                        <td>10.2‑inch Retina display</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    {{-- Product long description --}}
+    <div class="container">
+        <div class="ck-content">
+        @foreach ($product->longDescription as $object)
+            {!! $object->description !!}
+        @endforeach
         </div>
     </div>
     
@@ -601,7 +486,7 @@
             });
         }
     </script>
-    <script src="{{ asset('user/js/quantity.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+    <script src="{{ mix('user/js/quantity.js') }}" type="text/javascript"></script>
+    <script src="{{ mix('toastr/toastr.min.js') }}"></script>
     @endsection
 </div>

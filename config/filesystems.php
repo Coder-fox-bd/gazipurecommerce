@@ -48,6 +48,12 @@ return [
             'url'        => env('APP_URL') . '/storage/categories',
         ],
 
+        'description' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/description'),
+            'url'        => env('APP_URL') . '/storage/description',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

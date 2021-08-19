@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label" for="description">Description</label>
+                                        <label class="control-label" for="description">Short Details</label>
                                         <textarea name="description" id="description" rows="8" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group">

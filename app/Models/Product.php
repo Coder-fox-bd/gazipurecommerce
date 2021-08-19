@@ -95,6 +95,14 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function longDescription()
+    {
+        return $this->hasMany(ProductDescription::class);
+    }
+
     public function admin()
     {
         return $this->belongsTo(Admin::class);

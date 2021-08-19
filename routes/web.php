@@ -37,6 +37,8 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/product/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('admin.product.edit');
     Route::post('admin/product/update', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
     Route::get('admin/{product}/delete', [App\Http\Controllers\Admin\ProductController::class, 'deleteProduct'])->name('admin.product.delete');
+    Route::post('admin/product/store-description', [App\Http\Controllers\Admin\ProductController::class, 'storeDescription'])->name('admin.product.store-description');
+    Route::post('admin/product/store-description-img-upload', [App\Http\Controllers\Admin\ProductController::class, 'storeDescriptionImg'])->name('admin.product.description-img-upload');
     Route::post('admin/product/images/upload', [App\Http\Controllers\Admin\ProductController::class, 'uploadImage'])->name('admin.product.images.upload');
     Route::get('admin/{product}/images/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'deleteImage'])->name('admin.product.images.delete');
     Route::post('admin/product/attribut/store', [App\Http\Controllers\Admin\ProductController::class, 'storeAttribute'])->name('admin.product.attribut.store');

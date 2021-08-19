@@ -16,5 +16,18 @@ const mix = require('laravel-mix');
 //     .sourceMaps();
 
 mix.copyDirectory('resources/admin', 'public/admin');
-mix.copyDirectory('resources/user', 'public/user');
+
+mix.copyDirectory('resources/user/bootstrap/css', 'public/user/bootstrap/css');
+mix.copyDirectory('resources/user/bootstrap/js', 'public/user/bootstrap/js');
+
+mix.copyDirectory('resources/user/css', 'public/user/css');
+
+mix.copyDirectory('resources/user/fontawesome/css', 'public/user/fontawesome/css');
+mix.copyDirectory('resources/user/fontawesome/js', 'public/user/fontawesome/js');
+
+mix.copyDirectory('resources/user/fonts/fontawesome/css', 'public/user/fonts/fonts/fontawesome/css');
+
+mix.copyDirectory('resources/user/images', 'public/user/images');
+mix.copyDirectory('resources/user/jquery', 'public/user/jquery');
+mix.copyDirectory('resources/user/js', 'public/user/js');
 mix.copyDirectory('resources/toastr', 'public/toastr');

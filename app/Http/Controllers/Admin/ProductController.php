@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductDescription;
 use Illuminate\Http\Request;
 
 
@@ -74,6 +75,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $product_description = ProductDescription::where('product_id', $id)->first();
         $brands = Brand::all();
         $categories = Category::with('children')->whereNull('category_id')->get();
         $product_attributes = $product->attributes;
@@ -81,7 +83,7 @@ class ProductController extends Controller
         $attributes = Attribute::all();
         $variations = Variant::all();
 
-        return view('admin.products.edit', compact('categories', 'brands', 'product', 'attributes', 'product_attributes', 'variations', 'product_variations'));
+        return view('admin.products.edit', compact('categories', 'brands', 'product', 'product_description', 'attributes', 'product_attributes', 'variations', 'product_variations'));
     }
 
     public function updateProduct(array $params)
@@ -120,6 +122,37 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->back()->with('success', 'Product deleted successfully.');
+    }
+
+    public function storeDescription(Request $request)
+    {
+        $product_description = ProductDescription::where('product_id', $request->product_id)->first();
+        if ($product_description) {
+            $product_description->description = $request->description_textarea;
+            $product_description->save();
+            return redirect()->back()->with('success', 'Product description added successfully.');
+        }else { 
+            $product_description = new ProductDescription;
+            $product_description->product_id = $request->product_id;
+            $product_description->description = $request->description_textarea;
+            $product_description->save();
+
+            return redirect()->back()->with('success', 'Product description added successfully.');
+        }
+    
+    }
+
+    public function storeDescriptionImg(Request $request)
+    {
+        $product = new Product;
+        $product->id = 0;
+        $product->exists = true;
+        $image = $product->addMediaFromRequest('upload')->toMediaCollection('description', 'description');
+
+        return response()->json([
+            'url' => $image->getUrl()
+        ]);
+    
     }
 
     public function uploadImage(Request $request)
