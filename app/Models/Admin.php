@@ -19,6 +19,7 @@ class Admin extends Model
     protected $fillable = [
         'name',
         'email',
+        'device_token',
         'password',
     ];
 

@@ -1,12 +1,12 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
-    @section('title', 'Search Results')
+    {{-- Stop trying to control. --}}
+    @section('title', $collection->name )
     <!-- ========================= SECTION PAGETOP ========================= -->
     <div class="container-fluid">
         <nav>
             <ol class="breadcrumb text-white">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Search Result</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $collection->name }}</li>
             </ol>  
         </nav>
     </div>
@@ -32,10 +32,10 @@
                     </header><!-- sect-heading -->
 
                     <div class="row">
-                        @forelse($products as $product)
+                        @forelse($products->where('status', 1)->shuffle() as $product)
                         @include('livewire.user.partials.product-col-4')
                         @empty
-                        <p>No Products found in Shop.</p>
+                        <p>No Products found in {{ $collection->name }}.</p>
                         @endforelse
                         <div class="col-12 d-flex justify-content-center">
                             {{ $products->links() }}

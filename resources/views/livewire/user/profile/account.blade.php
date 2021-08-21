@@ -1,7 +1,7 @@
 <div>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     @section('title', 'Account')
-    <section class="section-content padding-y">
+    <section class="section-content padding-y" style="min-height: 60vh;">
         <div class="container">
             <div class="row">
                 <div class="col-12">

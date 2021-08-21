@@ -1,12 +1,12 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
-    @section('title', 'Search Results')
+    {{-- The Master doesn't talk, he acts. --}}
+    @section('title', $brand->name )
     <!-- ========================= SECTION PAGETOP ========================= -->
     <div class="container-fluid">
         <nav>
             <ol class="breadcrumb text-white">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Search Result</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $brand->name }}</li>
             </ol>  
         </nav>
     </div>
@@ -16,7 +16,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                @include('user.partials.filter')
+                @include('user.partials.filter_for_brand')
                 <main class="col-md-9">
 
                     <header class="border-bottom mb-4 pb-3">
@@ -32,10 +32,10 @@
                     </header><!-- sect-heading -->
 
                     <div class="row">
-                        @forelse($products as $product)
+                        @forelse($products->where('status', 1)->shuffle() as $product)
                         @include('livewire.user.partials.product-col-4')
                         @empty
-                        <p>No Products found in Shop.</p>
+                        <p>No Products found in {{ $collection->name }}.</p>
                         @endforelse
                         <div class="col-12 d-flex justify-content-center">
                             {{ $products->links() }}

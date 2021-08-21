@@ -34,7 +34,7 @@ class ShopingCart extends Component
     public function render()
     {
         if(Auth::user()){
-            $this->Carts = Cart::where('user_id', Auth::user()->id)->get();
+            $this->Carts = Auth::user()->cart;
         }
         return view('livewire.user.shoping-cart',[
             'carts' => $this->Carts,

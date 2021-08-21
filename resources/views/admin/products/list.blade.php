@@ -68,7 +68,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Second group">
-                                                    <a class="btn btn-sm btn-secondary" id="{{ config('app.url') }}/product/{{ $product->slug }}" onClick="copy_url(this.id)" data-toggle="tooltip" data-placement="right" title="Copy Url">
+                                                    <a class="btn btn-sm btn-success" id="{{ config('app.url') }}/product/{{ $product->slug }}" onClick="copy_url(this.id)" data-toggle="tooltip" data-placement="right" title="Copy Url">
                                                         <i class="far fa-copy"></i>
                                                     </a>
                                                     <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
@@ -109,8 +109,8 @@
         navigator.clipboard.writeText(url)
         var tooltip = document.getElementById(url);
         tooltip.title = "Url Copied";
-        tooltip.classList.remove('btn-secondary');
-        tooltip.classList.add('btn-success');
+        tooltip.classList.remove('btn-success');
+        tooltip.classList.add('btn-secondary');
       }
     </script>
 @endsection

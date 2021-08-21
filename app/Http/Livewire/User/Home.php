@@ -14,7 +14,7 @@ class Home extends Component
     {
         return view('livewire.user.home',[
             'categories' => Category::all(),
-            'products' => Product::all(),
+            'products' => Product::where('status', 1)->get(),
             'brands' => Brand::all(),
             'carousel' => Carousel::where('mobile_image', 0)->get(),
         ])->extends('user.layouts.user_one');

@@ -20,10 +20,10 @@
       <div class="wrapper">
           <div class="sidebar">
               <ul class="mobile-nav px-0">
-					<a href="#"><li><i class="fas fa-home"></i>Home</li></a>
-					<a href="#"><li><i class="fas fa-home"></i>Your Orders</li></a>
+					<a href="/"><li><i class="fas fa-home"></i>Home</li></a>
+					<a href="{{ route('account.orders') }}"><li><i class="fas fa-home"></i>Your Orders</li></a>
 					<a href="#"><li><i class="fas fa-home"></i>Your List</li></a>
-					<a href="#"><li><i class="fas fa-home"></i>Your Account</li></a>
+					<a href="{{ route('account') }}"><li><i class="fas fa-home"></i>Your Account</li></a>
 					<li data-toggle="collapse" href="#collapseExample" role="button"
 					aria-expanded="false" aria-controls="collapseExample">
 					   <span>Shop by category</span>
@@ -145,7 +145,7 @@
 											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 											Your Account
 										</a>
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" href="{{ route('account.orders') }}">
 											<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 											Your Orders
 										</a>

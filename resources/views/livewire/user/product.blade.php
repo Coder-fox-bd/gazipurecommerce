@@ -1,5 +1,5 @@
 <div>
-    @section('title', 'Product')
+    @section('title', $product->name )
 
     @section('css')
 
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="row">
                                     {{-- Product Attributes --}}
-                                    @foreach($attributes as $attribute)
+                                    @forelse($attributes as $attribute)
                                         @php $attributeCheck = in_array($attribute->id, $product->attributes->pluck('attribute_id')->toArray()) @endphp
                                         @if ($attributeCheck)
                                             <div class="form-group ml-3">
@@ -117,7 +117,9 @@
                                         @else
                                         <input type="hidden" name="attribute">
                                         @endif
-                                    @endforeach
+                                    @empty
+                                    <input type="hidden" name="attribute">
+                                    @endforelse
                                 </div>
                                 <div class="row">
                                     {{-- Product Variations --}}
@@ -180,8 +182,19 @@
         @endforeach
         </div>
     </div>
-    
-    
+    <hr>
+    <div class="container-fluid">
+        <header class="section-heading">
+            <h3 class="section-title">Related Products</h3>
+        </header><!-- sect-heading -->
+        <div class="row">
+        @foreach ($product->categories as $category)
+            @foreach($category->products->where('status', 1)->shuffle()->take(4) as $product)
+            @include('livewire.user.partials.product-col-3')
+            @endforeach
+        @endforeach
+        </div>
+    </div>
     <hr>
     <div class="container-fluid">
         <div class="row">

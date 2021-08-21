@@ -7,7 +7,7 @@
         
             <div class="row">
                 <main class="col-md-9">
-                    <div class="card">
+                    <div class="bg-white shadow-sm p-2 rounded">
                     
                     <div class="container border-bottom">
                     <div class="row pt-2">
@@ -79,7 +79,7 @@
                 
                 </main> <!-- col.// -->
                 <aside class="col-md-3">
-                    <div class="card mb-3">
+                    <div class="bg-white shadow-sm rounded mb-3">
                         <div class="card-body">
                         <form>
                             <div class="form-group">
@@ -94,7 +94,7 @@
                         </form>
                         </div> <!-- card-body.// -->
                     </div>  <!-- card .// -->
-                    <div class="card">
+                    <div class="bg-white shadow-sm rounded">
                         <div class="card-body">
                             <dl class="dlist-align">
                                 <dt>Subtotal price:</dt>
@@ -110,12 +110,12 @@
                             </dl>
                             <div class="row">
                                 <div class="col-12 text-center">
-                                <button class="btn btn-primary">Checkout</button>
+                                <a href="{{ route('checkout') }}" class="btn square_btn_5 cursor-pointer">Checkout</a>
                                 </div>
                             </div>
                             <hr>
                             <p class="text-center mb-3">
-                                <img src="images/misc/payments.png" height="26">
+                                {{-- <img src="images/misc/payments.png" height="26"> --}}
                             </p>
                             
                         </div> <!-- card-body.// -->

@@ -21,6 +21,7 @@ Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-
 
 Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/home', \App\Http\Livewire\Admin\Home::class)->name('admin-home');
+    Route::post('/save-token', [App\Http\Controllers\Admin\FireBaseNotification::class, 'saveToken'])->name('admin.save-token');
     Route::get('admin/categories', \App\Http\Livewire\Admin\Categories::class)->name('category');
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
     Route::get('admin/variations', \App\Http\Livewire\Admin\Variations::class)->name('variations');
@@ -75,8 +76,15 @@ Route::get('/shop', \App\Http\Livewire\User\Shop::class)->name('shop');
 Route::get('/search/{name}', \App\Http\Livewire\User\SearchResult::class)->name('search-results')->where('name', '.*');
 Route::get('/category/{slug}', \App\Http\Livewire\User\Category::class)->name('category.show');
 
+Route::get('/offers/{slug}', \App\Http\Livewire\User\Offer::class)->name('offers');
+
+Route::get('/brand/{slug}', \App\Http\Livewire\User\Brand::class)->name('brand');
+
 Route::get('/product/{slug}', \App\Http\Livewire\User\Product::class)->name('product.show');
 Route::get('/shoping-cart', \App\Http\Livewire\User\ShopingCart::class)->name('shoping-cart');
 
+Route::get('/checkout', \App\Http\Livewire\User\Checkout::class)->name('checkout')->middleware('auth');
+
 Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('account');
+Route::get('account/orders', \App\Http\Livewire\User\Orders::class)->name('account.orders');
 
