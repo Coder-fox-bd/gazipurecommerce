@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin;
+use App\Events\OrderShipped;
 
 class Checkout extends Component
 {
@@ -102,7 +103,7 @@ class Checkout extends Component
                     $cart->delete();
                 }
                 $order_details = ['order_no' => $order->order_number, 'name' => $order->name];
-                $this->emit('UpdateCart');
+                event(new OrderShipped($order));
                 $this->SendNotification($order_details);
             }else {
                 $validator = Validator::make($formData, [
@@ -160,7 +161,7 @@ class Checkout extends Component
                     $cart->delete();
                 }
                 $order_details = ['order_no' => $order->order_number, 'name' => $order->name];
-                $this->emit('UpdateCart');
+                event(new OrderShipped($order));
                 $this->SendNotification($order_details);
             }
         }else {
