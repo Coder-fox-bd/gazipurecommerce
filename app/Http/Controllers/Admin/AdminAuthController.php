@@ -3,20 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Admin;
+use Auth;
 
 class AdminAuthController extends Controller
 {
+    use AuthenticatesUsers;
+    
+    public function __construct() {
+        $this->middleware('guest:admin')->except('logout');
+    }
+
     public function adminLogin() 
     {
         return view('admin.login');
     }
+
     public function adminRegister() 
     {
         return view('admin.register');
     }
+
     public function create(Request $request)
     {
         $request->validate([
@@ -34,7 +42,6 @@ class AdminAuthController extends Controller
         ]);;
         
         if ($created) {
-            $request->session()->put('LoggedAdmin', $created->id);
             return redirect()->route('admin-home');
         }else {
             return back()->with('fail', 'Something went wrong!');
@@ -42,29 +49,15 @@ class AdminAuthController extends Controller
     } 
     public function check(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required'
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
         ]);
 
-        $admin = Admin::where('email',$request->email)->first();
-        if ($admin) {
-            if (Hash::check($request->password, $admin->password)) {
-                $request->session()->put('LoggedAdmin', $admin->id);
-                return redirect()->route('admin-home');
-            }else {
-                return back()->with('fail', 'Invalid Email or Password');
-            }
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-        }else{
-            return back()->with('fail', 'Invalid Email or Password');
+            return redirect()->route('admin-home');
         }
-    }
-    public function logOut() 
-    {
-        if (session()->has('LoggedAdmin')) {
-            session()->pull('LoggedAdmin');
-            return redirect()->route('admin-login');
-        }
+        return back()->with('fail', 'Invalid Email or Password');
     }
 }

@@ -9,17 +9,20 @@ use App\Http\Controllers\Admin\AdminAuthController;
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware([AdminAuthenticated::class])->group(function () {
-    Route::get('admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin-login');
-    Route::post('admin/login', [AdminAuthController::class, 'check'])->name('admin-check');
-    Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
-    Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
-    
-});
+Route::get('admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin-login');
+Route::post('admin/login', [AdminAuthController::class, 'check'])->name('admin-check');
+// Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
+// Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
 
-Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-logout');
+// Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-logout');
+Route::get('admin/logout', function()
+{
+    Auth::guard("admin")->logout();
+    Session::flush();
+    return Redirect::to('/admin/login');
+})->name('admin-logout');
 
-Route::middleware([AdminAuthCheck::class])->group(function () {
+Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/home', \App\Http\Livewire\Admin\Home::class)->name('admin-home');
     Route::post('/save-token', [App\Http\Controllers\Admin\FireBaseNotification::class, 'saveToken'])->name('admin.save-token');
     Route::get('admin/categories', \App\Http\Livewire\Admin\Categories::class)->name('category');
@@ -48,10 +51,6 @@ Route::middleware([AdminAuthCheck::class])->group(function () {
     Route::get('admin/product/variation//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteVariation'])->name('admin.product.variation.delete');
     Route::get('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'index'])->name('admin.settings');
     Route::post('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'update'])->name('admin.settings.update');
-
-    // Route::get('/profile', function () {
-    //     //
-    // })->withoutMiddleware([EnsureTokenIsValid::class]);
 });
 
 /*

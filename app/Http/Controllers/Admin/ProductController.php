@@ -15,6 +15,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductDescription;
 use Illuminate\Http\Request;
+use Auth;
 
 
 
@@ -24,7 +25,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Admin::find(session('LoggedAdmin'))->products;
+        $products = Auth::guard('admin')->user()->products;
         // $products = Product::get();
         return view('admin.products.list', compact('products'));
     }
