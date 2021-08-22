@@ -21,7 +21,7 @@ class Checkout extends Component
     public $phone_number;
     public $notes;
 
-    public function sendNotification()
+    public function sendNotification($order_details)
     {
         $firebaseToken = Admin::whereNotNull('device_token')->pluck('device_token')->all();
 
@@ -31,7 +31,8 @@ class Checkout extends Component
             "registration_ids" => $firebaseToken,
             "notification" => [
                 "title" => 'New Order',
-                "body" => 'You have a new pending order!',
+                "body" => $order_details['order_no']. ' has been placed by '. $order_details['name'] .'.',
+                "icon" => config('app.url')."/icon.png",
                 "content_available" => true,
                 "priority" => "high",
             ]
@@ -52,7 +53,7 @@ class Checkout extends Component
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        $response = curl_exec($ch);
+        curl_exec($ch);
 
         return redirect()->route('account.orders');
     }
@@ -100,10 +101,10 @@ class Checkout extends Component
                 foreach (Auth::user()->cart as $cart) {
                     $cart->delete();
                 }
+                $order_details = ['order_no' => $order->order_number, 'name' => $order->name];
                 $this->emit('UpdateCart');
-                $this->SendNotification();
+                $this->SendNotification($order_details);
             }else {
-                // dd($formData);
                 $validator = Validator::make($formData, [
                     "first_name"    => "required|min:3",
                     "last_name"  => "required|min:3",
@@ -158,8 +159,9 @@ class Checkout extends Component
                 foreach (Auth::user()->cart as $cart) {
                     $cart->delete();
                 }
+                $order_details = ['order_no' => $order->order_number, 'name' => $order->name];
                 $this->emit('UpdateCart');
-                $this->SendNotification();
+                $this->SendNotification($order_details);
             }
         }else {
             session()->flash('error', "Your shoping cart is empty!"); 
