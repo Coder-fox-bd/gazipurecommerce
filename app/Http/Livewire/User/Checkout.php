@@ -53,7 +53,7 @@ class Checkout extends Component
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        curl_exec($ch);
+        $response = curl_exec($ch);
 
         return redirect()->route('account.orders');
     }
