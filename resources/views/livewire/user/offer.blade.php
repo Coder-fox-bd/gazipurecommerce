@@ -16,7 +16,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                @include('user.partials.filter')
+                @include('livewire.user.partials.filter')
                 <main class="col-md-9">
 
                     <header class="border-bottom mb-4 pb-3">
@@ -32,7 +32,7 @@
                     </header><!-- sect-heading -->
 
                     <div class="row">
-                        @forelse($products->where('status', 1)->shuffle() as $product)
+                        @forelse($products->where('status', 1) as $product)
                         @include('livewire.user.partials.product-col-4')
                         @empty
                         <p>No Products found in {{ $collection->name }}.</p>

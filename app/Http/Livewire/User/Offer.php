@@ -32,7 +32,7 @@ class Offer extends Component
     {
         $this->collection = Collection::where('slug', $this->slug)->first();
         return view('livewire.user.offer',[
-            'products' => $this->collection->products()
+            'products' => $this->collection->products()->with('media')
                 ->when($this->startPrice OR $this->endPrice, function($query){
                     $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
                 })

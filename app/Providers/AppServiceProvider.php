@@ -26,12 +26,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        View::composer('admin.layout.base', function ($view) {
-            $admin = Admin::where('id', session('LoggedAdmin'))->first();
-            $view->with('admin', $admin);
-        });
-        
+    {   
         View::composer('user.layouts.user_one', function ($view) {
             $categories = Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
             $view->with('categories', $categories);

@@ -29,10 +29,10 @@ class SearchResult extends Component
     
     public function render()
     {
-        $results = Product::where('name', 'LIKE', '%' . $this->name . '%');
+        // $results = ;
 
         return view('livewire.user.search-result',[
-            'products' => $results
+            'products' => Product::with('media')->where('name', 'LIKE', '%' . $this->name . '%')
                         ->when($this->startPrice OR $this->endPrice, function($query){
                             $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
                         })
@@ -42,7 +42,7 @@ class SearchResult extends Component
                         ->when($this->searched, function($query){
                             $query->where('name', 'LIKE', '%' . $this->searched . '%');
                         })
-                        ->orderByRaw("RAND()")->paginate(30),
+                        ->paginate(30),
         'brands' => Brand::all(),
         ])->extends('user.layouts.user_one');
     }

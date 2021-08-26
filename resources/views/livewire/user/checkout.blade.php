@@ -60,16 +60,6 @@
                                     <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}" disabled>
                                     <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                 </div>
-                                <strong>Or,</strong>
-                                <div class="form-group form-check mt-2">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="use_default">
-                                    <label class="form-check-label" for="exampleCheck1">Use default info</label>
-                                    <span class="form-text text-muted">
-                                        {{ auth()->user()->name }}<br>
-                                        {{ auth()->user()->address }}, {{ auth()->user()->city }}, {{ auth()->user()->country }}<br>
-                                        Mobile: {{ auth()->user()->contact }}
-                                    </span>
-                                </div>
                                 <div class="form-group">
                                     <label>Order Notes</label>
                                     <textarea class="form-control" name="notes" rows="6"></textarea>
@@ -85,6 +75,7 @@
                                     <article class="card-body">
                                         <dl class="dlist-align">
                                             <dt>Total cost: </dt>
+
                                             <dd class="text-right h5 b"> {{ config('settings.currency_symbol') }} {{ $total }} </dd>
                                         </dl>
                                     </article>

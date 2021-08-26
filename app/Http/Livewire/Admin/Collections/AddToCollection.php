@@ -32,7 +32,7 @@ class AddToCollection extends Component
 
     public function render()
     {
-        $products = Product::where('name', 'LIKE', '%' . $this->search . '%')->paginate(10);
+        $products = Product::with('brand')->where('name', 'LIKE', '%' . $this->search . '%')->paginate(10);
         $collections = Collection::where('status', 1)->get();
         return view('livewire.admin.collections.add-to-collection',[
             'products' => $products,

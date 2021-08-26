@@ -24,6 +24,7 @@
 					<a href="{{ route('account.orders') }}"><li><i class="fas fa-home"></i>Your Orders</li></a>
 					<a href="#"><li><i class="fas fa-home"></i>Your List</li></a>
 					<a href="{{ route('account') }}"><li><i class="fas fa-home"></i>Your Account</li></a>
+					<a href="{{ route('shop') }}"><li><i class="fas fa-home"></i>Shop</li></a>
 					<li data-toggle="collapse" href="#collapseExample" role="button"
 					aria-expanded="false" aria-controls="collapseExample">
 					   <span>Shop by category</span>
@@ -54,6 +55,7 @@
               </div>
 			  
               <ul class="pc-nav px-0">
+				<a href="{{ route('shop') }}"><li>Shop</li></a>
 				  @foreach($categories as $category)
 					@if (count($category->children) > 0)
 						<li data-toggle="collapse" href="#multiCollapse" role="button"
@@ -181,13 +183,16 @@
 		<div class="container-fluid">
 			<ul class="navbar-nav p-0">
 				<li class="nav-item p-0" id="flip">
-				<a class="nav-link pl-0 pt-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
-			  </li>
-			  @foreach($categories->where('featured', 1)->take(8) as $category)
-			  <li class="nav-item p-0 has-submenu">
-				  <a class="nav-link pt-0" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
-			  </li>
-			  @endforeach
+					<a class="nav-link pl-0 pt-0" onclick="openNav()"><strong> <i class="fa fa-bars"></i> &nbsp  All category</strong></a>
+			  	</li>
+				<li class="nav-item p-0">
+					<a href="{{ route('shop') }}" class="nav-link pt-0">Shop</a>
+			  	</li>
+				@foreach($categories->where('featured', 1)->take(8) as $category)
+				<li class="nav-item p-0 has-submenu">
+					<a class="nav-link pt-0" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
+				</li>
+				@endforeach
 			</ul>
 		</div> <!-- container-fluid .// -->
 	  </nav>

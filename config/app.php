@@ -121,6 +121,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'firebase_secret' => env('GOOGLE_FIREBASE_SECRET'),
+
     'cipher' => 'AES-256-CBC',
 
     /*
@@ -199,6 +201,7 @@ return [
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,

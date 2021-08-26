@@ -24,7 +24,7 @@ class Shop extends Component
     public function render()
     {
         return view('livewire.user.shop',[
-            'products' => Product::where('status', 1)
+            'products' => Product::with('media')
                         ->when($this->startPrice OR $this->endPrice, function($query){
                             $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
                         })
@@ -34,7 +34,7 @@ class Shop extends Component
                         ->when($this->searched, function($query){
                             $query->where('name', 'LIKE', '%' . $this->searched . '%');
                         })
-                        ->orderByRaw("RAND()")->paginate(30),
+                        ->paginate(30),
             'brands' => Brand::all(),
         ])->extends('user.layouts.user_one');
     }

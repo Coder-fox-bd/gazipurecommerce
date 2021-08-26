@@ -13,7 +13,7 @@
                                 @foreach($carousel->where('status', 1) as $key => $slider)
                                 <div class="carousel-item {{$key == 0 ? 'active' : '' }} img-gradient">
                                     <a href="{{ $slider->offer_url }}">
-                                        {{ $slider->collections }}
+                                        {{-- {{ $slider->collections }} --}}
                                         <img class="img-fluid" src="{{ asset('storage/'.$slider->images) }}" alt="Image slide">
                                     </a>
                                 </div>
@@ -78,7 +78,7 @@
         </header><!-- sect-heading -->
         
         <div class="row">
-            @foreach($products->sortByDesc('id')->take(8) as $product)
+            @foreach($new as $product)
             @include('livewire.user.partials.product-col-3')
             @endforeach
         </div> <!-- row.// -->
@@ -99,7 +99,7 @@
         </header><!-- sect-heading -->
         
         <div class="row">
-            @foreach($products->where('featured', 1)->random(8) as $product)
+            @foreach($recomended as $product)
             @include('livewire.user.partials.product-col-3')
             @endforeach
         </div>
@@ -120,7 +120,6 @@
             <div class="col-md-2 col-6">
                 <figure class="box item-logo">
                     <a href="{{ route('brand', $brand->slug ) }}">{{ $brand->getFirstMedia('brands') }}</a>
-                    <figcaption class="border-top pt-2">{{ $brand->products()->count() }} Products</figcaption>
                 </figure> <!-- item-logo.// -->
             </div> <!-- col.// -->
             @endforeach

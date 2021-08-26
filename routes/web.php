@@ -11,8 +11,8 @@ use App\Http\Controllers\Admin\AdminAuthController;
 */
 Route::get('admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin-login');
 Route::post('admin/login', [AdminAuthController::class, 'check'])->name('admin-check');
-// Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
-// Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
+Route::get('admin/register', [AdminAuthController::class, 'adminRegister'])->name('admin-register');
+Route::post('admin/register', [AdminAuthController::class, 'create'])->name('admin-create');
 
 // Route::get('admin/logout', [AdminAuthController::class, 'logOut'])->name('admin-logout');
 Route::get('admin/logout', function()
@@ -25,6 +25,7 @@ Route::get('admin/logout', function()
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/home', \App\Http\Livewire\Admin\Home::class)->name('admin-home');
     Route::post('/save-token', [App\Http\Controllers\Admin\FireBaseNotification::class, 'saveToken'])->name('admin.save-token');
+    Route::post('/mark-as-read', [App\Http\Controllers\Admin\MarkNotificationController::class, 'markAsRead'])->name('admin.markNotification');
     Route::get('admin/categories', \App\Http\Livewire\Admin\Categories::class)->name('category');
     Route::get('admin/attributes', \App\Http\Livewire\Admin\AttributeList::class)->name('attributes');
     Route::get('admin/variations', \App\Http\Livewire\Admin\Variations::class)->name('variations');

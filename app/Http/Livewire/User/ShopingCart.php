@@ -3,20 +3,20 @@
 namespace App\Http\Livewire\User;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Cart;
-use App\Models\WishList;
+// use Illuminate\Support\Facades\Auth;
+// use App\Models\Cart;
+// use App\Models\WishList;
+use Cart;
 
 class ShopingCart extends Component
 {
-    public $Carts;
+    // public $Carts;
     public function delete($id)
     {
-        $item = Cart::findOrFail($id);
-        if ($item) {
-            $item->delete();
-            $this->emit('UpdateCart');
-        }
+
+        Cart::remove($id);
+        $this->emit('UpdateCart');
+
     }
 
     public function saveForLatter($id)
@@ -31,13 +31,16 @@ class ShopingCart extends Component
         }
     }
 
+    public function clearCart()
+    {
+        Cart::clear();
+    }
+
     public function render()
     {
-        if(Auth::user()){
-            $this->Carts = Auth::user()->cart;
-        }
-        return view('livewire.user.shoping-cart',[
-            'carts' => $this->Carts,
-        ])->extends('user.layouts.user_one');
+        // if(Auth::user()){
+        //     $this->Carts = Cart::with('product')->where('user_id', Auth::user()->id)->get();
+        // }
+        return view('livewire.user.shoping-cart')->extends('user.layouts.user_one');
     }
 }

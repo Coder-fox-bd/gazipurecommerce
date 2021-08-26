@@ -16,7 +16,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                @include('user.partials.filter')
+                @include('livewire.user.partials.filter')
                 <main class="col-md-9">
 
                     <header class="border-bottom mb-4 pb-3">

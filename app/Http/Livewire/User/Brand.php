@@ -30,7 +30,7 @@ class Brand extends Component
     {
         $this->brand = BrandModel::where('slug', $this->slug)->first();
         return view('livewire.user.brand',[
-            'products' => $this->brand->products()
+            'products' => $this->brand->products()->with('media')
                 ->when($this->startPrice OR $this->endPrice, function($query){
                     $query->whereBetween('price', [$this->startPrice,$this->endPrice]);
                 })

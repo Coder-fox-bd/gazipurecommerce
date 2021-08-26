@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\Admin;
 use Auth;
 
 class AdminAuthController extends Controller

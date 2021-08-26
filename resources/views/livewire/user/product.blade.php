@@ -65,7 +65,7 @@
                             <p class="pt-1">
                                 {{ $product->description }}
                             </p>
-                            <form wire:submit.prevent="addToCart(Object.fromEntries(new FormData($event.target)))">
+                            <form wire:submit.prevent="onSubmit(Object.fromEntries(new FormData($event.target)))">
                                 @csrf
                                 <input type="hidden" value="{{$product->id}}" name="id">
                                 <div class="row">
@@ -160,8 +160,8 @@
                                         </div>
                                     </div> <!-- col.// -->
                                 </div> <!-- row.// -->
-                                {{-- <a class="square_btn_2 mr-4">Buy now</button> --}}
-                                <button type="submit" class="btn square_btn"><i
+                                <button type="submit" wire:click="buyNow" class="btn square_btn_2 mr-4">Buy now</button>
+                                <button type="submit" name="action" value="add_to_cart" class="btn square_btn"><i
                                         class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
                             </form>
                         </div>
@@ -188,11 +188,11 @@
             <h3 class="section-title">Related Products</h3>
         </header><!-- sect-heading -->
         <div class="row">
-        @foreach ($product->categories as $category)
+        {{-- @foreach ($product->categories as $category)
             @foreach($category->products->where('status', 1)->shuffle()->take(4) as $product)
             @include('livewire.user.partials.product-col-3')
             @endforeach
-        @endforeach
+        @endforeach --}}
         </div>
     </div>
     <hr>

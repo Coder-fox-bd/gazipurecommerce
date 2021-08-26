@@ -21,45 +21,48 @@
                     </div>
                     
                     
-                    <div class="container">
-                        <?php $total = 0 ?>
-                        <?php $items = 0 ?>
-                        @if(Auth::user())
-                            @foreach($carts as $id => $cart)
-                                <?php $total += $cart['price'] * $cart['quantity'] ?>
-                                <?php $items += $cart['quantity'] ?>
-                                <div class="row border-bottom pb-2">
-                                    <div class="col-md-2 col-3 center p-r-0">
-                                    <a href="{{ route('product.show', $cart->product->slug) }}"><img src="{{ $cart->product->getFirstMediaUrl('products') }}" class="img-fluid"></a>
-                                    </div>
-                                    <div class="col-md-8 col-7 p-l-0">
-                                    <figcaption class="info">
-                                        <h6 class="a-size-mini spacing-none line-clamp-2">
-                                            <a href="{{ route('product.show', $cart->product->slug) }}" class="a-color on-hover">
-                                            <span class="a-size-base-plus a-text-normal">
-                                                {{ $cart->product->name }}
-                                            </span>
-                                            </a>
-                                        </h6>
-                                        <p class="text-muted small">{{ $cart['product_attribute'] }}, {{ $cart['product_variant'] }}</p>
-                                        <div class="row">
-                                        <div class="col-md-2 col-3 p-r-0">
-                                            Qty: {{ $cart['quantity'] }}
-                                        </div>
-                                        <div class="col-md-1 col-4 p-0 text-right">
-                                            <a wire:click.prevent="delete({{ $cart['id'] }})" class="small cursor-pointer">Delete</a>
-                                        </div>
-                                        <div class="col-md-2 col-5 p-0 text-right">
-                                            <a wire:click.prevent="saveForLatter({{ $cart['id'] }})" class="small">Save for latter</a>
-                                        </div>
-                                        </div>
-                                    </figcaption>
-                                    </div>
-                                    <div class="col-md-2 col-2 text-right p-l-0">
-                                        <var class="price">{{ config('settings.currency_symbol') }} {{ $cart['price'] }}</var>  
-                                    </div>
+                    <div class="container">                        
+                        @if (\Cart::isEmpty())
+                        <p class="alert alert-warning">Your shopping cart is empty.</p>
+                        @else
+                            @foreach(\Cart::getContent() as $item)
+                            <div class="row border-bottom pb-2">
+                                <div class="col-md-2 col-3 center p-r-0">
+                                <a href="{{ route('product.show', $item->associatedModel) }}"><img src="{{ $item->conditions }}" class="img-fluid"></a>
                                 </div>
-                            @endforeach
+                                <div class="col-md-8 col-7 p-l-0">
+                                <figcaption class="info">
+                                    <h6 class="a-size-mini spacing-none line-clamp-2">
+                                        <a href="{{ route('product.show', $item->associatedModel) }}" class="a-color on-hover">
+                                        <span class="a-size-base-plus a-text-normal">
+                                            {{ $item->name }}
+                                        </span>
+                                        </a>
+                                    </h6>
+                                    <dl class="dlist-inline small">
+                                    @foreach($item->attributes as $key  => $value)
+                                        <dd>{{ ucwords($value) }}</dd>
+                                    @endforeach
+                                    </dl>
+                                    <div class="row">
+                                    <div class="col-md-2 col-3 p-r-0">
+                                        Qty: {{ $item->quantity }}
+                                    </div>
+                                    <div class="col-md-1 col-4 p-0 text-right">
+                                        <a wire:click.prevent="delete({{ $item->id }})" class="small cursor-pointer">Delete</a>
+                                    </div>
+                                    <div class="col-md-2 col-5 p-0 text-right">
+                                        <a wire:click.prevent="saveForLatter({{ $item->id }})" class="small">Save for latter</a>
+                                    </div>
+                                    </div>
+                                </figcaption>
+                                </div>
+                                <div class="col-md-2 col-2 text-right p-l-0">
+                                    <var class="price">{{ config('settings.currency_symbol'). $item->price }}</var>
+                                    <small class="text-muted">each</small> 
+                                </div>
+                            </div>
+                            @endforeach           
                         @endif
                     
                     </div>
@@ -67,7 +70,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-right">
-                            <span>Subtotal ({{ $items }} items): <strong>{{ config('settings.currency_symbol') }} {{$total}}</strong></span>
+                            <span>Subtotal ({{ \Cart::getContent()->count() }} item): <strong>{{ config('settings.currency_symbol') }}{{ \Cart::getSubTotal() }} </strong></span>
                             </div>
                         </div>
                     </div>  
@@ -79,6 +82,7 @@
                 
                 </main> <!-- col.// -->
                 <aside class="col-md-3">
+                    <a wire:click="clearCart" class="btn btn-danger btn-block mb-4">Clear Cart</a>
                     <div class="bg-white shadow-sm rounded mb-3">
                         <div class="card-body">
                         <form>
@@ -98,7 +102,7 @@
                         <div class="card-body">
                             <dl class="dlist-align">
                                 <dt>Subtotal price:</dt>
-                                <dd class="text-right">{{$total}}</dd>
+                                <dd class="text-right">{{ \Cart::getSubTotal() }}</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Discount:</dt>
@@ -106,7 +110,7 @@
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Total:</dt>
-                                <dd class="text-right  h5"><strong>{{$total}}</strong></dd>
+                                <dd class="text-right  h5"><strong>{{ \Cart::getTotal() }}</strong></dd>
                             </dl>
                             <div class="row">
                                 <div class="col-12 text-center">
@@ -122,7 +126,6 @@
                     </div>  <!-- card .// -->
                 </aside> <!-- col.// -->
             </div>
-        
         </div> <!-- container .//  -->
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->

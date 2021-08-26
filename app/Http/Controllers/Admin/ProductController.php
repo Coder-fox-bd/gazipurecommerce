@@ -41,7 +41,7 @@ class ProductController extends Controller
         try {
             $collection = collect($params);
 
-            $admin_id = session('LoggedAdmin');
+            $admin_id = Auth::guard('admin')->user()->id;
 
             $featured = $collection->has('featured') ? 1 : 0;
             $status = $collection->has('status') ? 1 : 0;
