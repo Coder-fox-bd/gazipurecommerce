@@ -67,10 +67,9 @@ class Product extends Component
                 }else{
                     // session()->flash('success', 'Item added to cart!');
                     $buy = session()->get('buy');
-                    if ($buy) {
-                        unset($buy[0]);
-                        session()->put('buy', $buy);
-                    }
+                    unset($buy[0]);
+                    session()->put('buy', $buy);
+
                     $id = $formData['id'];
                     // add to buy session
                     $buy[0] = [

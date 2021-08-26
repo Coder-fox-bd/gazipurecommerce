@@ -19,21 +19,30 @@ class ShopingCart extends Component
 
     }
 
-    public function saveForLatter($id)
-    {
-        $item = Cart::findOrFail($id);
-        if ($item) {
-            $to_arr = $item->toArray();
-            unset($to_arr['id'], $to_arr['created_at'], $to_arr['updated_at']);
-            WishList::insert($to_arr);
-            $item->delete();
-            $this->emit('UpdateCart');
-        }
-    }
+    // public function saveForLatter($id)
+    // {
+    //     $item = Cart::findOrFail($id);
+    //     if ($item) {
+    //         $to_arr = $item->toArray();
+    //         unset($to_arr['id'], $to_arr['created_at'], $to_arr['updated_at']);
+    //         WishList::insert($to_arr);
+    //         $item->delete();
+    //         $this->emit('UpdateCart');
+    //     }
+    // }
 
     public function clearCart()
     {
         Cart::clear();
+        $this->emit('UpdateCart');
+    }
+
+    public function checkOut()
+    {
+        $buy = session()->get('buy');
+        unset($buy[0]);
+        session()->put('buy', $buy);
+        return redirect()->route('checkout');
     }
 
     public function render()

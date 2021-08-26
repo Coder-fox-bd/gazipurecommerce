@@ -19,7 +19,7 @@ class Cart extends Component
         //     $count = 0;
         // }
         return view('livewire.user.cart',[
-            'cart_count' =>  ShopingCart::getContent()->count(),
+            'cart_count' =>  ShopingCart::getTotalQuantity(),
         ]);
     }
 }

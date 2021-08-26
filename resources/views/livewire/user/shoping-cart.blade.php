@@ -51,15 +51,14 @@
                                     <div class="col-md-1 col-4 p-0 text-right">
                                         <a wire:click.prevent="delete({{ $item->id }})" class="small cursor-pointer">Delete</a>
                                     </div>
-                                    <div class="col-md-2 col-5 p-0 text-right">
+                                    {{-- <div class="col-md-2 col-5 p-0 text-right">
                                         <a wire:click.prevent="saveForLatter({{ $item->id }})" class="small">Save for latter</a>
-                                    </div>
+                                    </div> --}}
                                     </div>
                                 </figcaption>
                                 </div>
                                 <div class="col-md-2 col-2 text-right p-l-0">
-                                    <var class="price">{{ config('settings.currency_symbol'). $item->price }}</var>
-                                    <small class="text-muted">each</small> 
+                                    <var class="price">{{ config('settings.currency_symbol'). \Cart::get($item->id)->getPriceSum() }}</var> 
                                 </div>
                             </div>
                             @endforeach           
@@ -70,7 +69,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-right">
-                            <span>Subtotal ({{ \Cart::getContent()->count() }} item): <strong>{{ config('settings.currency_symbol') }}{{ \Cart::getSubTotal() }} </strong></span>
+                            <span>Subtotal ({{ \Cart::getTotalQuantity() }} item): <strong>{{ config('settings.currency_symbol') }}{{ \Cart::getSubTotal() }} </strong></span>
                             </div>
                         </div>
                     </div>  
@@ -114,7 +113,7 @@
                             </dl>
                             <div class="row">
                                 <div class="col-12 text-center">
-                                <a href="{{ route('checkout') }}" class="btn square_btn_5 cursor-pointer">Checkout</a>
+                                <a wire:click="checkOut" class="btn square_btn_5 cursor-pointer">Checkout</a>
                                 </div>
                             </div>
                             <hr>

@@ -87,4 +87,5 @@ Route::get('/checkout', \App\Http\Livewire\User\Checkout::class)->name('checkout
 
 Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('account');
 Route::get('account/orders', \App\Http\Livewire\User\Orders::class)->name('account.orders');
+Route::get('account/login-and-security', \App\Http\Livewire\User\Profile\LoginAndSecurity::class)->name('account.security');
 
