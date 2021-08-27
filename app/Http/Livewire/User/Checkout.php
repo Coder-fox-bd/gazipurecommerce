@@ -115,7 +115,7 @@ class Checkout extends Component
             event(new OrderShipped($order));
             $this->SendNotification($order_details);
         }else {
-            if (Cart::getContent()->count()>0) {
+            if (Cart::getTotalQuantity()>0) {
                 $validator = Validator::make($formData, [
                     "first_name"    => "required|min:3",
                     "last_name"  => "required|min:3",
@@ -132,7 +132,7 @@ class Checkout extends Component
                     'user_id'           =>  auth()->user()->id,
                     'status'            =>  'pending',
                     'grand_total'       =>  Cart::getTotal(),
-                    'item_count'        =>  Cart::getContent()->sum('quantity'),
+                    'item_count'        =>  Cart::getTotalQuantity(),
                     'payment_status'    =>  0,
                     'payment_method'    =>  null,
                     'name'              =>  $formData['first_name']." ".$formData['last_name'],

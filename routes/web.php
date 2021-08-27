@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/product/variation//{id}/delete',  [App\Http\Controllers\Admin\ProductController::class, 'deleteVariation'])->name('admin.product.variation.delete');
     Route::get('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'index'])->name('admin.settings');
     Route::post('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'update'])->name('admin.settings.update');
+    Route::get('admin/orders', \App\Http\Livewire\Admin\Orders\Orders::class)->name('admin.orders.index');
+    Route::get('admin/{order}/show', \App\Http\Livewire\Admin\Orders\ShowOrder::class)->name('admin.orders.show');
 });
 
 /*

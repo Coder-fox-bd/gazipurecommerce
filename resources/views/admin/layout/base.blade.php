@@ -144,6 +144,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.orders.index') }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Orders</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('attributes') }}">
                     <i class="fas fa-cloud-moon"></i>
                     <span>Attributes</span></a>
@@ -215,6 +221,14 @@
                     <i class="fas fa-cogs"></i>
                     <span>Settings</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
             <!-- Divider -->
             {{-- <hr class="sidebar-divider">
@@ -347,14 +361,14 @@
                                     Alerts Center
                                 </h6>
                                 @foreach(auth()->guard('admin')->user()->unreadNotifications->take(4) as $notification)
-                                <a class="dropdown-item d-flex align-items-center mark-as-read" href="#" data-id="{{ $notification->id }}">
+                                <a class="dropdown-item d-flex align-items-center mark-as-read" href="{{ route('admin.orders.show', $notification->data['order_number']) }}" data-id="{{ $notification->id }}">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">[{{ $notification->created_at }}]</div>
+                                        <div class="small text-gray-500">{{ $notification->created_at->toFormattedDateString() }}</div>
                                         <span class="font-weight-bold">
                                             {{ $notification->data['order_number'] }} of {{ config('settings.currency_symbol') }}{{ round($notification->data['grand_total'], 2) }}
                                             been placed by {{ $notification->data['name'] }}!
