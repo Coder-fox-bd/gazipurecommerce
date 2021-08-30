@@ -101,7 +101,7 @@
                     <div class="d-flex flex-column text-sm-right">
                         @php $date = $order->created_at; $daysToAdd = 5; $date = $date->addDays($daysToAdd); @endphp
                         <p class="mb-0">Expected Arrival <span>{{ $date->toFormattedDateString() }}</span></p>
-                        {{-- <p>USPS <span class="font-weight-bold">234094567242423422898</span></p> --}}
+                        <p>{{ $order->item_count }} item <span class="font-weight-bold">{{ config('settings.currency_symbol') }}{{ round($order->grand_total, 2) }}</span></p>
                     </div>
                 </div> <!-- Add class 'active' to progress -->
                 @if ($order->status == 'Pending')
