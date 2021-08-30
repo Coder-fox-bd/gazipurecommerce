@@ -368,7 +368,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">{{ $notification->created_at->toFormattedDateString() }}</div>
+                                        <div class="small text-gray-500">{{ $notification->created_at->toDayDateTimeString() }}</div>
                                         <span class="font-weight-bold">
                                             {{ $notification->data['order_number'] }} of {{ config('settings.currency_symbol') }}{{ round($notification->data['grand_total'], 2) }}
                                             been placed by {{ $notification->data['name'] }}!

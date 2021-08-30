@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'index'])->name('admin.settings');
     Route::post('admin/settings', [App\Http\Controllers\Admin\Settings::class, 'update'])->name('admin.settings.update');
     Route::get('admin/orders', \App\Http\Livewire\Admin\Orders\Orders::class)->name('admin.orders.index');
-    Route::get('admin/{order}/show', \App\Http\Livewire\Admin\Orders\ShowOrder::class)->name('admin.orders.show');
+    Route::get('admin/{order_num}/show', \App\Http\Livewire\Admin\Orders\ShowOrder::class)->name('admin.orders.show');
 });
 
 /*
@@ -87,7 +87,7 @@ Route::get('/shoping-cart', \App\Http\Livewire\User\ShopingCart::class)->name('s
 
 Route::get('/checkout', \App\Http\Livewire\User\Checkout::class)->name('checkout')->middleware('auth');
 
-Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('account');
-Route::get('account/orders', \App\Http\Livewire\User\Orders::class)->name('account.orders');
-Route::get('account/login-and-security', \App\Http\Livewire\User\Profile\LoginAndSecurity::class)->name('account.security');
+Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('account')->middleware('auth');
+Route::get('account/orders', \App\Http\Livewire\User\Orders::class)->name('account.orders')->middleware('auth');
+Route::get('account/login-and-security', \App\Http\Livewire\User\Profile\LoginAndSecurity::class)->name('account.security')->middleware('auth');
 

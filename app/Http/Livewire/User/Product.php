@@ -20,7 +20,7 @@ class Product extends Component
 
     public function mount($slug)
     {
-        $this->product = Item::with('media')->where('slug', $slug)->first();
+        $this->product = Item::with('media', 'brand', 'attributes', 'longDescription')->where('slug', $slug)->first();
         $this->attributes = Attribute::orderBy('id', 'DESC')->get();
 
         if (isset($this->product->attributes[0])) {

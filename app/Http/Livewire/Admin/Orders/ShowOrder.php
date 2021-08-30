@@ -4,21 +4,43 @@ namespace App\Http\Livewire\Admin\Orders;
 
 use Livewire\Component;
 use App\Models\Order;
+use PDF;
 
 class ShowOrder extends Component
 {
-    public $order_num;
+    public $order;
 
-    public function mount($order)
+    public function mount($order_num)
     {
-        $this->order_num = $order;
+        $this->order = Order::with('items')->where('order_number', $order_num)->first();
+    }
+
+    public function exportPDF()
+    {
+        $pdfContent = PDF::loadView('livewire.admin.orders.order-pdf', ['order' => $this->order])->output();
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            "order.pdf"
+        );
+    }
+
+    public function placeOrder()
+    {
+        $this->order->update(['status' => 'Placed']);
+    }
+
+    public function outForDelivery()
+    {
+        $this->order->update(['status' => 'In delivery']);
+    }
+
+    public function completed()
+    {
+        $this->order->update(['status' => 'Completed']);
     }
 
     public function render()
     {
-        $order = Order::with('items')->where('order_number', $this->order_num)->first();
-        return view('livewire.admin.orders.show-order',[
-            "order" => $order,
-        ])->extends('admin.layout.base');
+        return view('livewire.admin.orders.show-order')->extends('admin.layout.base');
     }
 }

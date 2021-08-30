@@ -1,120 +1,88 @@
 <div>
     <link rel="stylesheet" href="">
     <style>
-    .card {
-        z-index: 0;
+    .bg-not-completed {
         background-color: #ECEFF1;
-        padding-bottom: 20px;
-        margin-top: 90px;
-        margin-bottom: 90px;
-        border-radius: 10px
     }
-
-    .top {
-        padding-top: 40px;
-        padding-left: 13% !important;
-        padding-right: 13% !important
-    }
-
-    #progressbar {
+    .bs4-order-tracking {
         margin-bottom: 30px;
         overflow: hidden;
-        color: #455A64;
+        color: #878788;
         padding-left: 0px;
-        margin-top: 30px
+        margin-top: 5px
     }
 
-    #progressbar li {
+    .bs4-order-tracking li {
         list-style-type: none;
         font-size: 13px;
         width: 25%;
         float: left;
         position: relative;
-        font-weight: 400
+        font-weight: 400;
+        color: #878788;
+        text-align: center
     }
 
-    #progressbar .step0:before {
-        font-family: FontAwesome;
-        content: "\f1ce";
-        color: #fff
+    .bs4-order-tracking li:first-child:before {
+        margin-left: 15px !important;
+        padding-left: 11px !important;
+        text-align: left !important
     }
 
-    #progressbar li:before {
-        width: 40px;
-        height: 40px;
-        line-height: 45px;
+    .bs4-order-tracking li:last-child:before {
+        margin-right: 5px !important;
+        padding-right: 11px !important;
+        text-align: right !important
+    }
+
+    .bs4-order-tracking li>div {
+        color: #fff;
+        width: 29px;
+        text-align: center;
+        line-height: 29px;
         display: block;
-        font-size: 20px;
-        background: #C5CAE9;
+        font-size: 12px;
+        background: #878788;
         border-radius: 50%;
-        margin: auto;
-        padding: 0px
+        margin: auto
     }
 
-    #progressbar li:after {
+    .bs4-order-tracking li:after {
         content: '';
-        width: 100%;
-        height: 12px;
-        background: #C5CAE9;
+        width: 150%;
+        height: 2px;
+        background: #878788;
         position: absolute;
-        left: 0;
-        top: 16px;
+        left: 0%;
+        right: 0%;
+        top: 15px;
         z-index: -1
     }
 
-    #progressbar li:last-child:after {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        position: absolute;
-        left: -50%
-    }
-
-    #progressbar li:nth-child(2):after,
-    #progressbar li:nth-child(3):after {
-        left: -50%
-    }
-
-    #progressbar li:first-child:after {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        position: absolute;
+    .bs4-order-tracking li:first-child:after {
         left: 50%
     }
 
-    #progressbar li:last-child:after {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px
+    .bs4-order-tracking li:last-child:after {
+        left: 0% !important;
+        width: 0% !important
     }
 
-    #progressbar li:first-child:after {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px
+    .bs4-order-tracking li.active {
+        font-weight: bold;
+        color: #dc3545
     }
 
-    #progressbar li.active:before,
-    #progressbar li.active:after {
-        background: #651FFF
+    .bs4-order-tracking li.active>div {
+        background: #dc3545
     }
 
-    #progressbar li.active:before {
-        font-family: "Font Awesome 5 Free"; 
-        content: "\f00c"
+    .bs4-order-tracking li.active:after {
+        background: #dc3545
     }
 
-    .icon {
-        width: 60px;
-        height: 60px;
-        margin-right: 15px
-    }
-
-    .icon-content {
-        padding-bottom: 20px
-    }
-
-    @media screen and (max-width: 992px) {
-        .icon-content {
-            width: 20%
-        }
+    .card-timeline {
+        z-index: 0
     }
     </style>
     {{-- In work, do what you enjoy. --}}
@@ -122,11 +90,93 @@
     <div class="container padding-y">
         <h2 class="title-page">Your Orders</h2>
     </div>
-    <section class="section-content border-top" style="min-height: 60vh;">
+    <section class="section-content" style="min-height: 60vh;">
         <div class="container">
-            <div class="row">
+            @forelse ($orders as $order)
+            <div class="card card-timeline border-none {{ $order->status!='Completed' ? 'bg-not-completed' : ''}} mb-3">
+                <div class="row d-flex justify-content-between px-md-5 px-4 pt-md-5 pt-4 top">
+                    <div class="d-flex">
+                        <h5><span class="text-primary font-weight-bold">{{ $order->order_number }}</span></h5>
+                    </div>
+                    <div class="d-flex flex-column text-sm-right">
+                        @php $date = $order->created_at; $daysToAdd = 5; $date = $date->addDays($daysToAdd); @endphp
+                        <p class="mb-0">Expected Arrival <span>{{ $date->toFormattedDateString() }}</span></p>
+                        {{-- <p>USPS <span class="font-weight-bold">234094567242423422898</span></p> --}}
+                    </div>
+                </div> <!-- Add class 'active' to progress -->
+                @if ($order->status == 'Pending')
+                <ul class="bs4-order-tracking">
+                    <li class="step ">
+                        <div><i class="fas fa-user"></i></div> Order Placed
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-bread-slice"></i></div> In transit
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-truck"></i></div> Out for delivery
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-birthday-cake"></i></div> Delivered
+                    </li>
+                </ul>
+                <h5 class="text-center pb-2"><b>Pending</b>. The order not been accepted yet!</h5>
+                @elseif ($order->status == 'Placed')
+                <ul class="bs4-order-tracking">
+                    <li class="step active">
+                        <div><i class="fas fa-user"></i></div> Order Placed
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-bread-slice"></i></div> In transit
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-truck"></i></div> Out for delivery
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-birthday-cake"></i></div> Delivered
+                    </li>
+                </ul>
+                <h5 class="text-center pb-2"><b>In transit</b>. This order has been shipped!</h5>
+                @elseif($order->status == 'In delivery')
+                <ul class="bs4-order-tracking">
+                    <li class="step active">
+                        <div><i class="fas fa-user"></i></div> Order Placed
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-bread-slice"></i></div> In transit
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-truck"></i></div> Out for delivery
+                    </li>
+                    <li class="step ">
+                        <div><i class="fas fa-birthday-cake"></i></div> Delivered
+                    </li>
+                </ul>
+                <h5 class="text-center pb-2"><b>In delivery</b>. This order out for delivery!</h5>
+                @else
+                <ul class="bs4-order-tracking">
+                    <li class="step active">
+                        <div><i class="fas fa-user"></i></div> Order Placed
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-bread-slice"></i></div> In transit
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-truck"></i></div> Out for delivery
+                    </li>
+                    <li class="step active">
+                        <div><i class="fas fa-birthday-cake"></i></div> Delivered
+                    </li>
+                </ul>
+                <h5 class="text-center pb-2"><b>Completed</b>. This order been delivered!</h5>
+                @endif
             </div>
-            <div class="row">
+            @empty
+                <div class="col-sm-12">
+                    <p class="alert alert-warning">No orders to display.</p>
+                </div>
+            @endforelse
+
+            {{-- <div class="row">
                 <main class="col-sm-12 table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -141,58 +191,12 @@
                         <tbody>
                             @forelse ($orders as $order)
                                 <tr>
-                                    <th scope="row">{{ $order->order_number }}</th>
+                                    <th scope="row"><i class="fas fa-check"></i>{{ $order->order_number }}</th>
                                     <td>{{ $order->name }}</td>
                                     <td>{{ config('settings.currency_symbol') }}{{ round($order->grand_total, 2) }}</td>
                                     <td>{{ $order->item_count }}</td>
                                     <td><span class="badge badge-success">{{ strtoupper($order->status) }}</span></td>
                                 </tr>
-
-                                {{-- <div class="container px-1 px-md-4 py-5 mx-auto">
-                                    <div class="card">
-                                        <div class="row d-flex justify-content-between px-3 top">
-                                            <div class="d-flex">
-                                                <h5>ORDER <span class="text-primary font-weight-bold">#Y34XDHR</span></h5>
-                                            </div>
-                                            <div class="d-flex flex-column text-sm-right">
-                                                <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
-                                                <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
-                                            </div>
-                                        </div> <!-- Add class 'active' to progress -->
-                                        <div class="row d-flex justify-content-center">
-                                            <div class="col-12">
-                                                <ul id="progressbar" class="text-center">
-                                                    <li class="active step0"></li>
-                                                    <li class="active step0"></li>
-                                                    <li class="active step0"></li>
-                                                    <li class="step0"></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-between top">
-                                            <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
-                                                <div class="d-flex flex-column">
-                                                    <p class="font-weight-bold">Order<br>Processed</p>
-                                                </div>
-                                            </div>
-                                            <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
-                                                <div class="d-flex flex-column">
-                                                    <p class="font-weight-bold">Order<br>Shipped</p>
-                                                </div>
-                                            </div>
-                                            <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/TkPm63y.png">
-                                                <div class="d-flex flex-column">
-                                                    <p class="font-weight-bold">Order<br>En Route</p>
-                                                </div>
-                                            </div>
-                                            <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/HdsziHP.png">
-                                                <div class="d-flex flex-column">
-                                                    <p class="font-weight-bold">Order<br>Arrived</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                             @empty
                                 <div class="col-sm-12">
@@ -202,7 +206,7 @@
                         </tbody>
                     </table>
                 </main>
-            </div>
+            </div> --}}
         </div>
     </section>
 </div>

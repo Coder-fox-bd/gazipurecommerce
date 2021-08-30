@@ -1,9 +1,16 @@
 <div>
+    @section('title', 'Order Details')
     {{-- The Master doesn't talk, he acts. --}}
-    <div class="app-title">
-        <div>
-            <h1>Order Details</h1>
-        </div>
+    <!-- Page Heading -->
+    <div class="d-flex align-items-center flex-row-reverse mb-4">
+        <button wire:click="completed" 
+        class="d-inline-block btn btn-sm btn-success mx-2 shadow-sm" {{ $order->status=='Completed' ? 'disabled' : ''}}>Completed</button>
+        <button wire:click="outForDelivery" 
+        class="d-inline-block btn btn-sm {{ $order->status=='In delivery' ? 'btn-secondary disabled' : 'btn-warning'}} mx-2 shadow-sm" {{ $order->status=='Completed' ? 'disabled' : ''}}>Order out for delevery</button>
+        <button  wire:click="placeOrder"
+        class="d-inline-block btn btn-sm {{ $order->status=='Placed' ? 'btn-secondary disabled' : 'btn-info'}} mx-2 shadow-sm" {{ $order->status=='Completed' ? 'disabled' : ''}}>Place Order</button>
+        <button wire:click="exportPDF" 
+        class="d-inline-block btn btn-sm btn-primary mx-2 shadow-sm">Export PDF</button>
     </div>
     <div class="card card-body rounded shadow-sm">
         <div class="row">
@@ -38,7 +45,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Qty</th>
+                                        <th>No.</th>
                                         <th>Product</th>
                                         <th>SKU #</th>
                                         <th>Qty</th>
@@ -46,9 +53,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($order->items as $item)
+                                        @foreach($order->items as $key => $item)
                                             <tr>
-                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $key+1 }}</td>
                                                 <td>{{ $item->product->name }}</td>
                                                 <td>{{ $item->product->sku }}</td>
                                                 <td>{{ $item->quantity }}</td>
