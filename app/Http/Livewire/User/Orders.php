@@ -16,7 +16,7 @@ class Orders extends Component
             $this->orders = Auth::user()->orders;
         }
         return view('livewire.user.orders',[
-            'orders' => $this->orders->sortByAsc('id'),
+            'orders' => $this->orders,
         ])->extends('user.layouts.user_one');
     }
 }
