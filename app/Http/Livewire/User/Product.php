@@ -17,10 +17,11 @@ class Product extends Component
     public $attribute_price, $variation_price;
     public $related_variants;
     public $buy_now = 0;
+    public $related_products;
 
     public function mount($slug)
     {
-        $this->product = Item::with('media', 'brand', 'attributes', 'longDescription')->where('slug', $slug)->first();
+        $this->product = Item::with('media', 'brand', 'attributes', 'longDescription', 'categories')->where('slug', $slug)->first();
         $this->attributes = Attribute::orderBy('id', 'DESC')->get();
 
         if (isset($this->product->attributes[0])) {

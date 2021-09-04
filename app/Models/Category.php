@@ -43,4 +43,12 @@ class Category extends Model implements HasMedia
     {
         return $this->belongsToMany(Product::class, 'category_products', 'category_id', 'product_id')->with('media');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function relatedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'category_products', 'category_id', 'product_id')->with('media')->where('status', 1)->limit(4);
+    }
 }

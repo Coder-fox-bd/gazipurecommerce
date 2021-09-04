@@ -188,15 +188,15 @@
             <h3 class="section-title">Related Products</h3>
         </header><!-- sect-heading -->
         <div class="row">
-        {{-- @foreach ($product->categories as $category)
-            @foreach($category->products->where('status', 1)->shuffle()->take(4) as $product)
+        @foreach ($product->categories as $category)
+            @foreach($category->relatedProducts as $product)
             @include('livewire.user.partials.product-col-3')
             @endforeach
-        @endforeach --}}
+        @endforeach
         </div>
     </div>
     <hr>
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 col-12">
                 <div class="row">
@@ -462,7 +462,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     @section('js')
     <script>
         $('.picZoomer img').attr('id', 'featured');
