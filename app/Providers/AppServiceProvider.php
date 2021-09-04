@@ -28,12 +28,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {   
         View::composer('user.layouts.user_one', function ($view) {
-            $categories = Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
+            $categories =  cache()->remember('categories', 60*60*24*365, function () {
+                            return Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
+                        });
             $view->with('categories', $categories);
         });
 
         View::composer('user.layouts.user_two', function ($view) {
-            $categories = Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
+            $categories =  cache()->remember('categories_two', 60*60*24*365, function () {
+                            return Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
+                        });
             $view->with('categories', $categories);
         });
     }
