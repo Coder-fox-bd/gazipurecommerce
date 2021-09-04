@@ -91,3 +91,6 @@ Route::get('/account', \App\Http\Livewire\User\Profile\Account::class)->name('ac
 Route::get('account/orders', \App\Http\Livewire\User\Orders::class)->name('account.orders')->middleware('auth');
 Route::get('account/login-and-security', \App\Http\Livewire\User\Profile\LoginAndSecurity::class)->name('account.security')->middleware('auth');
 
+Route::view('about-us', 'user.pages.about-us')->name('about-us');
+Route::view('privacy-policy', 'user.pages.privacy-policy')->name('privacy-policy');
+

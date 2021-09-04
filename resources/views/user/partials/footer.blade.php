@@ -6,20 +6,19 @@
 				<aside class="col-md col-6">
 					<h6 class="title">Brands</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#">Adidas</a></li>
-						<li> <a href="#">Puma</a></li>
-						<li> <a href="#">Reebok</a></li>
-						<li> <a href="#">Nike</a></li>
+						@foreach($brands as $brand)
+						<li> <a href="{{ route('brand', $brand->slug ) }}">{{ $brand->name }}</a></li>
+						@endforeach
 					</ul>
 				</aside>
 				<aside class="col-md col-6">
 					<h6 class="title">Company</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#">About us</a></li>
-						<li> <a href="#">Career</a></li>
-						<li> <a href="#">Find a store</a></li>
-						<li> <a href="#">Rules and terms</a></li>
-						<li> <a href="#">Sitemap</a></li>
+						<li> <a href="{{ route('about-us') }}">About us</a></li>
+						{{-- <li> <a href="#">Career</a></li> --}}
+						<li> <a href="{{ route('privacy-policy') }}">Privacy policy</a></li>
+						<li> <a href="#">Terms and conditions</a></li>
+						{{-- <li> <a href="#">Sitemap</a></li> --}}
 					</ul>
 				</aside>
 				<aside class="col-md col-6">
@@ -35,10 +34,10 @@
 				<aside class="col-md col-6">
 					<h6 class="title">Account</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#"> User Login </a></li>
-						<li> <a href="#"> User register </a></li>
-						<li> <a href="#"> Account Setting </a></li>
-						<li> <a href="#"> My Orders </a></li>
+						<li> <a href="/login"> User Login </a></li>
+						<li> <a href="/register"> User register </a></li>
+						<li> <a href="/account"> Account Setting </a></li>
+						<li> <a href="account/orders"> My Orders </a></li>
 					</ul>
 				</aside>
 				<aside class="col-md">

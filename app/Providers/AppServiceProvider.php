@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Admin;
 use App\Models\Category;
+use App\Models\Brand;
 use Session;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,7 +32,11 @@ class AppServiceProvider extends ServiceProvider
             $categories =  cache()->remember('categories', 60*60*24*365, function () {
                             return Category::with('children')->whereNull('category_id')->where('menu', 1)->get();
                         });
+            $brands = cache()->remember('brands', 60*60*24*365, function () {
+                        return Brand::all();
+                    });
             $view->with('categories', $categories);
+            $view->with('brands', $brands);
         });
 
         View::composer('user.layouts.user_two', function ($view) {
