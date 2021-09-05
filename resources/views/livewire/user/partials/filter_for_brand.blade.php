@@ -8,12 +8,12 @@
             }
         }
     </style>
-    <a class="d-xl-none d-lg-none d-md-none text-secondary float-right h4 pr-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <a class="d-xl-none d-lg-none d-md-none text-secondary float-right h4 pr-2" data-toggle="collapse" data-target="#filtercollapse" aria-expanded="false" aria-controls="collapseExample">
         <i class="fas fa-sliders-h"></i>
     </a>
 </div>
 <aside class="col-md-3">             
-    <div class="right-border collapse dont-collapse-sm" id="collapseExample"">
+    <div class="right-border collapse dont-collapse-sm" id="filtercollapse"">
         <article class="filter-group">
             <header class="card-header">
                 <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true">
