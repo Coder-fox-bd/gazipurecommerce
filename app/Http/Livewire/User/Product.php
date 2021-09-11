@@ -53,15 +53,7 @@ class Product extends Component
     public function onSubmit($formData)
     {
         switch ($this->buy_now) {
-            case '1':
-                //check here if the user is authenticated
-                if ( ! Auth::user() )
-                {
-                    session(['link' => url()->previous()]);
-                    session()->flash('worning', 'You need to login first!');
-                    return redirect(route('login'));
-                }
-                
+            case '1':                
                 $product = Item::find($formData['id']);
                 if (!$product) {
                     session()->flash('warning', 'Something went wrong!');
